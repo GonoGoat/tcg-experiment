@@ -14,7 +14,11 @@ const belongsToExtraDeck = (type) => {
         type === 'Fusion Monster' ||
         type === 'Link Monster'
     )
-}   
+}
+
+function updateLister(set, payload) {
+    
+}
 
 const reducer = (state, action) => {
     let {payload, type, index} = action;

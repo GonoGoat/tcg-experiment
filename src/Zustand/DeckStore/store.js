@@ -2,16 +2,10 @@ import { create } from 'zustand'
 import reducer from '../Reducers'
 
 const store =  create((set) => ({
-    lister: [],
-    deck: {
-        main: [],
-        extra: [],
-        side: [],
-        bulk: []
-    },
-    isLoading: false,
-    hasMoreItemsToLoad: false,
-    nextPageToLoad: ''
+    main: [],
+    extra: [],
+    side: [],
+    bulk: []
 }))
 
 export default store
