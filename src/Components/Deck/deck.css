@@ -1,0 +1,50 @@
+.deck-container {
+    grid-area: deck;
+    
+    display: flex;
+    flex-direction: column;
+    /*border: 1px solid #FFFFFF;*/
+}
+
+.deck {
+    /*height: fit-content;*/
+    height : 100vh;
+    overflow-y: auto;
+   
+}
+
+
+.deck div {
+   /* margin-right: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;*/
+    float: left;
+}
+
+.main {
+    min-height: 20vh;
+    height: 55vh;
+    width: 100vw;
+    background-color: #ff0000;
+}
+
+.extra {
+    min-height: 5vh;
+    height: 15vh;
+    width: 100vw;
+    background-color: #0000FF;
+}
+
+.side {
+    min-height: 5vh;
+    height: 15vh;
+    width: 100vw;
+    background-color: #00FF00;
+}
+
+.bulk {
+    min-height: 5vh;
+    height: 15vh;
+    width: 100vw;
+    background-color: #F0FF0F;
+}
