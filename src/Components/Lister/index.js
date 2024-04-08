@@ -1,39 +1,51 @@
 import React, {useState} from 'react'
 import shortid from 'shortid'
-import Card from '../Card'
-import './lister.css'
-import {useSelector, useDispatch} from 'react-redux'
-import {CircularProgress} from '@material-ui/core'
 import {default as Axios} from 'axios'
+
+import Card from '../Card'
+import BlankCard from '../BlankCard'
+
+import './lister.css'
+import {CircularProgress} from '@material-ui/core'
+
+import useAppStore from "../../Zustand/AppStore/store"
+import useListerStore from '../../Zustand/ListerStore/store'
 
 var axios = Axios.create({
     baseURL: 'https://db.ygoprodeck.com/api/v7/',
 })
 
 const Lister = () => {
-    const dispatch = useDispatch()
     const [isLoadingMoreItems, setLoadingMoreItems] = useState(false)
-    let lister_cards = useSelector(state => state.lister)
-    let isLoading = useSelector(state => state.isLoading)
-    let hasMoreItemsToLoad = useSelector(state => state.hasMoreItemsToLoad)
-    let nextPageToLoad = useSelector(state => state.nextPageToLoad)
+
+    const isLoading = useAppStore(state => state.isLoading)
+    const setLoadingState = useAppStore(state => state.setLoadingState)
+
+    const lister = useListerStore((state) => state.lister)
+    const hasMoreItemsToLoad = useListerStore((state) => state.hasMoreItemsToLoad)
+    const nextPageToLoad = useListerStore((state) => state.nextPageToLoad)
+    const setNextPageToLoad = useListerStore((state) => state.setNextPageToLoad)
+    const setHasMoreItemsToLoad = useListerStore((state) => state.setHasMoreItemsToLoad)
+    const addListerItems = useListerStore((state) => state.addListerItems)
    
     async function loadMoreItems(){
-        dispatch({type: 'SET_HAS_MORE_ITEMS_TO_LOAD', payload: false})
+        setHasMoreItemsToLoad(false)
         setLoadingMoreItems(true)
         try{
             let response = await axios.get(nextPageToLoad)
             console.log(response)
             if(response.data.meta.pages_remaining !== 0){
-                dispatch({type: 'SET_HAS_MORE_ITEMS_TO_LOAD', payload: true})
-                dispatch({type: 'SET_NEXT_PAGE_TO_LOAD', payload: response.data.meta.next_page})
-            } else {
-                dispatch({type: 'SET_HAS_MORE_ITEMS_TO_LOAD', payload: false})
+                setHasMoreItemsToLoad(true)
+                setNextPageToLoad(true)
             }
-            dispatch({type: "UPDATE_LISTER_ITEMS", payload: response.data.data})
-        } catch (err) {
+            else {
+                setHasMoreItemsToLoad(false)
+            }
+            addListerItems(response.data.data)
+        } 
+        catch (err) {
             alert(err)
-            dispatch({type: 'SET_LOADING_STATE', payload: false})
+            setLoadingState(false)
         }
         setLoadingMoreItems(false)
     }
@@ -48,8 +60,12 @@ const Lister = () => {
     else {
         return (
             <div className="lister">
+                <BlankCard 
+                    index={shortid.generate()}  
+                    isDraggable={true}
+                />
                 {
-                    lister_cards.map( card=> 
+                    lister.map(card=>
                         <Card 
                             cardInfo={card} 
                             index={shortid.generate()} 

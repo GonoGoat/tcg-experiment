@@ -1,16 +1,18 @@
 import React, {useState} from 'react'
-import {useDispatch} from 'react-redux'
 import {Tooltip, Dialog} from '@material-ui/core'
 import './card.css'
-import '../../res/placeholder.png'
-
+import placeholder from '../../res/placeholder.png'
+import useDeckStore from '../../Zustand/DeckStore/store'
 
 const Card = ({cardInfo, isDraggable, index}) => {
 
     const [isHovering, setHovering] = useState(false)
     const [open, setOpen] = useState(false);
-    const dispatch = useDispatch()
     const img_url = cardInfo.card_images[0].image_url_small
+
+    const addCardToDeck = useDeckStore(state => state.addCardToDeck)
+    const removeCardFromDeck = useDeckStore(state => state.removeCardFromDeck)
+
     const handleClickOpen = () => setOpen(true)
     const handleClose = (event, reason) => {
         setOpen(false);
@@ -42,7 +44,7 @@ const Card = ({cardInfo, isDraggable, index}) => {
         {cardInfo.card_images[0].image_url?
             <img src={cardInfo.card_images[0].image_url} alt={cardInfo.name}/>
             :
-            <></>
+            <img src={placeholder} alt={cardInfo.name}/>
         }
         <div>
             {cardInfo.name?<h6>{cardInfo.name}<br/></h6>:<></>}
@@ -76,9 +78,9 @@ const Card = ({cardInfo, isDraggable, index}) => {
                     height="120px" 
                     onMouseDown={e=>handleClick(e)} 
                     onClick={()=>isDraggable?
-                        dispatch({type: 'ADD_CARD_TO_DECK', payload: cardInfo})
+                        addCardToDeck(cardInfo)
                         :
-                        dispatch({type: 'REMOVE_CARD', index, payload: {type: cardInfo.type}})
+                        removeCardFromDeck(cardInfo.type,index)
                     }
                     alt={cardInfo.name}
                 />

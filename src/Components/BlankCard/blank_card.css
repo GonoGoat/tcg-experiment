@@ -1,0 +1,16 @@
+.blank-card {
+    width: 90px;
+    height: 120px;
+    background-color: gray;
+    box-shadow: 0px 0px 10px black;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url('../../res/placeholder.png');
+}
+
+.blank-card:hover{
+    cursor: pointer;
+    background: none;
+    opacity: 0.5;
+}

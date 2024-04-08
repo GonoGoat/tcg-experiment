@@ -1,11 +1,15 @@
 import { create } from 'zustand'
-import reducer from '../Reducers'
+import * as reducer from './reducers'
 
-const store =  create((set) => ({
+const useDeckStore =  create((set) => ({
     main: [],
     extra: [],
     side: [],
-    bulk: []
+    bulk: [],
+
+    addCardToDeck : (payload) => set(state => reducer.addCardToDeck(state,payload)),
+    removeCardFromDeck : (payload, index) => set(state => reducer.removeCardFromDeck(state,payload, index)),
+    eraseDeck : () => set(state => reducer.eraseDeck(state)),
 }))
 
-export default store
+export default useDeckStore

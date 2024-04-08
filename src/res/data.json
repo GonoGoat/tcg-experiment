@@ -1,0 +1,746 @@
+{ "data": {
+    "data": [
+        {
+            "id": 78836195,
+            "name": "Swordsoul Assessment",
+            "type": "Trap Card",
+            "frameType": "trap",
+            "desc": "Target 1 face-up monster you control; banish up to 5 \"Swordsoul\" cards and/or Wyrm monsters from your GY, and if you do, that monster gains 300 ATK for each card banished this way. If this card is banished: You can Special Summon 1 \"Swordsoul Token\" (Wyrm/Tuner/WATER/Level 4/ATK 0/DEF 0). While that Token is in the Monster Zone, the player who Summoned it cannot Special Summon monsters from the Extra Deck, except Synchro Monsters. You can only use each effect of \"Swordsoul Assessment\" once per turn.",
+            "race": "Normal",
+            "archetype": "Swordsoul",
+            "ygoprodeck_url": "https://ygoprodeck.com/card/swordsoul-assessment-12472",
+            "card_sets": [
+                {
+                    "set_name": "Burst of Destiny",
+                    "set_code": "BODE-EN072",
+                    "set_rarity": "Common",
+                    "set_rarity_code": "(C)",
+                    "set_price": "0.89"
+                },
+                {
+                    "set_name": "Magnificent Mavens",
+                    "set_code": "MAMA-EN043",
+                    "set_rarity": "Ultra Rare",
+                    "set_rarity_code": "(UR)",
+                    "set_price": "0"
+                }
+            ],
+            "card_images": [
+                {
+                    "id": 78836195,
+                    "image_url": "https://images.ygoprodeck.com/images/cards/78836195.jpg",
+                    "image_url_small": "https://images.ygoprodeck.com/images/cards_small/78836195.jpg",
+                    "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/78836195.jpg"
+                }
+            ],
+            "card_prices": [
+                {
+                    "cardmarket_price": "0.09",
+                    "tcgplayer_price": "0.05",
+                    "ebay_price": "1.50",
+                    "amazon_price": "0.45",
+                    "coolstuffinc_price": "0.49"
+                }
+            ]
+        },
+        {
+            "id": 29884951,
+            "name": "Swordsoul Auspice Chunjun",
+            "type": "Effect Monster",
+            "frameType": "effect",
+            "desc": "Before damage calculation, if your Wyrm monster battles an opponent's monster that was Special Summoned from the Extra Deck: You can destroy both that opponent's monster and this card. You can only use each of the following effects of \"Swordsoul Auspice Chunjun\" once per turn. During the Main Phase (Quick Effect): You can Tribute 1 monster; Special Summon this card from your hand. If this card is sent to the GY as Synchro Material: You can target 1 card on the field or in either GY; banish it.",
+            "atk": 2400,
+            "def": 1800,
+            "level": 6,
+            "race": "Wyrm",
+            "attribute": "EARTH",
+            "archetype": "Swordsoul",
+            "ygoprodeck_url": "https://ygoprodeck.com/card/swordsoul-auspice-chunjun-12465",
+            "card_sets": [
+                {
+                    "set_name": "Burst of Destiny",
+                    "set_code": "BODE-EN006",
+                    "set_rarity": "Super Rare",
+                    "set_rarity_code": "(SR)",
+                    "set_price": "0"
+                },
+                {
+                    "set_name": "Magnificent Mavens",
+                    "set_code": "MAMA-EN037",
+                    "set_rarity": "Ultra Rare",
+                    "set_rarity_code": "(UR)",
+                    "set_price": "0"
+                }
+            ],
+            "card_images": [
+                {
+                    "id": 29884951,
+                    "image_url": "https://images.ygoprodeck.com/images/cards/29884951.jpg",
+                    "image_url_small": "https://images.ygoprodeck.com/images/cards_small/29884951.jpg",
+                    "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/29884951.jpg"
+                }
+            ],
+            "card_prices": [
+                {
+                    "cardmarket_price": "0.11",
+                    "tcgplayer_price": "0.16",
+                    "ebay_price": "1.50",
+                    "amazon_price": "0.45",
+                    "coolstuffinc_price": "0.39"
+                }
+            ]
+        },
+        {
+            "id": 14821890,
+            "name": "Swordsoul Blackout",
+            "type": "Trap Card",
+            "frameType": "trap",
+            "desc": "Target 1 Wyrm monster you control and 2 cards your opponent controls; destroy them. If this card is banished: You can Special Summon 1 \"Swordsoul Token\" (Wyrm/Tuner/WATER/Level 4/ATK 0/DEF 0). While that Token is in the Monster Zone, the player who Summoned it cannot Special Summon monsters from the Extra Deck, except Synchro Monsters. You can only use each effect of \"Swordsoul Blackout\" once per turn.",
+            "race": "Normal",
+            "archetype": "Swordsoul",
+            "ygoprodeck_url": "https://ygoprodeck.com/card/swordsoul-blackout-12473",
+            "card_sets": [
+                {
+                    "set_name": "Burst of Destiny",
+                    "set_code": "BODE-EN073",
+                    "set_rarity": "Common",
+                    "set_rarity_code": "(C)",
+                    "set_price": "0.96"
+                },
+                {
+                    "set_name": "Magnificent Mavens",
+                    "set_code": "MAMA-EN044",
+                    "set_rarity": "Ultra Rare",
+                    "set_rarity_code": "(UR)",
+                    "set_price": "0"
+                }
+            ],
+            "card_images": [
+                {
+                    "id": 14821890,
+                    "image_url": "https://images.ygoprodeck.com/images/cards/14821890.jpg",
+                    "image_url_small": "https://images.ygoprodeck.com/images/cards_small/14821890.jpg",
+                    "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/14821890.jpg"
+                }
+            ],
+            "card_prices": [
+                {
+                    "cardmarket_price": "0.11",
+                    "tcgplayer_price": "0.15",
+                    "ebay_price": "1.15",
+                    "amazon_price": "0.63",
+                    "coolstuffinc_price": "0.39"
+                }
+            ]
+        },
+        {
+            "id": 56465981,
+            "name": "Swordsoul Emergence",
+            "type": "Spell Card",
+            "frameType": "spell",
+            "desc": "Add 1 \"Swordsoul\" monster from your Deck to your hand, or if you control a Synchro Monster, you can add 1 Wyrm monster instead. If this card is banished: You can target 1 \"Swordsoul\" monster, or Wyrm monster, you control; increase or decrease its Level by 1 until the end of this turn. You can only use each effect of \"Swordsoul Emergence\" once per turn.",
+            "race": "Normal",
+            "archetype": "Swordsoul",
+            "ygoprodeck_url": "https://ygoprodeck.com/card/swordsoul-emergence-12470",
+            "card_sets": [
+                {
+                    "set_name": "Burst of Destiny",
+                    "set_code": "BODE-EN053",
+                    "set_rarity": "Ultra Rare",
+                    "set_rarity_code": "(UR)",
+                    "set_price": "0"
+                },
+                {
+                    "set_name": "Magnificent Mavens",
+                    "set_code": "MAMA-EN041",
+                    "set_rarity": "Ultra Rare",
+                    "set_rarity_code": "(UR)",
+                    "set_price": "0"
+                }
+            ],
+            "card_images": [
+                {
+                    "id": 56465981,
+                    "image_url": "https://images.ygoprodeck.com/images/cards/56465981.jpg",
+                    "image_url_small": "https://images.ygoprodeck.com/images/cards_small/56465981.jpg",
+                    "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/56465981.jpg"
+                }
+            ],
+            "card_prices": [
+                {
+                    "cardmarket_price": "0.92",
+                    "tcgplayer_price": "7.36",
+                    "ebay_price": "4.95",
+                    "amazon_price": "10.12",
+                    "coolstuffinc_price": "3.99"
+                }
+            ]
+        },
+        {
+            "id": 69248256,
+            "name": "Swordsoul Grandmaster - Chixiao",
+            "type": "Synchro Monster",
+            "frameType": "synchro",
+            "desc": "1 Tuner + 1+ non-Tuner Wyrm monsters\r\nIf this card is Synchro Summoned: You can add to your hand or banish 1 \"Swordsoul\" card from your Deck. (Quick Effect): You can banish 1 \"Swordsoul\" card or 1 Wyrm monster from your hand or GY, then target 1 other Effect Monster on the field; negate its effects until the end of this turn. You can only use 1 \"Swordsoul Grandmaster - Chixiao\" effect per turn, and only once that turn.",
+            "atk": 2800,
+            "def": 1000,
+            "level": 8,
+            "race": "Wyrm",
+            "attribute": "LIGHT",
+            "archetype": "Swordsoul",
+            "ygoprodeck_url": "https://ygoprodeck.com/card/swordsoul-grandmaster-chixiao-12464",
+            "card_sets": [
+                {
+                    "set_name": "Burst of Destiny",
+                    "set_code": "BODE-EN041",
+                    "set_rarity": "Secret Rare",
+                    "set_rarity_code": "(ScR)",
+                    "set_price": "0"
+                },
+                {
+                    "set_name": "Burst of Destiny",
+                    "set_code": "BODE-EN041",
+                    "set_rarity": "Starlight Rare",
+                    "set_rarity_code": "(StR)",
+                    "set_price": "0"
+                },
+                {
+                    "set_name": "Magnificent Mavens",
+                    "set_code": "MAMA-EN038",
+                    "set_rarity": "Ultra Rare",
+                    "set_rarity_code": "(UR)",
+                    "set_price": "0"
+                }
+            ],
+            "card_images": [
+                {
+                    "id": 69248256,
+                    "image_url": "https://images.ygoprodeck.com/images/cards/69248256.jpg",
+                    "image_url_small": "https://images.ygoprodeck.com/images/cards_small/69248256.jpg",
+                    "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/69248256.jpg"
+                }
+            ],
+            "card_prices": [
+                {
+                    "cardmarket_price": "2.54",
+                    "tcgplayer_price": "5.81",
+                    "ebay_price": "4.98",
+                    "amazon_price": "4.14",
+                    "coolstuffinc_price": "1.99"
+                }
+            ]
+        },
+        {
+            "id": 20001443,
+            "name": "Swordsoul of Mo Ye",
+            "type": "Effect Monster",
+            "frameType": "effect",
+            "desc": "If this card is Normal or Special Summoned: You can reveal 1 \"Swordsoul\" card or 1 Wyrm monster in your hand; Special Summon 1 \"Swordsoul Token\" (Wyrm/Tuner/WATER/Level 4/ATK 0/DEF 0). While that Token is in the Monster Zone, the player who Summoned it cannot Special Summon monsters from the Extra Deck, except Synchro Monsters. If this card is sent to the GY as Synchro Material: You can draw 1 card. You can only use each effect of \"Swordsoul of Mo Ye\" once per turn.",
+            "atk": 1700,
+            "def": 1800,
+            "level": 4,
+            "race": "Wyrm",
+            "attribute": "WATER",
+            "archetype": "Swordsoul",
+            "ygoprodeck_url": "https://ygoprodeck.com/card/swordsoul-of-mo-ye-12468",
+            "card_sets": [
+                {
+                    "set_name": "Burst of Destiny",
+                    "set_code": "BODE-EN003",
+                    "set_rarity": "Secret Rare",
+                    "set_rarity_code": "(ScR)",
+                    "set_price": "0"
+                },
+                {
+                    "set_name": "Magnificent Mavens",
+                    "set_code": "MAMA-EN034",
+                    "set_rarity": "Ultra Rare",
+                    "set_rarity_code": "(UR)",
+                    "set_price": "0"
+                }
+            ],
+            "card_images": [
+                {
+                    "id": 20001443,
+                    "image_url": "https://images.ygoprodeck.com/images/cards/20001443.jpg",
+                    "image_url_small": "https://images.ygoprodeck.com/images/cards_small/20001443.jpg",
+                    "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/20001443.jpg"
+                }
+            ],
+            "card_prices": [
+                {
+                    "cardmarket_price": "10.89",
+                    "tcgplayer_price": "9.76",
+                    "ebay_price": "12.99",
+                    "amazon_price": "18.68",
+                    "coolstuffinc_price": "3.99"
+                }
+            ]
+        },
+        {
+            "id": 56495147,
+            "name": "Swordsoul of Taia",
+            "type": "Effect Monster",
+            "frameType": "effect",
+            "desc": "You can banish 1 \"Swordsoul\" card or 1 Wyrm monster from your GY; Special Summon 1 \"Swordsoul Token\" (Wyrm/Tuner/WATER/Level 4/ATK 0/DEF 0). While that Token is in the Monster Zone, the player who Summoned it cannot Special Summon monsters from the Extra Deck, except Synchro Monsters. If this card is sent to the GY as Synchro Material: You can send 1 \"Swordsoul\" card or 1 Wyrm monster from your Deck to the GY. You can only use each effect of \"Swordsoul of Taia\" once per turn.",
+            "atk": 1800,
+            "def": 1500,
+            "level": 4,
+            "race": "Wyrm",
+            "attribute": "WIND",
+            "archetype": "Swordsoul",
+            "ygoprodeck_url": "https://ygoprodeck.com/card/swordsoul-of-taia-12469",
+            "card_sets": [
+                {
+                    "set_name": "Burst of Destiny",
+                    "set_code": "BODE-EN004",
+                    "set_rarity": "Super Rare",
+                    "set_rarity_code": "(SR)",
+                    "set_price": "0"
+                },
+                {
+                    "set_name": "Magnificent Mavens",
+                    "set_code": "MAMA-EN035",
+                    "set_rarity": "Ultra Rare",
+                    "set_rarity_code": "(UR)",
+                    "set_price": "0"
+                }
+            ],
+            "card_images": [
+                {
+                    "id": 56495147,
+                    "image_url": "https://images.ygoprodeck.com/images/cards/56495147.jpg",
+                    "image_url_small": "https://images.ygoprodeck.com/images/cards_small/56495147.jpg",
+                    "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/56495147.jpg"
+                }
+            ],
+            "card_prices": [
+                {
+                    "cardmarket_price": "0.23",
+                    "tcgplayer_price": "0.25",
+                    "ebay_price": "1.99",
+                    "amazon_price": "10.11",
+                    "coolstuffinc_price": "0.79"
+                }
+            ]
+        },
+        {
+            "id": 83308376,
+            "name": "Swordsoul Punishment",
+            "type": "Spell Card",
+            "frameType": "spell",
+            "desc": "If you control a Synchro Monster: Target 1 card on the field or in either GY; banish it. If your opponent controls a Ritual, Fusion, Synchro, Xyz, or Link Monster: You can banish 1 Synchro Monster from your GY; add this card from the GY to your hand. You can only use each effect of \"Swordsoul Punishment\" once per turn.",
+            "race": "Normal",
+            "archetype": "Swordsoul",
+            "ygoprodeck_url": "https://ygoprodeck.com/card/swordsoul-punishment-13698",
+            "card_sets": [
+                {
+                    "set_name": "Cyberstorm Access",
+                    "set_code": "CYAC-EN052",
+                    "set_rarity": "Common",
+                    "set_rarity_code": "(C)",
+                    "set_price": "0"
+                }
+            ],
+            "card_images": [
+                {
+                    "id": 83308376,
+                    "image_url": "https://images.ygoprodeck.com/images/cards/83308376.jpg",
+                    "image_url_small": "https://images.ygoprodeck.com/images/cards_small/83308376.jpg",
+                    "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/83308376.jpg"
+                }
+            ],
+            "card_prices": [
+                {
+                    "cardmarket_price": "0.14",
+                    "tcgplayer_price": "0.06",
+                    "ebay_price": "0.00",
+                    "amazon_price": "0.00",
+                    "coolstuffinc_price": "0.25"
+                }
+            ]
+        },
+        {
+            "id": 93850690,
+            "name": "Swordsoul Sacred Summit",
+            "type": "Spell Card",
+            "frameType": "spell",
+            "desc": "Target 1 \"Swordsoul\" monster in your GY, or if you control a Synchro Monster, you can target 1 Wyrm monster instead; Special Summon it. If this card is banished: You can target 1 \"Swordsoul\" monster, or Wyrm monster, you control; increase or decrease its Level by 1 until the end of this turn. You can only use each effect of \"Swordsoul Sacred Summit\" once per turn.",
+            "race": "Normal",
+            "archetype": "Swordsoul",
+            "ygoprodeck_url": "https://ygoprodeck.com/card/swordsoul-sacred-summit-12474",
+            "card_sets": [
+                {
+                    "set_name": "Burst of Destiny",
+                    "set_code": "BODE-EN054",
+                    "set_rarity": "Super Rare",
+                    "set_rarity_code": "(SR)",
+                    "set_price": "0"
+                },
+                {
+                    "set_name": "Magnificent Mavens",
+                    "set_code": "MAMA-EN042",
+                    "set_rarity": "Ultra Rare",
+                    "set_rarity_code": "(UR)",
+                    "set_price": "0"
+                }
+            ],
+            "card_images": [
+                {
+                    "id": 93850690,
+                    "image_url": "https://images.ygoprodeck.com/images/cards/93850690.jpg",
+                    "image_url_small": "https://images.ygoprodeck.com/images/cards_small/93850690.jpg",
+                    "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/93850690.jpg"
+                }
+            ],
+            "card_prices": [
+                {
+                    "cardmarket_price": "0.12",
+                    "tcgplayer_price": "0.18",
+                    "ebay_price": "0.99",
+                    "amazon_price": "0.63",
+                    "coolstuffinc_price": "0.49"
+                }
+            ]
+        },
+        {
+            "id": 47710198,
+            "name": "Swordsoul Sinister Sovereign - Qixing Longyuan",
+            "type": "Synchro Monster",
+            "frameType": "synchro",
+            "desc": "1 Tuner + 1+ non-Tuner Wyrm monsters\r\nIf you Synchro Summon another Wyrm monster, while this monster is on the field: You can draw 1 card. If your opponent Special Summons a monster(s) (except during the Damage Step): You can banish 1 of those monster(s), and if you do, inflict 1200 damage to your opponent. When your opponent activates a Spell/Trap Card or effect (Quick Effect): You can banish that card, and if you do, inflict 1200 damage to your opponent. You can only use each effect of \"Swordsoul Sinister Sovereign - Qixing Longyuan\" once per turn.",
+            "atk": 2900,
+            "def": 2300,
+            "level": 10,
+            "race": "Wyrm",
+            "attribute": "FIRE",
+            "archetype": "Swordsoul",
+            "ygoprodeck_url": "https://ygoprodeck.com/card/swordsoul-sinister-sovereign-qixing-longyuan-12692",
+            "card_sets": [
+                {
+                    "set_name": "Battle of Chaos",
+                    "set_code": "BACH-EN041",
+                    "set_rarity": "Secret Rare",
+                    "set_rarity_code": "(ScR)",
+                    "set_price": "0"
+                },
+                {
+                    "set_name": "Magnificent Mavens",
+                    "set_code": "MAMA-EN040",
+                    "set_rarity": "Ultra Rare",
+                    "set_rarity_code": "(UR)",
+                    "set_price": "0"
+                }
+            ],
+            "card_images": [
+                {
+                    "id": 47710198,
+                    "image_url": "https://images.ygoprodeck.com/images/cards/47710198.jpg",
+                    "image_url_small": "https://images.ygoprodeck.com/images/cards_small/47710198.jpg",
+                    "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/47710198.jpg"
+                }
+            ],
+            "card_prices": [
+                {
+                    "cardmarket_price": "0.28",
+                    "tcgplayer_price": "0.30",
+                    "ebay_price": "0.99",
+                    "amazon_price": "7.18",
+                    "coolstuffinc_price": "1.99"
+                }
+            ]
+        },
+        {
+            "id": 93490856,
+            "name": "Swordsoul Strategist Longyuan",
+            "type": "Effect Monster",
+            "frameType": "effect",
+            "desc": "You can discard 1 other \"Swordsoul\" card or 1 other Wyrm monster; Special Summon this card from your hand, then you can Special Summon 1 \"Swordsoul Token\" (Wyrm/Tuner/WATER/Level 4/ATK 0/DEF 0). While that Token is in the Monster Zone, the player who Summoned it cannot Special Summon monsters from the Extra Deck, except Synchro Monsters. If this card is sent to the GY as Synchro Material: You can inflict 1200 damage to your opponent. You can only use each effect of \"Swordsoul Strategist Longyuan\" once per turn.",
+            "atk": 1200,
+            "def": 2300,
+            "level": 6,
+            "race": "Wyrm",
+            "attribute": "FIRE",
+            "archetype": "Swordsoul",
+            "ygoprodeck_url": "https://ygoprodeck.com/card/swordsoul-strategist-longyuan-12466",
+            "card_sets": [
+                {
+                    "set_name": "Burst of Destiny",
+                    "set_code": "BODE-EN005",
+                    "set_rarity": "Ultra Rare",
+                    "set_rarity_code": "(UR)",
+                    "set_price": "0"
+                },
+                {
+                    "set_name": "Magnificent Mavens",
+                    "set_code": "MAMA-EN036",
+                    "set_rarity": "Ultra Rare",
+                    "set_rarity_code": "(UR)",
+                    "set_price": "0"
+                }
+            ],
+            "card_images": [
+                {
+                    "id": 93490856,
+                    "image_url": "https://images.ygoprodeck.com/images/cards/93490856.jpg",
+                    "image_url_small": "https://images.ygoprodeck.com/images/cards_small/93490856.jpg",
+                    "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/93490856.jpg"
+                }
+            ],
+            "card_prices": [
+                {
+                    "cardmarket_price": "1.25",
+                    "tcgplayer_price": "0.54",
+                    "ebay_price": "1.50",
+                    "amazon_price": "3.78",
+                    "coolstuffinc_price": "1.49"
+                }
+            ]
+        },
+        {
+            "id": 99137266,
+            "name": "Swordsoul Strife",
+            "type": "Trap Card",
+            "frameType": "trap",
+            "desc": "If a card(s) is banished (except during the Damage Step): You can banish 1 Wyrm Synchro Monster or 1 \"Swordsoul\" card from your hand, Deck, GY, or that is face-up on either field. If this card is banished: You can Special Summon 1 \"Swordsoul Token\" (Wyrm/Tuner/WATER/Level 4/ATK 0/DEF 0). While that Token is in the Monster Zone, the player who Summoned it cannot Special Summon monsters from the Extra Deck, except Synchro Monsters. You can only use each effect of \"Swordsoul Strife\" once per turn.",
+            "race": "Continuous",
+            "archetype": "Swordsoul",
+            "ygoprodeck_url": "https://ygoprodeck.com/card/swordsoul-strife-12693",
+            "card_sets": [
+                {
+                    "set_name": "Battle of Chaos",
+                    "set_code": "BACH-EN067",
+                    "set_rarity": "Common",
+                    "set_rarity_code": "(C)",
+                    "set_price": "0.8"
+                },
+                {
+                    "set_name": "Magnificent Mavens",
+                    "set_code": "MAMA-EN045",
+                    "set_rarity": "Ultra Rare",
+                    "set_rarity_code": "(UR)",
+                    "set_price": "0"
+                }
+            ],
+            "card_images": [
+                {
+                    "id": 99137266,
+                    "image_url": "https://images.ygoprodeck.com/images/cards/99137266.jpg",
+                    "image_url_small": "https://images.ygoprodeck.com/images/cards_small/99137266.jpg",
+                    "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/99137266.jpg"
+                }
+            ],
+            "card_prices": [
+                {
+                    "cardmarket_price": "0.09",
+                    "tcgplayer_price": "0.05",
+                    "ebay_price": "1.99",
+                    "amazon_price": "7.39",
+                    "coolstuffinc_price": "0.49"
+                }
+            ]
+        },
+        {
+            "id": 96633955,
+            "name": "Swordsoul Supreme Sovereign - Chengying",
+            "type": "Synchro Monster",
+            "frameType": "synchro",
+            "desc": "1 Tuner + 1+ non-Tuner monsters\r\nFor each banished card, this card gains 100 ATK/DEF and monsters your opponent controls lose 100 ATK/DEF. If this card would be destroyed by card effect, you can banish 1 card from your GY instead. If a card(s) is banished (except during the Damage Step): You can banish 1 card each from both your opponent's field and GY. You can only use this effect of \"Swordsoul Supreme Sovereign - Chengying\" once per turn.",
+            "atk": 3000,
+            "def": 3000,
+            "level": 10,
+            "race": "Wyrm",
+            "attribute": "WATER",
+            "archetype": "Swordsoul",
+            "ygoprodeck_url": "https://ygoprodeck.com/card/swordsoul-supreme-sovereign-chengying-12463",
+            "card_sets": [
+                {
+                    "set_name": "Burst of Destiny",
+                    "set_code": "BODE-EN042",
+                    "set_rarity": "Ultra Rare",
+                    "set_rarity_code": "(UR)",
+                    "set_price": "0"
+                },
+                {
+                    "set_name": "Magnificent Mavens",
+                    "set_code": "MAMA-EN039",
+                    "set_rarity": "Ultra Rare",
+                    "set_rarity_code": "(UR)",
+                    "set_price": "0"
+                }
+            ],
+            "card_images": [
+                {
+                    "id": 96633955,
+                    "image_url": "https://images.ygoprodeck.com/images/cards/96633955.jpg",
+                    "image_url_small": "https://images.ygoprodeck.com/images/cards_small/96633955.jpg",
+                    "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/96633955.jpg"
+                }
+            ],
+            "card_prices": [
+                {
+                    "cardmarket_price": "3.05",
+                    "tcgplayer_price": "1.27",
+                    "ebay_price": "1.99",
+                    "amazon_price": "28.99",
+                    "coolstuffinc_price": "1.49"
+                }
+            ]
+        },
+        {
+            "id": 5141117,
+            "name": "The Abyss Dragon Swordsoul",
+            "type": "Effect Monster",
+            "frameType": "effect",
+            "desc": "Cannot be Normal Summoned/Set. Must be Special Summoned by a Wyrm monster's effect. If a monster is banished by card effect (except during the Damage Step): You can Special Summon this card from the GY (if it was there when the monster was banished) or hand (even if not), but banish it when it leaves the field. If this card is Special Summoned: You can target 1 card in the Field Zone and 1 monster your opponent controls or in their GY; banish them. You can only use each effect of \"The Abyss Dragon Swordsoul\" once per turn.",
+            "atk": 3000,
+            "def": 2900,
+            "level": 8,
+            "race": "Wyrm",
+            "attribute": "FIRE",
+            "archetype": "Swordsoul",
+            "ygoprodeck_url": "https://ygoprodeck.com/card/the-abyss-dragon-swordsoul-13524",
+            "card_sets": [
+                {
+                    "set_name": "Photon Hypernova",
+                    "set_code": "PHHY-EN005",
+                    "set_rarity": "Super Rare",
+                    "set_rarity_code": "(SR)",
+                    "set_price": "0"
+                }
+            ],
+            "card_images": [
+                {
+                    "id": 5141117,
+                    "image_url": "https://images.ygoprodeck.com/images/cards/5141117.jpg",
+                    "image_url_small": "https://images.ygoprodeck.com/images/cards_small/5141117.jpg",
+                    "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/5141117.jpg"
+                }
+            ],
+            "card_prices": [
+                {
+                    "cardmarket_price": "0.45",
+                    "tcgplayer_price": "0.25",
+                    "ebay_price": "0.00",
+                    "amazon_price": "0.00",
+                    "coolstuffinc_price": "0.49"
+                }
+            ]
+        },
+        {
+            "id": 82489470,
+            "name": "The Golden Swordsoul",
+            "type": "Tuner Monster",
+            "frameType": "effect",
+            "desc": "When a monster declares an attack: You can Special Summon this card from your hand, and if you do, negate that attack, then, if you control a Fusion Monster that mentions \"Fallen of Albaz\" as material, you can destroy the monster that declared that attack. If a monster is banished face-up (except during the Damage Step): You can banish this card from your field or GY; Special Summon 1 LIGHT Spellcaster monster from your hand or GY whose ATK equals its own DEF. You can only use this effect of \"The Golden Swordsoul\" once per turn.",
+            "atk": 1800,
+            "def": 1500,
+            "level": 4,
+            "race": "Spellcaster",
+            "attribute": "LIGHT",
+            "archetype": "Swordsoul",
+            "ygoprodeck_url": "https://ygoprodeck.com/card/the-golden-swordsoul-12811",
+            "card_sets": [
+                {
+                    "set_name": "Structure Deck: Albaz Strike",
+                    "set_code": "SDAZ-EN003",
+                    "set_rarity": "Ultra Rare",
+                    "set_rarity_code": "(UR)",
+                    "set_price": "1.38"
+                }
+            ],
+            "card_images": [
+                {
+                    "id": 82489470,
+                    "image_url": "https://images.ygoprodeck.com/images/cards/82489470.jpg",
+                    "image_url_small": "https://images.ygoprodeck.com/images/cards_small/82489470.jpg",
+                    "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/82489470.jpg"
+                }
+            ],
+            "card_prices": [
+                {
+                    "cardmarket_price": "0.31",
+                    "tcgplayer_price": "0.18",
+                    "ebay_price": "1.50",
+                    "amazon_price": "0.34",
+                    "coolstuffinc_price": "0.39"
+                }
+            ]
+        },
+        {
+            "id": 62849088,
+            "name": "The Iris Swordsoul",
+            "type": "Effect Monster",
+            "frameType": "effect",
+            "desc": "During the Main Phase, if a monster, whose effects are negated, is on the field (Quick Effect): You can Special Summon this card from your hand. If your opponent Special Summons a monster(s) (except during the Damage Step): You can activate 1 of these effects based on where it was Special Summoned from;\r\n● Hand: Special Summon 1 monster from your hand. ● Deck: Draw 2 cards.\r\n● Extra Deck: Destroy 1 of those monsters Special Summoned from the Extra Deck.\r\nYou can only use each effect of \"The Iris Swordsoul\" once per turn.",
+            "atk": 2500,
+            "def": 2500,
+            "level": 8,
+            "race": "Spellcaster",
+            "attribute": "LIGHT",
+            "archetype": "Swordsoul",
+            "ygoprodeck_url": "https://ygoprodeck.com/card/the-iris-swordsoul-12182",
+            "card_sets": [
+                {
+                    "set_name": "25th Anniversary Rarity Collection",
+                    "set_code": "RA01-EN023",
+                    "set_rarity": "Super Rare",
+                    "set_rarity_code": "(SR)",
+                    "set_price": "0"
+                },
+                {
+                    "set_name": "25th Anniversary Rarity Collection",
+                    "set_code": "RA01-EN023",
+                    "set_rarity": "Ultra Rare",
+                    "set_rarity_code": "(UR)",
+                    "set_price": "0"
+                },
+                {
+                    "set_name": "Dawn of Majesty",
+                    "set_code": "DAMA-EN009",
+                    "set_rarity": "Secret Rare",
+                    "set_rarity_code": "(ScR)",
+                    "set_price": "0"
+                },
+                {
+                    "set_name": "Dawn of Majesty",
+                    "set_code": "DAMA-EN009",
+                    "set_rarity": "Starlight Rare",
+                    "set_rarity_code": "(StR)",
+                    "set_price": "0"
+                },
+                {
+                    "set_name": "Magnificent Mavens",
+                    "set_code": "MAMA-EN033",
+                    "set_rarity": "Ultra Rare",
+                    "set_rarity_code": "(UR)",
+                    "set_price": "0"
+                }
+            ],
+            "card_images": [
+                {
+                    "id": 62849088,
+                    "image_url": "https://images.ygoprodeck.com/images/cards/62849088.jpg",
+                    "image_url_small": "https://images.ygoprodeck.com/images/cards_small/62849088.jpg",
+                    "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/62849088.jpg"
+                }
+            ],
+            "card_prices": [
+                {
+                    "cardmarket_price": "0.20",
+                    "tcgplayer_price": "0.11",
+                    "ebay_price": "9.78",
+                    "amazon_price": "64.98",
+                    "coolstuffinc_price": "1.49"
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "current_rows": 16,
+        "total_rows": 16,
+        "rows_remaining": 0,
+        "total_pages": 0,
+        "pages_remaining": 0
+    }
+}}

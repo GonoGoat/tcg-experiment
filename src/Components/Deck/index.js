@@ -1,21 +1,46 @@
 import React from 'react'
 import shortid from 'shortid'
+
 import Card from '../Card'
-//import {useDispatch, useSelector} from 'react-redux'
-import {useSelector} from 'react-redux'
+import BlankCard from '../BlankCard'
+
 import './deck.css'
 
+import useDeckStore from '../../Zustand/DeckStore/store'
+
 const Deck = () => {
-    //const dispatch = useDispatch()
-    let main_deck = useSelector(state => state.deck.main)
-    let extra_deck = useSelector(state => state.deck.extra)
+    const main = useDeckStore(state => state.main)
+    const extra = useDeckStore(state => state.extra)
+    const side = useDeckStore(state => state.side)
+    const bulk = useDeckStore(state => state.bulk)
     
     return (
         <div className="deck-container">
             <div className="deck">
                 <div className="main">
                     {
-                        main_deck.map( (card, index) => 
+                        main.map( (card, index) =>card.type === "blank"?
+                            <BlankCard 
+                                index={index}  
+                                key={shortid.generate()} 
+                            />
+                            :
+                            <Card 
+                                cardInfo={card}
+                                key={shortid.generate()} 
+                                index={index}           
+                            />
+                        )
+                    }
+                </div>
+                <div className="extra">
+                    {
+                        extra.map( (card, index)  =>card.type === "blank"?
+                            <BlankCard 
+                                index={index}  
+                                key={shortid.generate()} 
+                            />
+                            :
                             <Card 
                                 cardInfo={card}
                                 key={shortid.generate()} 
@@ -24,31 +49,26 @@ const Deck = () => {
                         )
                     }
                 </div>
-                <div className="extra">
-                    {
-                        extra_deck.map( (card, index) => 
-                            <Card 
-                                cardInfo={card}
-                                key={shortid.generate()} 
-                                index={index}
-                            />
-                        )
-                    }
-                </div>
                 <div className="side">
                     {
-                        extra_deck.map( (card, index) => 
+                        side.map( (card, index)  =>card.type === "blank"?
+                            <BlankCard 
+                                index={index}  
+                                isDraggable={false}
+                                key={shortid.generate()} 
+                            />
+                            :
                             <Card 
                                 cardInfo={card}
                                 key={shortid.generate()} 
-                                index={index}
+                                index={index}            
                             />
                         )
                     }
                 </div>
                 <div className="bulk">
                     {
-                        extra_deck.map( (card, index) => 
+                        bulk.map( (card, index) => 
                             <Card 
                                 cardInfo={card}
                                 key={shortid.generate()} 

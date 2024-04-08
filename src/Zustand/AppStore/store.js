@@ -1,8 +1,9 @@
 import { create } from 'zustand'
-import reducer from '../Reducers'
+import {setLoadingState} from './reducers'
 
-const store =  create((set) => ({
+const useAppStore =  create((set) => ({
     isLoading: false,
+    setLoadingState : (payload) => set((state) => setLoadingState(state, payload))
 }))
 
-export default store
+export default useAppStore

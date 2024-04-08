@@ -1,28 +1,28 @@
 import React from 'react'
 import './options.css'
-import {useDispatch, useSelector} from 'react-redux'
+import useDeckStore from '../../Zustand/DeckStore/store'
 import fileDownload from 'js-file-download'
 
 const Options = () => {
-    const dispatch =  useDispatch()
-    const mainDeck = useSelector(state => state.deck.main)
-    const extraDeck = useSelector(state => state.deck.extra)
+    const eraseDeck =  useDeckStore(state => state.eraseDeck)
+    const main = useDeckStore(state => state.main)
+    const extra = useDeckStore(state => state.extra)
       
     const deckBuilder = () => {
         let deckFileToDownload = ''
         
         deckFileToDownload += `#created by DaisukiTamago's Deck Builder https://github.com/DaisukiTamago/yugioh-react-deck-builder\n`
         deckFileToDownload += `#main\n`
-        mainDeck.map(card => deckFileToDownload+= card.id.toString() + '\n')
+        main.map(card => deckFileToDownload+= card.id.toString() + '\n')
         deckFileToDownload += `#extra\n`
-        extraDeck.map(card => deckFileToDownload+= card.id.toString() + '\n')
+        extra.map(card => deckFileToDownload+= card.id.toString() + '\n')
 
         fileDownload(deckFileToDownload, 'deck.ydk', 'application/octet-stream')
     }
     
     return (
             <div className="options">
-                <button onClick={() => dispatch({type: 'ERASE_DECK'})} >Erase</button>
+                <button onClick={() => eraseDeck()} >Erase</button>
                 <button onClick={() => deckBuilder()}>Download</button>
             </div>
     )

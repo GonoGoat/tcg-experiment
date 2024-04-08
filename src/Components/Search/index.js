@@ -1,38 +1,52 @@
 import React from 'react'
 import {useState} from 'react'
-import {useDispatch} from 'react-redux'
+//import {useDispatch} from 'react-redux'
 import {default as Axios} from 'axios'
 import './search.css'
+import useAppStore from "../../Zustand/AppStore/store"
+import useListerStore from '../../Zustand/ListerStore/store'
+import data from "../../res/data.json"
 
 var axios = Axios.create({
     baseURL: 'https://db.ygoprodeck.com/api/v7/',
 })
 
+
 const Search =  () => {
 
-    const dispatch = useDispatch()
+    //const dispatch = useDispatch()
     const [name, setName] = useState('')
     const [race, setRace] = useState('') //race is what usually is called type
     const [type, setType] = useState('')
     const [attribute, setAttribute] = useState('')
     const [level, setLevel] = useState('')
 
+    const setLoadingState = useAppStore((state) => state.setLoadingState)
+
+    const setNextPageToLoad = useListerStore((state) => state.setNextPageToLoad)
+    const setHasMoreItemsToLoad = useListerStore((state) => state.setHasMoreItemsToLoad)
+    const setListerItems = useListerStore((state) => state.setListerItems)
+    
     const request = async () => {
-        dispatch({type: 'SET_LOADING_STATE', payload: true})
+        setLoadingState(true)
         try{
-            let response = await axios.get(queryBuilder())  
+            //let response = await axios.get(queryBuilder())
+            let response = data;
             console.log(response)
             if(response.data.meta.pages_remaining !== 0){
-                dispatch({type: 'SET_HAS_MORE_ITEMS_TO_LOAD', payload: true})
-                dispatch({type: 'SET_NEXT_PAGE_TO_LOAD', payload: response.data.meta.next_page})
-            } else {
-                dispatch({type: 'SET_HAS_MORE_ITEMS_TO_LOAD', payload: false})
+                setHasMoreItemsToLoad(true)
+                setNextPageToLoad(response.data.meta.next_page)
             }
-            dispatch({type: "UPDATE_LISTER", payload: response.data.data})
-            dispatch({type: 'SET_LOADING_STATE', payload: false})
-        } catch (err) {
+            else {
+                setHasMoreItemsToLoad(false)
+            }
+            setListerItems(response.data.data)
+            setLoadingState(false)
+        }
+        catch (err) {
+            console.error(err)
             alert(`I-i'm sorry, something just gone wrong =(.\n Change the parameters and try again`)
-            dispatch({type: 'SET_LOADING_STATE', payload: false})
+            setLoadingState(false)
         }
     }
     
@@ -182,6 +196,9 @@ const Search =  () => {
                 </tbody>
             </table>
             
+            {
+                //<button className="search-button" onClick={() => setLoadingState(true)}>Search</button>
+            }
             <button className="search-button" onClick={() => {request()}}>Search</button>
         </div>
     )
