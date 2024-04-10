@@ -6,7 +6,7 @@ import Card from '../Card'
 import BlankCard from '../BlankCard'
 
 import './lister.css'
-import {CircularProgress} from '@material-ui/core'
+import CircularProgress from '@mui/material/CircularProgress'
 
 import useAppStore from "../../Zustand/AppStore/store"
 import useListerStore from '../../Zustand/ListerStore/store'

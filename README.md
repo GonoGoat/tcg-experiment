@@ -10,4 +10,3 @@ Web App to build Yu-Gi-Oh Decks, allows you to download a deck file compatible w
 
 Hosted App: https://deckbuilder.netlify.app/  
 API: https://db.ygoprodeck.com/api-guide/
-

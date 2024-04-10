@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
-import {Tooltip, Dialog} from '@material-ui/core'
+import Tooltip from '@mui/material/Tooltip'
+import Dialog from '@mui/material/Dialog'
 import './card.css'
 import placeholder from '../../res/placeholder.png'
 import useDeckStore from '../../Zustand/DeckStore/store'
