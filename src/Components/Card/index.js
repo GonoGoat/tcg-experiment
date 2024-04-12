@@ -76,7 +76,7 @@ const Card = ({cardInfo, isDraggable, index}) => {
                     addCardToDeck(cardInfo)
                     :
                     open?
-                        null // no action if the 
+                        null // no action if the dialog is up
                         :
                         removeCardFromDeck(cardInfo.type,index)
                 }

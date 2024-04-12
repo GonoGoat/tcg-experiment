@@ -16,10 +16,14 @@ const Search =  () => {
 
     //const dispatch = useDispatch()
     const [name, setName] = useState('')
+    const [desc, setDesc] = useState('')
     const [race, setRace] = useState('') //race is what usually is called type
     const [type, setType] = useState('')
     const [attribute, setAttribute] = useState('')
     const [level, setLevel] = useState('')
+    const [cardType, setCardType] = useState('')
+
+    const monsterTypes = []
 
     const setLoadingState = useAppStore((state) => state.setLoadingState)
 
@@ -52,7 +56,7 @@ const Search =  () => {
     
 
     const queryBuilder = () => {
-        return `cardinfo.php?num=30&offset=0`+name+race+type+level+attribute
+        return `cardinfo.php?num=30&offset=0`+name+race+type+level+attribute+desc
     }
 
     const levelSelector = (
@@ -73,7 +77,7 @@ const Search =  () => {
         </select>
     )
 
-    const raceSelector = (
+    const typeSelector = (
         <select onChange={({target: {value}}) => setRace(value.toLowerCase() === 'unset'?'':`&race=${value}`)}>
             <option>Unset</option>
             <optgroup label="Monster Cards">
@@ -118,7 +122,7 @@ const Search =  () => {
         </select>
     )
 
-    const typeSelector = (
+    const subTypeSelector = (
         <select onChange={({target: {value}}) => setType(value.toLowerCase() === 'unset'?'':`&type=${value}`)}>
             <option>Unset</option>
             <optgroup label="Main Deck Types">
@@ -175,6 +179,9 @@ const Search =  () => {
             <input type="text" placeholder="Type card name"
                 onChange={({target: {value}}) => setName(`&fname=${value}`)}
             />
+            <input type="text" placeholder="Type card description"
+                onChange={({target: {value}}) => setDesc(`&description=${value}`)}
+            />
             <table>
                 <tbody>
                     <tr>
@@ -183,7 +190,7 @@ const Search =  () => {
                     </tr>
                     <tr>
                         <td>Race</td>
-                        <td>{raceSelector}</td>
+                        <td>{subTypeSelector}</td>
                     </tr>
                     <tr>
                         <td>Type</td>

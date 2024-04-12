@@ -15,8 +15,7 @@ const Deck = () => {
     const bulk = useDeckStore(state => state.bulk)
     
     return (
-        <div className="deck-container">
-            <div className="deck">
+        <div className="deck">
                 <div className="main">
                     {
                         main.map( (card, index) =>card.type === "blank"?
@@ -77,7 +76,6 @@ const Deck = () => {
                         )
                     }
                 </div>
-            </div>
         </div>
     )
    
