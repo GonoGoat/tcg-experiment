@@ -7,10 +7,11 @@
 }
 
 .deck {
-    /*height: fit-content;*/
+    height: fit-content;
     height : 100vh;
     overflow-y: auto;
-   
+    display: flex;
+    flex-direction: column;
 }
 
 

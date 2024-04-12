@@ -24,7 +24,6 @@ export function addCardToDeck (state, payload) {
         }
     } 
     else {
-        console.log("fired")
         return {
             ...state,
             main: [...state.main, payload]
@@ -33,7 +32,7 @@ export function addCardToDeck (state, payload) {
 }
 
 export function removeCardFromDeck (state, payload, index) {
-    if (belongsToExtraDeck(payload.type)){
+    if (belongsToExtraDeck(payload)){
         return {
             ...state,
             extra: [...state.extra.slice(0,index).concat(state.extra.slice(index+1))]

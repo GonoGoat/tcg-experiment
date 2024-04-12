@@ -71,18 +71,20 @@ const Card = ({cardInfo, isDraggable, index}) => {
                 className="card"
                 onMouseOver={()=>setHovering(true)}
                 onMouseOut={()=>setHovering(false)}
+                onMouseDown={e=>handleClick(e)} 
+                onClick={()=>isDraggable?
+                    addCardToDeck(cardInfo)
+                    :
+                    open?
+                        null // no action if the 
+                        :
+                        removeCardFromDeck(cardInfo.type,index)
+                }
             >
-                {}
                 <img
                     src={img_url}
                     width="90px" 
                     height="120px" 
-                    onMouseDown={e=>handleClick(e)} 
-                    onClick={()=>isDraggable?
-                        addCardToDeck(cardInfo)
-                        :
-                        removeCardFromDeck(cardInfo.type,index)
-                    }
                     alt={cardInfo.name}
                 />
                 <Dialog 
