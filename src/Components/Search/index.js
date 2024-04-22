@@ -59,34 +59,49 @@ const Search =  () => {
             setLoadingState(false)
         }
     }
+
+    const handleLevelChange = (value) => {
+        if (value === "") {
+            setLevel ("")
+        }
+        else if (!isNaN(value)) {
+            if (parseInt(value) > 13) setLevel("&level=13")
+            else setLevel(`&level=${value}`)
+        }
+        else {
+            setLevel(level)
+        }  
+    }
     
 
     const queryBuilder = () => {
         // setLevel(value.toLowerCase() === 'unset'?'':`&level=${value}`)
+        /*let parameters = [];
+        if (name) parameters.push(`&fname=${name}`);
+        if (desc) parameters.push(`&desc=${desc}`);
+        if (cardType !== "unset") {
+            if (type !== "unset") parameters.push(`&type=${type}`); // TODO
+            if (race !== "unset") parameters.push(`&race=${race}`);
+            if (cardType === "monster") {
+                if (attribute !== "unset") parameters.push(`&attribute=${attribute}`)
+                if (level) parameters.push(`&level=${level}`)
+            }
+        }*/
+        
+        
+        
+        //cardType, setCardType] = useState('')
         return `cardinfo.php?num=30&offset=0`+name+race+type+level+attribute+desc
+        
     }
 
     //(value < 0 || value > 14)?setLevel(level):setLevel(value)
     const levelSelector = (
-        <select onChange={({target: {value}}) => setLevel(value.toLowerCase() === 'unset'?'':`&level=${value}`)}>
-            <option defaultChecked={true}>Unset</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
-            <option>11</option>
-            <option>12</option>
-        </select>
+        <input type="text" placeholder='Monster Level/Rank' inputMode='decimal' value={level.substr(7)} onChange={({target: {value}}) => handleLevelChange(value)}/>
     )
 
     const cardTypeSelector = (
-        <select onChange={({target: {value}}) => setCardType(value.toLowerCase() === 'unset'?'':`:&type=${value}`)}>
+        <select onChange={({target: {value}}) => setCardType(value.toLowerCase() === 'unset'?'':`&type=${value.toLowerCase()}`)}>
             <option>Unset</option>
             {cardTypes.map((cardType) => <option>{cardType}</option>)}
         </select>
@@ -195,7 +210,7 @@ const Search =  () => {
                         <td>Card Type</td>
                         <td>{cardTypeSelector}</td>
                     </tr>
-                    {cardType === "monster"?
+                    {cardType === "&type=monster"?
                         <React.Fragment>
                             <tr>
                                 <td>Monster Card Type</td>
@@ -213,7 +228,7 @@ const Search =  () => {
                         :
                         ''
                     }
-                    {cardType === "spell card"?
+                    {cardType === "&type=spell card"?
                         <tr>
                             <td>Spell Card Type</td>
                             <td>{spellTypeSelector}</td>
@@ -221,7 +236,7 @@ const Search =  () => {
                         :
                         ''
                     }
-                    {cardType === "trap card"?
+                    {cardType === "&type=trap card"?
                         <tr>
                             <td>Trap Card Type</td>
                             <td>{trapTypeSelector}</td>
