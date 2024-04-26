@@ -14,7 +14,7 @@ var axios = Axios.create({
 })
 
 const cardTypes = ['Monster', 'Spell Card', 'Trap Card']
-const monsterTypes = ['Normal', 'Effect', 'Ritual', 'Fusion', 'Synchro', 'Link', 'XYZ']
+const monsterTypes = ['Ritual', 'Fusion', 'Synchro', 'Link', 'XYZ']
 const monsterAttributes = ['Earth', 'Wind', 'Fire', 'Water', 'Light', 'Dark', 'Divine']
 const monsterRaces = ['Aqua', 'Beast', 'Beast-Warrior', 'Cyberse', 'Dinosaur', 'Divine-Beast', 'Dragon', 'Fairy', 'Fiend', 'Fish', 'Insect', 'Illusion', 'Machine', 'Plant', 'Psychic', 'Pyro', 'Reptile', 'Rock', 'Sea Serpent', 'Spellcaster', 'Thunder', 'Warrior', 'Winged Beast', 'Wyrm', 'Zombie']
 const spellRaces = [ 'Normal', 'Field', 'Equip', 'Continuous', 'Quick-Play', 'Ritual']
@@ -26,10 +26,16 @@ const Search =  () => {
     const [name, setName] = useState('')
     const [desc, setDesc] = useState('')
     const [race, setRace] = useState('') //race is what usually is called type
-    const [type, setType] = useState('')
+
     const [attribute, setAttribute] = useState('')
     const [level, setLevel] = useState('')
-    const [cardType, setCardType] = useState('')
+    
+    const [type, setType] = useState('')
+    const [monsterType, setMonsterType] = useState('')
+    const [hasEffect, setHasEffect] = useState('')
+    const [isPendulum, setPendulum] = useState(false)
+    const [isTuner, setTuner] = useState(false)
+    const [pendulumScale, setPendulumScale] = useState('')
 
     const setLoadingState = useAppStore((state) => state.setLoadingState)
 
@@ -72,6 +78,20 @@ const Search =  () => {
             setLevel(level)
         }  
     }
+
+    const handlePendulumScaleChange = (value) => {
+        if (value === "") {
+            setPendulumScale ("")
+        }
+        else if (!isNaN(value)) {
+            if (parseInt(value) > 13) setLevel("&scale=13")
+            else setPendulumScale(`&scale=${value}`)
+        }
+        else {
+            setPendulumScale(level)
+        }  
+    }
+
     
 
     const queryBuilder = () => {
@@ -87,6 +107,10 @@ const Search =  () => {
                 if (level) parameters.push(`&level=${level}`)
             }
         }*/
+        // Passe dans tous les filtres pour créer liste de params
+        // Filtrage en boucle de tous les types possibles de l'api
+        // Si 1 on prend et on sauve dans type au format URL
+        // Si 0 : alert
         
         
         
@@ -95,28 +119,42 @@ const Search =  () => {
         
     }
 
-    //(value < 0 || value > 14)?setLevel(level):setLevel(value)
-    const levelSelector = (
-        <input type="text" placeholder='Monster Level/Rank' inputMode='decimal' value={level.substr(7)} onChange={({target: {value}}) => handleLevelChange(value)}/>
+    //*************GENERIC SELECTORS******************
+
+    // Overall type of card : Monster spell or tra
+    const typeSelector = (
+        <div>
+            <div>
+                <label htmlFor="type">Card Type</label>
+            </div>
+            <div>
+                <select name='type' onChange={({target: {value}}) => setType(value.toLowerCase() === 'unset'?'':`&type=${value.toLowerCase()}`)}>
+                    <option key="0">Unset</option>
+                    {cardTypes.map((cardType, index) => <option key={index+1}>{cardType}</option>)}
+                </select>
+            </div>  
+        </div>
     )
 
-    const cardTypeSelector = (
-        <select onChange={({target: {value}}) => setCardType(value.toLowerCase() === 'unset'?'':`&type=${value.toLowerCase()}`)}>
-            <option>Unset</option>
-            {cardTypes.map((cardType) => <option>{cardType}</option>)}
-        </select>
+    // Generic Race selector (sub type : monster type (aqua, machine, ...) or spell/trap type (normal, continuous))
+    const cardSubTypeSelector = ( (options, label) =>
+        <div>
+            <div>
+                <label htmlFor="cardSubType">{label}</label>
+            </div>
+            <div>
+                <select name='cardSubType' onChange={({target: {value}}) => setRace(value.toLowerCase() === 'unset'?'':`&race=${value}`)}>
+                    <option key="0">Unset</option>
+                    {options.map((cardType, index) => <option key={index+1}>{cardType}</option>)}
+                </select>
+            </div>  
+        </div>
     )
 
-    const cardSubTypeSelector = ( (options) =>
-        <select onChange={({target: {value}}) => setRace(value.toLowerCase() === 'unset'?'':`&race=${value}`)}>
-            <option>Unset</option>
-            {options.map((cardType) => <option>{cardType}</option>)}
-        </select>
-    )
-
-    const monsterTypeSelector = cardSubTypeSelector(monsterRaces)
-    const spellTypeSelector = cardSubTypeSelector(spellRaces)
-    const trapTypeSelector = cardSubTypeSelector(trapRaces)
+    // Race for each type of card
+    const monsterTypeSelector = cardSubTypeSelector(monsterRaces, "Monster Type")
+    const spellTypeSelector = cardSubTypeSelector(spellRaces, "Spell Type")
+    const trapTypeSelector = cardSubTypeSelector(trapRaces, "Trap Type")
 
     /*
         <optgroup label="Main Deck Types">
@@ -151,102 +189,140 @@ const Search =  () => {
             <option>XYZ Pendulum Effect Monster</option>
         </optgroup>
     */
+
+    //*************MONSTER SPECIFIC SELECTORS******************
+    const levelSelector = (
+        <div>
+            <div>
+                <label htmlFor="monsterLevel">Level/Rank</label>
+            </div>
+            <div>
+                <input name="monsterLevel" type="text" placeholder='Type a number from 0 to 13' inputMode='decimal' value={level.substring(7)} onChange={({target: {value}}) => handleLevelChange(value)}/>
+            </div>
+        </div>
+    )
+
     const monsterCardTypeSelector = (
-        <select onChange={({target: {value}}) => setType(value.toLowerCase() === 'unset'?'':`&type=${value}`)}>
-            <option>Unset</option>
-            <optgroup label="Main Deck Types">
-                <option>Effect Monster</option>
-                <option>Flip Effect Monster</option>
-                <option>Flip Tuner Effect Monster</option>
-                <option>Gemini Monster</option>
-                <option>Normal Monster</option>
-                <option>Normal Tuner Monster</option>
-                <option>Pendulum Effect Monster</option>
-                <option>Pendulum Flip Effect Monster</option>
-                <option>Pendulum Normal Monster</option>
-                <option>Pendulum Tuner Effect Monster</option>
-                <option>Ritual Effect Monster</option>
-                <option>Ritual Monster</option>
-                <option>Skill Card</option>
-                <option>Spell Card</option>
-                <option>Spirit Monster</option>
-                <option>Toon Monster</option>
-                <option>Trap Card</option>
-                <option>Tuner Monster</option>
-                <option>Union Effect Monster</option>
-            </optgroup>
-            <optgroup label="Extra Deck Types">
-                <option>Fusion Monster</option>
-                <option>Link Monster</option>
-                <option>Pendulum Effect Fusion Monster</option>
-                <option>Synchro Monster</option>
-                <option>Synchro Pendulum Effect Monster</option>
-                <option>Synchro Tuner Monster</option>
-                <option>XYZ Monster</option>
-                <option>XYZ Pendulum Effect Monster</option>
-            </optgroup>
-        </select>
+        <div>
+            <div>
+                <label htmlFor="monsterCardType">Type of Monster Card</label>
+            </div>
+            <div>
+                <select name="monsterCardType" onChange={({target: {value}}) => setType(value.toLowerCase() === 'unset'?'':value.toLowerCase())}>
+                    <option key='0'>Unset</option>
+                    {monsterTypes.map((cardType, index) => <option key={index+1}>{cardType}</option>)}
+                </select>
+            </div>
+        </div>
     )
 
     const attributeSelector = (
-        <select onChange={({target: {value}}) => setAttribute(value.toLowerCase() === 'unset'?'':`&attribute=${value}`)}>
-                <option>Unset</option>
-                {monsterAttributes.map((cardAttribute) => <option>{cardAttribute}</option>)}
-        </select>
+        <div>
+            <div>
+                <label htmlFor="monsterAttribute">Attribute</label>
+            </div>
+            <div>
+                <select name='monsterAttribute' onChange={({target: {value}}) => setAttribute(value.toLowerCase() === 'unset'?'':`&attribute=${value}`)}>
+                    <option key="0">Unset</option>
+                    {monsterAttributes.map((cardAttribute, index) => <option key={index+1}>{cardAttribute}</option>)}
+                </select>
+            </div>
+        </div>
+    )
+
+    const effectSelector = (
+        // <div class="switch-toggle switch-3 switch-candy">
+        <div>
+            <div>
+                <label htmlFor='state-d'>Monster effect ?</label>
+            </div>
+            <div className="switch-toggle">
+
+                <input id="normal" name="state-d" type="radio" readOnly checked={hasEffect === 0 ?"checked":""} />
+                <label htmlFor="normal" onClick={() => setHasEffect(0)}>Normal</label>
+            
+                <input id="na" name="state-d" type="radio" readOnly checked={hasEffect === ""?"checked":""} />
+                <label htmlFor="na" onClick={() => setHasEffect("")}>N/A</label>
+            
+                <input id="effect" name="state-d" type="radio" readOnly checked={hasEffect === 1 ?"checked":""}/>
+                <label htmlFor="effect" onClick={() => setHasEffect(1)}>Effect</label>
+            </div>
+        </div>
+    )
+
+    const isPendulumCheckbox = (
+        <div className="checkbox-wrapper">
+            <label>
+                <input type="checkbox" checked={isPendulum} onChange={() => setPendulum(!isPendulum)}/>
+                <span>Pendulum</span>
+            </label>
+        </div>
+    )
+
+    const isTunerCheckbox = (
+        <div className="checkbox-wrapper">
+            <label>
+                <input type="checkbox" checked={isTuner} onChange={() => setTuner(!isPendulum)}/>
+                <span>Tuner</span>
+            </label>
+        </div>
+    )
+
+    const pendulumSelector = (
+        <div>
+            <div>
+                <label htmlFor="pendulumScale">Pendulum Scale</label>
+            </div>
+            <div>
+                <input name="pendulumScale" type="text" placeholder='Type a number from 0 to 13' inputMode='decimal' value={pendulumScale.substring(7)} onChange={({target: {value}}) => handlePendulumScaleChange(value)}/>
+            </div>
+        </div>
     )
 
 
     return (
         <div className="search">
-            <input type="text" placeholder="Type card name"
-                onChange={({target: {value}}) => setName(`&fname=${value}`)}
-            />
-            <input type="text" placeholder="Type card description"
-                onChange={({target: {value}}) => setDesc(`&description=${value}`)}
-            />
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Card Type</td>
-                        <td>{cardTypeSelector}</td>
-                    </tr>
-                    {cardType === "&type=monster"?
-                        <React.Fragment>
-                            <tr>
-                                <td>Monster Card Type</td>
-                                <td>{monsterTypeSelector}</td>
-                            </tr>
-                            <tr>
-                                <td>Rank/Level</td>
-                                <td>{levelSelector}</td>
-                            </tr>
-                            <tr>
-                                <td>Attribute</td>
-                                <td>{attributeSelector}</td>
-                            </tr>
-                        </React.Fragment>
+            <div>
+                <input name='cardName' type="text" placeholder="Type card name"
+                    onChange={({target: {value}}) => setName(`&fname=${value}`)}
+                />
+                <input type="text" placeholder="Type card description"
+                    onChange={({target: {value}}) => setDesc(`&description=${value}`)}
+                />
+            </div>
+            {typeSelector}
+            {type.includes("monster")?
+                <React.Fragment>
+                    {monsterCardTypeSelector}
+                    {monsterTypeSelector}
+                    {levelSelector}
+                    {attributeSelector}
+                    {effectSelector}
+                    {isPendulumCheckbox}
+                    {isTunerCheckbox}
+                    {isPendulum?
+                        pendulumSelector
                         :
-                        ''
+                        <React.Fragment/>
                     }
-                    {cardType === "&type=spell card"?
-                        <tr>
-                            <td>Spell Card Type</td>
-                            <td>{spellTypeSelector}</td>
-                        </tr>
-                        :
-                        ''
-                    }
-                    {cardType === "&type=trap card"?
-                        <tr>
-                            <td>Trap Card Type</td>
-                            <td>{trapTypeSelector}</td>
-                        </tr>
-                        :
-                        ''
-                    }
-                </tbody>
-            </table>
-            
+                </React.Fragment>
+                :
+                <React.Fragment/>
+            }
+            {type.includes("spell")?
+                <React.Fragment>
+                    {spellTypeSelector}
+                </React.Fragment>
+                :
+                <React.Fragment/>
+            }
+            {type.includes("trap")?
+                <React.Fragment>
+                    {trapTypeSelector}
+                </React.Fragment>
+                :
+                <React.Fragment/>
+            }
             {
                 //<button className="search-button" onClick={() => setLoadingState(true)}>Search</button>
             }
