@@ -14,28 +14,38 @@ var axios = Axios.create({
 })
 
 const cardTypes = ['Monster', 'Spell Card', 'Trap Card']
-const monsterTypes = ['Ritual', 'Fusion', 'Synchro', 'Link', 'XYZ']
+const monsterTypes = ['Ritual', 'Fusion', 'Synchro', 'Link', 'XYZ', 'Toon', 'Spirit', 'Gemini', 'Union']
 const monsterAttributes = ['Earth', 'Wind', 'Fire', 'Water', 'Light', 'Dark', 'Divine']
 const monsterRaces = ['Aqua', 'Beast', 'Beast-Warrior', 'Cyberse', 'Dinosaur', 'Divine-Beast', 'Dragon', 'Fairy', 'Fiend', 'Fish', 'Insect', 'Illusion', 'Machine', 'Plant', 'Psychic', 'Pyro', 'Reptile', 'Rock', 'Sea Serpent', 'Spellcaster', 'Thunder', 'Warrior', 'Winged Beast', 'Wyrm', 'Zombie']
 const spellRaces = [ 'Normal', 'Field', 'Equip', 'Continuous', 'Quick-Play', 'Ritual']
 const trapRaces = ['Normal', 'Continuous', 'Counter']
+/*
+"Skill Card"
+"Token"
+*/
+const monsterCardTypes = [
+    "Effect Monster", "Flip Effect Monster", "Flip Tuner Effect Monster", "Gemini Monster", "Normal Monster", "Normal Tuner Monster", "Pendulum Effect Monster", "Pendulum Effect Ritual Monster", "Pendulum Flip Effect Monster", "Pendulum Normal Monster", "Pendulum Tuner Effect Monster", "Ritual Effect Monster", "Ritual Monster", "Spell Card", "Spirit Monster", "Toon Monster", "Trap Card", "Tuner Monster", "Union Effect Monster", "Fusion Monster", "Link Monster", "Pendulum Effect Fusion Monster", "Synchro Monster", "Synchro Pendulum Effect Monster", "Synchro Tuner Monster", "XYZ Monster", "XYZ Pendulum Effect Monster"
+]
 
 const Search =  () => {
-
+    // Generic filters
     //const dispatch = useDispatch()
     const [name, setName] = useState('')
-    const [desc, setDesc] = useState('')
-    const [race, setRace] = useState('') //race is what usually is called type
+    // const [desc, setDesc] = useState('')
+    const [race, setRace] = useState('') // Monster type (aqua, ...) OR S/T Type
 
+    // Monster-specific filters that don't need URL formatting
     const [attribute, setAttribute] = useState('')
     const [level, setLevel] = useState('')
-    
+    const [pendulumScale, setPendulumScale] = useState('')
     const [type, setType] = useState('')
+    
+    // Monster type-specific filter (Regex part)
+    // var testbis = new RegExp(/^(?!.*pendulum)(?!.*synchro)(?=.*monster)/)
     const [monsterType, setMonsterType] = useState('')
     const [hasEffect, setHasEffect] = useState('')
-    const [isPendulum, setPendulum] = useState(false)
-    const [isTuner, setTuner] = useState(false)
-    const [pendulumScale, setPendulumScale] = useState('')
+    const [isPendulum, setPendulum] = useState('')
+    const [isTuner, setTuner] = useState('')
 
     const setLoadingState = useAppStore((state) => state.setLoadingState)
 
@@ -47,6 +57,7 @@ const Search =  () => {
         setLoadingState(true)
         try{
             //let response = await axios.get(queryBuilder())
+            console.log(queryBuilder())
             let response = data;
             console.log(response)
             if(response.data.meta.pages_remaining !== 0){
@@ -94,34 +105,19 @@ const Search =  () => {
 
     
 
-    const queryBuilder = () => {
-        // setLevel(value.toLowerCase() === 'unset'?'':`&level=${value}`)
-        /*let parameters = [];
-        if (name) parameters.push(`&fname=${name}`);
-        if (desc) parameters.push(`&desc=${desc}`);
-        if (cardType !== "unset") {
-            if (type !== "unset") parameters.push(`&type=${type}`); // TODO
-            if (race !== "unset") parameters.push(`&race=${race}`);
-            if (cardType === "monster") {
-                if (attribute !== "unset") parameters.push(`&attribute=${attribute}`)
-                if (level) parameters.push(`&level=${level}`)
-            }
-        }*/
-        // Passe dans tous les filtres pour créer liste de params
-        // Filtrage en boucle de tous les types possibles de l'api
-        // Si 1 on prend et on sauve dans type au format URL
-        // Si 0 : alert
-        
-        
-        
-        //cardType, setCardType] = useState('')
-        return `cardinfo.php?num=30&offset=0`+name+race+type+level+attribute+desc
-        
+    const queryBuilder = () => {        
+        var reg = new RegExp(`^${monsterType}${hasEffect}${isPendulum}${isTuner}`)
+        var types = monsterCardTypes.filter((type) => reg.test(type.toLowerCase()))
+
+        // TODO : Alert si pas de filtre pour tous ceux choisi
+
+        return `cardinfo.php?num=30&offset=0`+name+race+(types.length > 0 ?`&type=${types.join(',').toLowerCase()}`:type)+level+attribute
+        //+desc
     }
 
     //*************GENERIC SELECTORS******************
 
-    // Overall type of card : Monster spell or tra
+    // Overall type of card : Monster spell or trap
     const typeSelector = (
         <div>
             <div>
@@ -156,40 +152,6 @@ const Search =  () => {
     const spellTypeSelector = cardSubTypeSelector(spellRaces, "Spell Type")
     const trapTypeSelector = cardSubTypeSelector(trapRaces, "Trap Type")
 
-    /*
-        <optgroup label="Main Deck Types">
-        <option>Effect Monster</option>
-        <option>Flip Effect Monster</option>
-        <option>Flip Tuner Effect Monster</option>
-        <option>Gemini Monster</option>
-        <option>Normal Monster</option>
-        <option>Normal Tuner Monster</option>
-        <option>Pendulum Effect Monster</option>
-        <option>Pendulum Flip Effect Monster</option>
-        <option>Pendulum Normal Monster</option>
-        <option>Pendulum Tuner Effect Monster</option>
-        <option>Ritual Effect Monster</option>
-        <option>Ritual Monster</option>
-        <option>Skill Card</option>
-        <option>Spell Card</option>
-        <option>Spirit Monster</option>
-        <option>Toon Monster</option>
-        <option>Trap Card</option>
-        <option>Tuner Monster</option>
-        <option>Union Effect Monster</option>
-        </optgroup>
-        <optgroup label="Extra Deck Types">
-            <option>Fusion Monster</option>
-            <option>Link Monster</option>
-            <option>Pendulum Effect Fusion Monster</option>
-            <option>Synchro Monster</option>
-            <option>Synchro Pendulum Effect Monster</option>
-            <option>Synchro Tuner Monster</option>
-            <option>XYZ Monster</option>
-            <option>XYZ Pendulum Effect Monster</option>
-        </optgroup>
-    */
-
     //*************MONSTER SPECIFIC SELECTORS******************
     const levelSelector = (
         <div>
@@ -202,13 +164,14 @@ const Search =  () => {
         </div>
     )
 
+    // Type of monster card : Ritual, Fusion, ...
     const monsterCardTypeSelector = (
         <div>
             <div>
                 <label htmlFor="monsterCardType">Type of Monster Card</label>
             </div>
             <div>
-                <select name="monsterCardType" onChange={({target: {value}}) => setType(value.toLowerCase() === 'unset'?'':value.toLowerCase())}>
+                <select name="monsterCardType" onChange={({target: {value}}) => setMonsterType(value.toLowerCase() === 'unset'?'':`(/^(?!.*${value.toLowerCase()})/)`)}>
                     <option key='0'>Unset</option>
                     {monsterTypes.map((cardType, index) => <option key={index+1}>{cardType}</option>)}
                 </select>
@@ -234,37 +197,61 @@ const Search =  () => {
         // <div class="switch-toggle switch-3 switch-candy">
         <div>
             <div>
-                <label htmlFor='state-d'>Monster effect ?</label>
+                <label htmlFor='state-e'>Monster effect</label>
             </div>
             <div className="switch-toggle">
 
-                <input id="normal" name="state-d" type="radio" readOnly checked={hasEffect === 0 ?"checked":""} />
-                <label htmlFor="normal" onClick={() => setHasEffect(0)}>Normal</label>
+                <input id="normal" name="state-e" type="radio" readOnly checked={hasEffect === "(?=.*normal)" ?"checked":""} />
+                <label htmlFor="normal" onClick={() => setHasEffect("(?=.*normal)")}>Normal</label>
             
-                <input id="na" name="state-d" type="radio" readOnly checked={hasEffect === ""?"checked":""} />
-                <label htmlFor="na" onClick={() => setHasEffect("")}>N/A</label>
+                <input id="na-effect" name="state-e" type="radio" readOnly checked={hasEffect === ""?"checked":""} />
+                <label htmlFor="na-effect" onClick={() => setHasEffect("")}>N/A</label>
             
-                <input id="effect" name="state-d" type="radio" readOnly checked={hasEffect === 1 ?"checked":""}/>
-                <label htmlFor="effect" onClick={() => setHasEffect(1)}>Effect</label>
+                <input id="effect" name="state-e" type="radio" readOnly checked={hasEffect === "(?=.*effect)" ?"checked":""}/>
+                <label htmlFor="effect" onClick={() => setHasEffect("(?=.*effect)")}>Effect</label>
             </div>
         </div>
     )
 
-    const isPendulumCheckbox = (
-        <div className="checkbox-wrapper">
-            <label>
-                <input type="checkbox" checked={isPendulum} onChange={() => setPendulum(!isPendulum)}/>
-                <span>Pendulum</span>
-            </label>
+    // TODO : Fix regex
+    const isPendulumSelector = (
+        // <div class="switch-toggle switch-3 switch-candy">
+        <div>
+            <div>
+                <label htmlFor='state-p'>Pendlum</label>
+            </div>
+            <div className="switch-toggle">
+
+                <input id="non-pendulum" name="state-p" type="radio" readOnly checked={isPendulum === "(?!.*pendulum)" ?"checked":""} />
+                <label htmlFor="non-pendulum" onClick={() => setPendulum("(?!.*pendulum)")}>No</label>
+            
+                <input id="na-pendulum" name="state-p" type="radio" readOnly checked={isPendulum === ""?"checked":""} />
+                <label htmlFor="na-pendulum" onClick={() => setPendulum("")}>N/A</label>
+            
+                <input id="pendulum" name="state-p" type="radio" readOnly checked={isPendulum === "(?=.*pendulum)" ?"checked":""}/>
+                <label htmlFor="pendulum" onClick={() => setPendulum("(?=.*pendulum)")}>Yes</label>
+            </div>
         </div>
     )
 
-    const isTunerCheckbox = (
-        <div className="checkbox-wrapper">
-            <label>
-                <input type="checkbox" checked={isTuner} onChange={() => setTuner(!isPendulum)}/>
-                <span>Tuner</span>
-            </label>
+    // TODO : Fix regex
+    const isTunerSelector = (
+        // <div class="switch-toggle switch-3 switch-candy">
+        <div>
+            <div>
+                <label htmlFor='state-t'>Tuner</label>
+            </div>
+            <div className="switch-toggle">
+
+                <input id="non-tuner" name="state-t" type="radio" readOnly checked={isTuner === "(?!.*tuner)" ?"checked":""} />
+                <label htmlFor="non-tuner" onClick={() => setTuner("(?!.*tuner)")}>No</label>
+            
+                <input id="na-tuner" name="state-t" type="radio" readOnly checked={isTuner === ""?"checked":""} />
+                <label htmlFor="na-tuner" onClick={() => setTuner("")}>N/A</label>
+            
+                <input id="tuner" name="state-t" type="radio" readOnly checked={isTuner === "(?=.*tuner)" ?"checked":""}/>
+                <label htmlFor="tuner" onClick={() => setTuner("(?=.*tuner)")}>Yes</label>
+            </div>
         </div>
     )
 
@@ -273,7 +260,7 @@ const Search =  () => {
             <div>
                 <label htmlFor="pendulumScale">Pendulum Scale</label>
             </div>
-            <div>
+            <div> 
                 <input name="pendulumScale" type="text" placeholder='Type a number from 0 to 13' inputMode='decimal' value={pendulumScale.substring(7)} onChange={({target: {value}}) => handlePendulumScaleChange(value)}/>
             </div>
         </div>
@@ -286,9 +273,11 @@ const Search =  () => {
                 <input name='cardName' type="text" placeholder="Type card name"
                     onChange={({target: {value}}) => setName(`&fname=${value}`)}
                 />
+                {/*
                 <input type="text" placeholder="Type card description"
                     onChange={({target: {value}}) => setDesc(`&description=${value}`)}
                 />
+                */}
             </div>
             {typeSelector}
             {type.includes("monster")?
@@ -297,10 +286,11 @@ const Search =  () => {
                     {monsterTypeSelector}
                     {levelSelector}
                     {attributeSelector}
+                    {monsterCardTypeSelector}
                     {effectSelector}
-                    {isPendulumCheckbox}
-                    {isTunerCheckbox}
-                    {isPendulum?
+                    {isTunerSelector}
+                    {isPendulumSelector}
+                    {isPendulum === "(?=.*pendulum)" ?
                         pendulumSelector
                         :
                         <React.Fragment/>
