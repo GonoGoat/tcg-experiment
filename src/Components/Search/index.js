@@ -39,9 +39,10 @@ const Search =  () => {
     const [level, setLevel] = useState('')
     const [pendulumScale, setPendulumScale] = useState('')
     const [type, setType] = useState('')
+    const [atk, setAtk] = useState('')
+    const [def, setDef] = useState('')
     
     // Monster type-specific filter (Regex part)
-    // var testbis = new RegExp(/^(?!.*pendulum)(?!.*synchro)(?=.*monster)/)
     const [monsterType, setMonsterType] = useState('')
     const [hasEffect, setHasEffect] = useState('')
     const [isPendulum, setPendulum] = useState('')
@@ -77,33 +78,14 @@ const Search =  () => {
         }
     }
 
-    const handleLevelChange = (value) => {
+    const handleNumericChange = (value, maximum, setter, prefix) => {
         if (value === "") {
-            setLevel ("")
+            setter("")
         }
         else if (!isNaN(value)) {
-            if (parseInt(value) > 13) setLevel("&level=13")
-            else setLevel(`&level=${value}`)
+            if (parseInt(value) <= maximum) setter(`&${prefix}=${value}`)
         }
-        else {
-            setLevel(level)
-        }  
     }
-
-    const handlePendulumScaleChange = (value) => {
-        if (value === "") {
-            setPendulumScale ("")
-        }
-        else if (!isNaN(value)) {
-            if (parseInt(value) > 13) setLevel("&scale=13")
-            else setPendulumScale(`&scale=${value}`)
-        }
-        else {
-            setPendulumScale(level)
-        }  
-    }
-
-    
 
     const queryBuilder = () => {        
         var reg = new RegExp(`^${monsterType}${hasEffect}${isPendulum}${isTuner}`)
@@ -111,7 +93,7 @@ const Search =  () => {
 
         // TODO : Alert si pas de filtre pour tous ceux choisi
 
-        return `cardinfo.php?num=30&offset=0`+name+race+(types.length > 0 ?`&type=${types.join(',').toLowerCase()}`:type)+level+attribute
+        return `cardinfo.php?num=30&offset=0`+name+race+atk+def+(types.length > 0 ?`&type=${types.join(',').toLowerCase()}`:type)+level+attribute
         //+desc
     }
 
@@ -119,11 +101,11 @@ const Search =  () => {
 
     // Overall type of card : Monster spell or trap
     const typeSelector = (
-        <div>
-            <div>
+        <div className='row'>
+            <div className='col-25'>
                 <label htmlFor="type">Card Type</label>
             </div>
-            <div>
+            <div className='col-75'>
                 <select name='type' onChange={({target: {value}}) => setType(value.toLowerCase() === 'unset'?'':`&type=${value.toLowerCase()}`)}>
                     <option key="0">Unset</option>
                     {cardTypes.map((cardType, index) => <option key={index+1}>{cardType}</option>)}
@@ -134,12 +116,12 @@ const Search =  () => {
 
     // Generic Race selector (sub type : monster type (aqua, machine, ...) or spell/trap type (normal, continuous))
     const cardSubTypeSelector = ( (options, label) =>
-        <div>
-            <div>
-                <label htmlFor="cardSubType">{label}</label>
+        <div  className='row'>
+            <div className='col-25'>
+                <label htmlFor="card-subtype">{label}</label>
             </div>
-            <div>
-                <select name='cardSubType' onChange={({target: {value}}) => setRace(value.toLowerCase() === 'unset'?'':`&race=${value}`)}>
+            <div className='col-75'>
+                <select name='card-subtype' onChange={({target: {value}}) => setRace(value.toLowerCase() === 'unset'?'':`&race=${value}`)}>
                     <option key="0">Unset</option>
                     {options.map((cardType, index) => <option key={index+1}>{cardType}</option>)}
                 </select>
@@ -154,24 +136,69 @@ const Search =  () => {
 
     //*************MONSTER SPECIFIC SELECTORS******************
     const levelSelector = (
-        <div>
-            <div>
-                <label htmlFor="monsterLevel">Level/Rank</label>
+        <div className='row'>
+            <div className='col-25'>
+                <label htmlFor="monster-level">Level/ Rank</label>
             </div>
-            <div>
-                <input name="monsterLevel" type="text" placeholder='Type a number from 0 to 13' inputMode='decimal' value={level.substring(7)} onChange={({target: {value}}) => handleLevelChange(value)}/>
+            <div className='col-75'>
+                {<input className='number-input' name="monster-level" type="text" inputMode='decimal' value={/\d+/.test(level)?level.match(/\d+/)[0]:""} onChange={({target: {value}}) => handleNumericChange(value,13,setLevel,"level")}/>
+                }
+            </div>
+        </div>
+    )
+
+    const symbolMap = new Map()
+    symbolMap.set("=", "Equal")
+    symbolMap.set("=lt", "Lower")
+    symbolMap.set("=gt","Higher")
+
+    const getSymbol = (state) => {
+        let sub
+        if (!state) sub = "="
+        else sub = state.match(/=[a-z]{0,2}/)[0]
+        return symbolMap.get(sub)
+    }
+
+    const changeSymbol = (state, setter) =>  {
+        if (state) {
+            let sub = state.match(/=[a-z]{0,2}/)[0] // Extract the "=..."
+            let nextIndex = (symbolMap.keys().toArray().indexOf(sub) + 1) % symbolMap.size // Get the index in symbolMap
+            setter(`${state.match(/&[a-z]+/)[0]}${symbolMap.keys().toArray()[nextIndex]}${state.match(/\d+/)[0]}`) // Change the stat depending on new symbol
+        }
+    }
+
+    const atkSelector = (
+        <div className='row'>
+            <div className='col-25'>
+                <label htmlFor="atk">Atk</label>
+            </div>
+            <div className='col-75'>
+                <button className="atk-filter" disabled={!Boolean(atk)} onClick={() => changeSymbol(atk,setAtk)}>{getSymbol(atk)}</button>
+                <input className='number-input' name="atk" type="text" inputMode='decimal' value={/\d+/.test(atk)?atk.match(/\d+/)[0]:""} onChange={({target: {value}}) => handleNumericChange(value,9999,setAtk,"atk")}/>
+            </div>
+        </div>
+    )
+
+    const defSelector = (
+        <div className='row'>
+            <div className='col-25'>
+                <label htmlFor="def">Def</label>
+            </div>
+            <div className='col-75'>
+                <button className="def-filter" disabled={!Boolean(def)} onClick={() => changeSymbol(def,setDef)}>{getSymbol(def)}</button>
+                <input className='number-input' name="def" type="text" inputMode='decimal' value={/\d+/.test(def)?def.match(/\d+/)[0]:""} onChange={({target: {value}}) => handleNumericChange(value,9999,setDef,"def")}/>
             </div>
         </div>
     )
 
     // Type of monster card : Ritual, Fusion, ...
     const monsterCardTypeSelector = (
-        <div>
-            <div>
-                <label htmlFor="monsterCardType">Type of Monster Card</label>
+        <div className='row'>
+            <div className='col-25'>
+                <label htmlFor="monster-card-type">Type of Monster Card</label>
             </div>
-            <div>
-                <select name="monsterCardType" onChange={({target: {value}}) => setMonsterType(value.toLowerCase() === 'unset'?'':`(/^(?!.*${value.toLowerCase()})/)`)}>
+            <div className='col-75'>
+                <select name="monster-card-type" onChange={({target: {value}}) => setMonsterType(value.toLowerCase() === 'unset'?'':`(/^(?!.*${value.toLowerCase()})/)`)}>
                     <option key='0'>Unset</option>
                     {monsterTypes.map((cardType, index) => <option key={index+1}>{cardType}</option>)}
                 </select>
@@ -180,12 +207,12 @@ const Search =  () => {
     )
 
     const attributeSelector = (
-        <div>
-            <div>
-                <label htmlFor="monsterAttribute">Attribute</label>
+        <div className='row'>
+            <div className='col-25'>
+                <label htmlFor="monster-attribute">Attribute</label>
             </div>
-            <div>
-                <select name='monsterAttribute' onChange={({target: {value}}) => setAttribute(value.toLowerCase() === 'unset'?'':`&attribute=${value}`)}>
+            <div className='col-75'>
+                <select name='monster-attribute' onChange={({target: {value}}) => setAttribute(value.toLowerCase() === 'unset'?'':`&attribute=${value}`)}>
                     <option key="0">Unset</option>
                     {monsterAttributes.map((cardAttribute, index) => <option key={index+1}>{cardAttribute}</option>)}
                 </select>
@@ -195,11 +222,11 @@ const Search =  () => {
 
     const effectSelector = (
         // <div class="switch-toggle switch-3 switch-candy">
-        <div>
-            <div>
+        <div className='row'>
+            <div className='col-25'>
                 <label htmlFor='state-e'>Monster effect</label>
             </div>
-            <div className="switch-toggle">
+            <div className="switch-toggle col-75">
 
                 <input id="normal" name="state-e" type="radio" readOnly checked={hasEffect === "(?=.*normal)" ?"checked":""} />
                 <label htmlFor="normal" onClick={() => setHasEffect("(?=.*normal)")}>Normal</label>
@@ -213,14 +240,13 @@ const Search =  () => {
         </div>
     )
 
-    // TODO : Fix regex
     const isPendulumSelector = (
         // <div class="switch-toggle switch-3 switch-candy">
-        <div>
-            <div>
-                <label htmlFor='state-p'>Pendlum</label>
+        <div className='row'>
+            <div className='col-25'>
+                <label htmlFor='state-p'>Pendulum</label>
             </div>
-            <div className="switch-toggle">
+            <div className="switch-toggle col-75">
 
                 <input id="non-pendulum" name="state-p" type="radio" readOnly checked={isPendulum === "(?!.*pendulum)" ?"checked":""} />
                 <label htmlFor="non-pendulum" onClick={() => setPendulum("(?!.*pendulum)")}>No</label>
@@ -234,14 +260,12 @@ const Search =  () => {
         </div>
     )
 
-    // TODO : Fix regex
     const isTunerSelector = (
-        // <div class="switch-toggle switch-3 switch-candy">
-        <div>
-            <div>
+        <div className='row'>
+            <div className='col-25'>
                 <label htmlFor='state-t'>Tuner</label>
             </div>
-            <div className="switch-toggle">
+            <div className="switch-toggle col-75">
 
                 <input id="non-tuner" name="state-t" type="radio" readOnly checked={isTuner === "(?!.*tuner)" ?"checked":""} />
                 <label htmlFor="non-tuner" onClick={() => setTuner("(?!.*tuner)")}>No</label>
@@ -256,12 +280,12 @@ const Search =  () => {
     )
 
     const pendulumSelector = (
-        <div>
-            <div>
-                <label htmlFor="pendulumScale">Pendulum Scale</label>
+        <div className='row'>
+            <div className='col-25'>
+                <label htmlFor="pendulum-scale">Pendulum Scale</label>
             </div>
-            <div> 
-                <input name="pendulumScale" type="text" placeholder='Type a number from 0 to 13' inputMode='decimal' value={pendulumScale.substring(7)} onChange={({target: {value}}) => handlePendulumScaleChange(value)}/>
+            <div className='col-75'> 
+                <input className='number-input' name="pendulum-scale" type="text" inputMode='decimal' value={/\d+/.test(pendulumScale)?pendulumScale.match(/\d+/)[0]:""} onChange={({target: {value}}) => handleNumericChange(value,13,setPendulumScale,"scale")}/>
             </div>
         </div>
     )
@@ -270,7 +294,10 @@ const Search =  () => {
     return (
         <div className="search">
             <div>
-                <input name='cardName' type="text" placeholder="Type card name"
+                <h3>Search</h3>
+            </div>
+            <div className='row'>
+                <input className='full-text-input' name='card-name' type="text" placeholder="Type card name"
                     onChange={({target: {value}}) => setName(`&fname=${value}`)}
                 />
                 {/*
@@ -285,8 +312,9 @@ const Search =  () => {
                     {monsterCardTypeSelector}
                     {monsterTypeSelector}
                     {levelSelector}
+                    {atkSelector}
+                    {defSelector}
                     {attributeSelector}
-                    {monsterCardTypeSelector}
                     {effectSelector}
                     {isTunerSelector}
                     {isPendulumSelector}
