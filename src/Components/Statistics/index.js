@@ -2,15 +2,20 @@ import React from 'react'
 import {useState} from 'react'
 
 import './statistics.css'
+import { getClassName } from '../../res/utils'
 
 import useAppStore from "../../Zustand/AppStore/store"
 
+const className = "statistics";
+
+const typeOfCard = ["Engine", "Non-Engine", "Starter", "Extender"]
+
 const Statistics =  () => {
     const setLoadingState = useAppStore((state) => state.setLoadingState)
-    const isActiveTab = useAppStore((state) => state.isActiveTab)
-    // TODO : Zustand + Display
+    const activeTab = useAppStore((state) => state.activeTab)
+
     return (
-        <div className="statistics tabcontent">
+        <div className={getClassName(activeTab,className)}>
             <div>
                 <h3>Statistics</h3>
             </div>

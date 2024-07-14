@@ -1,15 +1,18 @@
 import { create } from 'zustand'
 import * as reducer from './reducers'
 
+import data from "../../res/data.json"
+
 const useDeckStore =  create((set) => ({
     main: [],
     extra: [],
     side: [],
-    bulk: [],
-
-    addCardToDeck : (payload) => set(state => reducer.addCardToDeck(state,payload)),
-    removeCardFromDeck : (payload, index) => set(state => reducer.removeCardFromDeck(state,payload, index)),
+    bank: data.data.data, // []
+    
+    addCard : (payload, zone) => set(state => reducer.addCard(state,payload, zone)),
+    removeCard : (payload, zone, index) => set(state => reducer.removeCard (state, payload, zone, index)),
     eraseDeck : () => set(state => reducer.eraseDeck(state)),
+    eraseBank : () => set(state => reducer.eraseBank(state)),
 }))
 
 export default useDeckStore

@@ -2,6 +2,7 @@ import React from 'react'
 import {useState} from 'react'
 //import {useDispatch} from 'react-redux'
 import {default as Axios} from 'axios'
+import { getClassName } from '../../res/utils'
 
 import './search.css'
 
@@ -12,6 +13,8 @@ import data from "../../res/data.json"
 var axios = Axios.create({
     baseURL: 'https://db.ygoprodeck.com/api/v7/',
 })
+
+const className = "search"
 
 const cardTypes = ['Monster', 'Spell Card', 'Trap Card']
 const monsterTypes = ['Ritual', 'Fusion', 'Synchro', 'Link', 'XYZ', 'Toon', 'Spirit', 'Gemini', 'Union']
@@ -49,6 +52,7 @@ const Search =  () => {
     const [isTuner, setTuner] = useState('')
 
     const setLoadingState = useAppStore((state) => state.setLoadingState)
+    const activeTab = useAppStore((state) => state.activeTab)
 
     const setNextPageToLoad = useListerStore((state) => state.setNextPageToLoad)
     const setHasMoreItemsToLoad = useListerStore((state) => state.setHasMoreItemsToLoad)
@@ -148,22 +152,22 @@ const Search =  () => {
     )
 
     const symbolMap = new Map()
-    symbolMap.set("=", "Equal")
-    symbolMap.set("=lt", "Lower")
-    symbolMap.set("=gt","Higher")
+    symbolMap.set("=", '=')
+    symbolMap.set("=lt", "<")
+    symbolMap.set("=gt",">")
 
     const getSymbol = (state) => {
-        let sub
-        if (!state) sub = "="
-        else sub = state.match(/=[a-z]{0,2}/)[0]
-        return symbolMap.get(sub)
+        let sub;
+        if (!state) sub = "=";
+        else sub = state.match(/=[a-z]{0,2}/)[0];
+        return symbolMap.get(sub);
     }
 
     const changeSymbol = (state, setter) =>  {
         if (state) {
-            let sub = state.match(/=[a-z]{0,2}/)[0] // Extract the "=..."
-            let nextIndex = (symbolMap.keys().toArray().indexOf(sub) + 1) % symbolMap.size // Get the index in symbolMap
-            setter(`${state.match(/&[a-z]+/)[0]}${symbolMap.keys().toArray()[nextIndex]}${state.match(/\d+/)[0]}`) // Change the stat depending on new symbol
+            let sub = state.match(/=[a-z]{0,2}/)[0]; // Extract the "=..."
+            let nextIndex = (symbolMap.keys().toArray().indexOf(sub) + 1) % symbolMap.size; // Get the index in symbolMap
+            setter(`${state.match(/&[a-z]+/)[0]}${symbolMap.keys().toArray()[nextIndex]}${state.match(/\d+/)[0]}`); // Change the stat depending on new symbol
         }
     }
 
@@ -290,9 +294,8 @@ const Search =  () => {
         </div>
     )
 
-
     return (
-        <div className="search">
+        <div className={getClassName(activeTab,className)}>
             <div>
                 <h3>Search</h3>
             </div>

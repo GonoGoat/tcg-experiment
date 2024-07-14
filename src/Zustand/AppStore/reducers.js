@@ -4,3 +4,17 @@ export function setLoadingState(state, payload) {
         isLoading : payload
     })
 }
+
+export function setActiveTab(state, payload) {
+    return ({
+        ...state,
+        activeTab : payload
+    })
+}
+
+export function setClickZone(state, payload) {
+    return ({
+        ...state,
+        clickZone : payload
+    })
+}

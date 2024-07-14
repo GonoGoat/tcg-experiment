@@ -14,3 +14,8 @@
     background: none;
     opacity: 0.5;
 }
+
+.blank-card:focus {
+    background: none;
+    opacity: 0.5;
+}

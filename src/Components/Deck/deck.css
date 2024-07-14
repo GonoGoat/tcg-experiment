@@ -30,7 +30,7 @@
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: center;
-    border-top: 1px solid #FFFFFF;
+    /*border-top: 1px solid #FFFFFF;*/
     scrollbar-base-color: transparent;
     scrollbar-color: green;
     grid-area: deck;
@@ -45,8 +45,9 @@
 }
 
 .main {
+    overflow-y: auto;
     min-height: 20vh;
-    height: 55vh;
+    height: 70vh;
     width: 100vw;
     background-color: #ff0000;
 }
@@ -63,11 +64,4 @@
     height: 15vh;
     width: 100vw;
     background-color: #00FF00;
-}
-
-.bulk {
-    min-height: 5vh;
-    height: 15vh;
-    width: 100vw;
-    background-color: #F0FF0F;
 }

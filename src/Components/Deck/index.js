@@ -12,70 +12,35 @@ const Deck = () => {
     const main = useDeckStore(state => state.main)
     const extra = useDeckStore(state => state.extra)
     const side = useDeckStore(state => state.side)
-    const bulk = useDeckStore(state => state.bulk)
+    
+    const getCards = (map, zone) => {
+        return map.map( (card, index) =>card.type === "blank"?
+            <BlankCard 
+                index={index}  
+                key={shortid.generate()}
+                zone={zone} 
+            />
+            :
+            <Card 
+                cardInfo={card}
+                key={shortid.generate()} 
+                index={index} 
+                zone={zone}          
+            />
+        )
+    }
     
     return (
         <div className="deck">
-                <div className="main">
-                    {
-                        main.map( (card, index) =>card.type === "blank"?
-                            <BlankCard 
-                                index={index}  
-                                key={shortid.generate()} 
-                            />
-                            :
-                            <Card 
-                                cardInfo={card}
-                                key={shortid.generate()} 
-                                index={index}           
-                            />
-                        )
-                    }
-                </div>
-                <div className="extra">
-                    {
-                        extra.map( (card, index)  =>card.type === "blank"?
-                            <BlankCard 
-                                index={index}  
-                                key={shortid.generate()} 
-                            />
-                            :
-                            <Card 
-                                cardInfo={card}
-                                key={shortid.generate()} 
-                                index={index}            
-                            />
-                        )
-                    }
-                </div>
-                <div className="side">
-                    {
-                        side.map( (card, index)  =>card.type === "blank"?
-                            <BlankCard 
-                                index={index}  
-                                isDraggable={false}
-                                key={shortid.generate()} 
-                            />
-                            :
-                            <Card 
-                                cardInfo={card}
-                                key={shortid.generate()} 
-                                index={index}            
-                            />
-                        )
-                    }
-                </div>
-                <div className="bulk">
-                    {
-                        bulk.map( (card, index) => 
-                            <Card 
-                                cardInfo={card}
-                                key={shortid.generate()} 
-                                index={index}
-                            />
-                        )
-                    }
-                </div>
+            <div className="main" tabIndex="0">
+                {getCards(main, "main")}
+            </div>
+            <div className="extra" tabIndex="0">
+                {getCards(extra, "main")}
+            </div>
+            <div className="side" tabIndex="0">
+                {getCards(side, "side")}
+            </div>
         </div>
     )
    

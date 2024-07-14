@@ -20,6 +20,7 @@ const Lister = () => {
 
     const isLoading = useAppStore(state => state.isLoading)
     const setLoadingState = useAppStore(state => state.setLoadingState)
+    const clickZone = useAppStore(state => state.clickZone)
 
     const lister = useListerStore((state) => state.lister)
     const hasMoreItemsToLoad = useListerStore((state) => state.hasMoreItemsToLoad)
@@ -62,7 +63,8 @@ const Lister = () => {
             <div className="lister">
                 <BlankCard 
                     index={shortid.generate()}  
-                    isDraggable={true}
+                    isInLister={true}
+                    zone = "main"
                 />
                 {
                     lister.map(card=>
@@ -70,7 +72,8 @@ const Lister = () => {
                             cardInfo={card} 
                             index={shortid.generate()} 
                             key={card.id} 
-                            isDraggable={true}
+                            isInLister={true}
+                            zone = "main"
                         />
                     )
                 }

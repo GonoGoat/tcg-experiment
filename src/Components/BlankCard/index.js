@@ -3,22 +3,23 @@ import './blank_card.css'
 import placeholder from '../../res/placeholder.png'
 import useDeckStore from '../../Zustand/DeckStore/store'
 
-const BlankCard = ({isDraggable, index}) => {
-    const addCardToDeck = useDeckStore(state => state.addCardToDeck)
-    const removeCardFromDeck = useDeckStore(state => state.removeCardFromDeck)
+const BlankCard = ({isInLister, index, zone}) => {
+    const addCard = useDeckStore(state => state.addCard)
+    const removeCard = useDeckStore(state => state.removeCard)
     
     return (
             <div
-                className="blank-card"
+                className="blank-card" 
+                tabIndex="0"
             >
                 <img
                     src={placeholder}
                     width="90px" 
                     height="120px" 
-                    onClick={()=>isDraggable?
-                        addCardToDeck({type : "blank"})
+                    onClick={()=>isInLister?
+                        addCard({type : "blank"},zone)
                         :
-                        removeCardFromDeck("blank",index)
+                        removeCard("blank", zone, index)
                     }
                     alt="Blank card"
                 />

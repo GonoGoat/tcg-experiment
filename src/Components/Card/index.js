@@ -1,26 +1,31 @@
 import React, {useState} from 'react'
 import Tooltip from '@mui/material/Tooltip'
 import Dialog from '@mui/material/Dialog'
+
 import './card.css'
 import placeholder from '../../res/placeholder.png'
+
+
 import useDeckStore from '../../Zustand/DeckStore/store'
 
-const Card = ({cardInfo, isDraggable, index}) => {
+const Card = ({cardInfo, isInLister, index, zone}) => {
 
     const [isHovering, setHovering] = useState(false)
     const [open, setOpen] = useState(false);
     const img_url = cardInfo.card_images[0].image_url_small
 
-    const addCardToDeck = useDeckStore(state => state.addCardToDeck)
-    const removeCardFromDeck = useDeckStore(state => state.removeCardFromDeck)
+    const addCard = useDeckStore(state => state.addCard)
+    const removeCard = useDeckStore(state => state.removeCard)
 
     const handleClickOpen = () => setOpen(true)
+
     const handleClose = (event, reason) => {
         setOpen(false);
         if (reason !== "escapeKeyDown") {
             setHovering(false)
         }
     }
+    
     const handleClick = (event) => {
         setHovering(false) //disables tooltip
         if(event.buttons === 2){ //if right click opens modal
@@ -68,17 +73,18 @@ const Card = ({cardInfo, isDraggable, index}) => {
             onClose={handleClose}
         >
             <div
+                tabIndex="0"
                 className="card"
                 onMouseOver={()=>setHovering(true)}
                 onMouseOut={()=>setHovering(false)}
                 onMouseDown={e=>handleClick(e)} 
-                onClick={()=>isDraggable?
-                    addCardToDeck(cardInfo)
+                onClick={()=>isInLister?
+                    addCard(cardInfo, zone)
                     :
                     open?
                         null // no action if the dialog is up
                         :
-                        removeCardFromDeck(cardInfo.type,index)
+                        removeCard(cardInfo.type,zone, index)
                 }
             >
                 <img

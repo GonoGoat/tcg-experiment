@@ -3,8 +3,8 @@
  * @param {string} type Card type
  * @returns true/false if this card type belongs to the extra deck
  */
-const belongsToExtraDeck = (type) => {
-    return(        
+const belongsToExtraDeck = (type,zone) => {
+    if ((        
         type === 'XYZ Monster' ||
         type === 'Pendulum Effect Fusion Monster' ||
         type === 'Synchro Monster' ||
@@ -13,45 +13,44 @@ const belongsToExtraDeck = (type) => {
         type === 'XYZ Pendulum Effect Monster' ||
         type === 'Fusion Monster' ||
         type === 'Link Monster'
-    )
+    ) && zone === "main") return "extra"
+    else return zone
 }
 
-export function addCardToDeck (state, payload) {
-    if (belongsToExtraDeck(payload.type)){
-        return {
-            ...state,
-            extra:[...state.extra, payload]
-        }
-    } 
-    else {
-        return {
-            ...state,
-            main: [...state.main, payload]
-        }
+// TODO : Handle card/deck size limit
+export function addCard (state, payload, zone) {
+    console.log(state)
+    let key = belongsToExtraDeck(payload.type,zone)
+    console.log(zone)
+
+    return {
+        ...state,
+        [key]:[...state[key], payload]
     }
 }
 
-export function removeCardFromDeck (state, payload, index) {
-    if (belongsToExtraDeck(payload)){
-        return {
-            ...state,
-            extra: [...state.extra.slice(0,index).concat(state.extra.slice(index+1))]
-        }
-    }
-    else {
-        return {
-            ...state,
-            main: [...state.main.slice(0,index).concat(state.main.slice(index+1))]
-        }
+export function removeCard (state, payload, zone, index) {
+    let key = belongsToExtraDeck(payload.type,zone)
+
+    return {
+        ...state,
+        [key]: [...state[key].slice(0,index).concat(state[key].slice(index+1))]
     }
 }
 
+// TODO : Centraliser fonction pour toutes les zones
 export function eraseDeck (state) {
     return {
         ...state,
         main: [],
         extra: [],
         side: [],
-        bulk: []
+    }
+}
+
+export function eraseBank (state) {
+    return {
+        ...state,
+        bank : []
     }
 }

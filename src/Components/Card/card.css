@@ -56,3 +56,8 @@
 .card img:hover{
     cursor: pointer;
 }
+
+.card:focus {
+    background: none;
+    opacity: 0.5;
+}
