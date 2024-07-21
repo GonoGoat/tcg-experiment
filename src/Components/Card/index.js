@@ -5,13 +5,13 @@ import Dialog from '@mui/material/Dialog'
 import './card.css'
 import placeholder from '../../res/placeholder.png'
 
-
 import useDeckStore from '../../Zustand/DeckStore/store'
 
 const Card = ({cardInfo, isInLister, index, zone}) => {
 
     const [isHovering, setHovering] = useState(false)
     const [open, setOpen] = useState(false);
+    const [menu, setMenu] = useState(false);
     const img_url = cardInfo.card_images[0].image_url_small
 
     const addCard = useDeckStore(state => state.addCard)
@@ -25,6 +25,10 @@ const Card = ({cardInfo, isInLister, index, zone}) => {
             setHovering(false)
         }
     }
+
+    const displayMenu = () => {
+        // TODO : Distinction between lister and the rest for Add and remove
+    }
     
     const handleClick = (event) => {
         setHovering(false) //disables tooltip
@@ -32,7 +36,19 @@ const Card = ({cardInfo, isInLister, index, zone}) => {
             handleClickOpen()
             event.preventDefault()
             return false
-        } 
+        }
+        else { // Middle and left click
+            if (!open) {
+                setMenu(true)
+            }
+            /*isInLister&&!open ?
+            addCard(cardInfo, zone)
+            :
+            open?
+                null // no action if the dialog is up
+                :
+                removeCard(cardInfo.type,zone, index)*/
+        }
     }
 
     const TooltipDisplay = <div>
@@ -76,16 +92,12 @@ const Card = ({cardInfo, isInLister, index, zone}) => {
                 tabIndex="0"
                 className="card"
                 onMouseOver={()=>setHovering(true)}
+                onFocus={()=>setHovering(true)}
+
                 onMouseOut={()=>setHovering(false)}
-                onMouseDown={e=>handleClick(e)} 
-                onClick={()=>isInLister?
-                    addCard(cardInfo, zone)
-                    :
-                    open?
-                        null // no action if the dialog is up
-                        :
-                        removeCard(cardInfo.type,zone, index)
-                }
+                onBlur={()=>setHovering(false)} // On Focus Out
+                
+                onMouseDown={e=>handleClick(e)}
             >
                 <img
                     src={img_url}
@@ -93,6 +105,7 @@ const Card = ({cardInfo, isInLister, index, zone}) => {
                     height="120px" 
                     alt={cardInfo.name}
                 />
+                {menu ? displayMenu : <React.Fragment/>}
                 <Dialog 
                     open={open} 
                     onClose={handleClose} 

@@ -41,12 +41,15 @@
     background-image: url('../../res/placeholder.png');
     
 }
-
-.card:hover{
-    cursor: pointer;
-    background: none;
+.card:hover {
     opacity: 0.5;
 }
+
+.card:hover, .card:focus {
+    cursor: pointer;
+    background: none;
+}
+
 .card img{
     width: 90px;
     height: 120px;
@@ -55,9 +58,4 @@
 
 .card img:hover{
     cursor: pointer;
-}
-
-.card:focus {
-    background: none;
-    opacity: 0.5;
 }

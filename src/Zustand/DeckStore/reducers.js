@@ -1,8 +1,3 @@
-/**
- * 
- * @param {string} type Card type
- * @returns true/false if this card type belongs to the extra deck
- */
 const belongsToExtraDeck = (type,zone) => {
     if ((        
         type === 'XYZ Monster' ||
