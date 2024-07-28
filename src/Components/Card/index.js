@@ -26,9 +26,19 @@ const Card = ({cardInfo, isInLister, index, zone}) => {
         }
     }
 
-    const displayMenu = () => {
-        // TODO : Distinction between lister and the rest for Add and remove
-    }
+    const displayMenu = (
+        <div className='menu'>
+            <div>
+                <strong>Main/Extra</strong>
+            </div>
+            <div>
+                <strong>Side</strong>
+            </div>
+            <div>
+                <strong>Card Bank</strong>
+            </div>
+        </div>
+    ) 
     
     const handleClick = (event) => {
         setHovering(false) //disables tooltip

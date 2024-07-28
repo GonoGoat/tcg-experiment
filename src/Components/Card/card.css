@@ -7,6 +7,8 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-image: url('../../res/placeholder.png');
+    position: relative;
+    text-align: center;
 }
 
 .card-modal {
@@ -58,4 +60,14 @@
 
 .card img:hover{
     cursor: pointer;
+}
+
+.menu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: space-around;
+    display: grid;
+    font-size: small;
 }
