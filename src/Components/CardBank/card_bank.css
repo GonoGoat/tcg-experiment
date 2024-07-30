@@ -9,7 +9,7 @@
     border-top: 1px solid #FFFFFF;
     scrollbar-base-color: transparent;
     scrollbar-color: green;
-    grid-area: card-bank;
+    grid-area: tabs;
     min-height: 50vh;
     width: initial;
     scrollbar-width: 100px;

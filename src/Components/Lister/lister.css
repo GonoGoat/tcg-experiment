@@ -21,7 +21,7 @@
     color: yellow;
 }
 
-.lister div {
+.lister .card, .lister .blank-card {
     margin: 10px;
 }
 
@@ -50,4 +50,3 @@
     cursor: pointer;
 
 }
-

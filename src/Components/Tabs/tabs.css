@@ -1,5 +1,8 @@
 .tabs {
     grid-area: tabs;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 /*font-family: 'Times New Roman', Times, serif;*/

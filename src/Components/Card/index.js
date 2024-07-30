@@ -26,16 +26,33 @@ const Card = ({cardInfo, isInLister, index, zone}) => {
         }
     }
 
+    // Options : 
+    // - In lister
+    //      Blank : Main - Extra - Side
+    //      Card : Main/Extra - Side - Bank
+    // - In Deck : Remove ( - Bank)
+    // - In Bank : Same as Card in lister + Remove
+    function getMenuOption (option) {
+        return (
+            <div onMouse>
+                <strong>{option}</strong>
+            </div>
+        )
+    }
+
     const displayMenu = (
         <div className='menu'>
-            <div>
+            <div onMouseDown={() => addCard(cardInfo, "main")}>
                 <strong>Main/Extra</strong>
             </div>
-            <div>
+            <div onMouseDown={() => addCard(cardInfo, "side")}>
                 <strong>Side</strong>
             </div>
-            <div>
+            <div onMouseDown={() => addCard(cardInfo, "bank")}>
                 <strong>Card Bank</strong>
+            </div>
+            <div onMouseDown={() => removeCard(cardInfo.type,zone, index)}>
+                <strong>Remove</strong>
             </div>
         </div>
     ) 
