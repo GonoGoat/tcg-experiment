@@ -70,9 +70,9 @@ const Lister = () => {
                         <Card 
                             cardInfo={card} 
                             index={shortid.generate()} 
-                            key={card.id} 
+                            key={shortid.generate()} 
                             isInLister={true}
-                            zone = "main"
+                            zone = "lister"
                         />
                     )
                 }

@@ -29,7 +29,7 @@ const CardBank = () => {
                     :
                     <Card 
                         cardInfo={card}
-                        key={card.id} 
+                        key={shortid.generate()} 
                         index={index}    
                         zone="bank"        
                     />

@@ -64,6 +64,7 @@
     transform: translate(-50%, -50%);
     justify-content: space-around;
     font-size: small;
+    color : white;
 }
 
 .menu div:hover {

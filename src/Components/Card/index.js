@@ -30,32 +30,43 @@ const Card = ({cardInfo, isInLister, index, zone}) => {
     // - In lister
     //      Blank : Main - Extra - Side
     //      Card : Main/Extra - Side - Bank
-    // - In Deck : Remove ( - Bank)
-    // - In Bank : Same as Card in lister + Remove
-    function getMenuOption (option) {
-        return (
-            <div onMouse>
-                <strong>{option}</strong>
-            </div>
-        )
-    }
+    // - In Deck :  
+    //    Main/Extra : Side - Bank - Remove
+    //    Side : Main/Extra - Bank - Remove
+    // - In Bank : Main/Extra - Side - Remove
 
-    const displayMenu = (
+
+    const displayMenu = 
         <div className='menu'>
-            <div onMouseDown={() => addCard(cardInfo, "main")}>
-                <strong>Main/Extra</strong>
-            </div>
-            <div onMouseDown={() => addCard(cardInfo, "side")}>
-                <strong>Side</strong>
-            </div>
-            <div onMouseDown={() => addCard(cardInfo, "bank")}>
-                <strong>Card Bank</strong>
-            </div>
-            <div onMouseDown={() => removeCard(cardInfo.type,zone, index)}>
-                <strong>Remove</strong>
-            </div>
+            {zone !== "main" ?
+                <div onMouseDown={() => addCard(cardInfo, "main")}>
+                    <strong>Main/Extra</strong>
+                </div>
+                :
+                <React.Fragment/>
+            }
+            {zone !== "side" ?
+                <div onMouseDown={() => addCard(cardInfo, "side")}>
+                    <strong>Side</strong>
+                </div>
+                :
+                <React.Fragment/>
+            }   
+            {zone !== "bank" ?
+                <div onMouseDown={() => addCard(cardInfo, "bank")}>
+                    <strong>Card Bank</strong>
+                </div>
+                :
+                <React.Fragment/>
+            }
+            {zone !== "lister" ?
+                <div onMouseDown={() => removeCard(cardInfo.type,zone, index)}>
+                    <strong>Remove</strong>
+                </div>
+                :
+                <React.Fragment/>
+            }
         </div>
-    ) 
     
     const handleClick = (event) => {
         setHovering(false) //disables tooltip
@@ -66,7 +77,7 @@ const Card = ({cardInfo, isInLister, index, zone}) => {
         }
         else { // Middle and left click
             if (!open) {
-                setMenu(true)
+                setMenu(!menu)
             }
             /*isInLister&&!open ?
             addCard(cardInfo, zone)

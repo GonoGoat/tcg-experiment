@@ -6,6 +6,7 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-image: url('../../res/placeholder.png');
+    position: relative;
 }
 
 .blank-card:hover{
@@ -16,4 +17,20 @@
 .blank-card:focus {
     background: none;
     opacity: 0.5;
+}
+
+.blank-menu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: space-around;
+    font-size: small;
+    color : white;
+    text-align: center;
+}
+
+.blank-menu div:hover {
+    color : blue;
+    cursor: pointer;
 }
