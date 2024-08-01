@@ -28,6 +28,7 @@ const Lister = () => {
     const setHasMoreItemsToLoad = useListerStore((state) => state.setHasMoreItemsToLoad)
     const addListerItems = useListerStore((state) => state.addListerItems)
    
+    // TODO : Move style to .css
     async function loadMoreItems(){
         setHasMoreItemsToLoad(false)
         setLoadingMoreItems(true)
@@ -62,8 +63,7 @@ const Lister = () => {
             <div className="lister">
                 <BlankCard 
                     index={shortid.generate()}  
-                    isInLister={true}
-                    zone = "main"
+                    source = "lister"
                 />
                 {
                     lister.map(card=>
@@ -71,8 +71,7 @@ const Lister = () => {
                             cardInfo={card} 
                             index={shortid.generate()} 
                             key={shortid.generate()} 
-                            isInLister={true}
-                            zone = "lister"
+                            source = "lister"
                         />
                     )
                 }

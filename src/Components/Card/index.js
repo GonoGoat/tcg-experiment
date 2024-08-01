@@ -7,7 +7,7 @@ import placeholder from '../../res/placeholder.png'
 
 import useDeckStore from '../../Zustand/DeckStore/store'
 
-const Card = ({cardInfo, isInLister, index, zone}) => {
+const Card = ({cardInfo, index, source}) => {
 
     const [isHovering, setHovering] = useState(false)
     const [open, setOpen] = useState(false);
@@ -38,29 +38,29 @@ const Card = ({cardInfo, isInLister, index, zone}) => {
 
     const displayMenu = 
         <div className='menu'>
-            {zone !== "main" ?
+            {source !== "main" ?
                 <div onMouseDown={() => addCard(cardInfo, "main")}>
                     <strong>Main/Extra</strong>
                 </div>
                 :
                 <React.Fragment/>
             }
-            {zone !== "side" ?
+            {source !== "side" ?
                 <div onMouseDown={() => addCard(cardInfo, "side")}>
                     <strong>Side</strong>
                 </div>
                 :
                 <React.Fragment/>
             }   
-            {zone !== "bank" ?
+            {source !== "bank" ?
                 <div onMouseDown={() => addCard(cardInfo, "bank")}>
                     <strong>Card Bank</strong>
                 </div>
                 :
                 <React.Fragment/>
             }
-            {zone !== "lister" ?
-                <div onMouseDown={() => removeCard(cardInfo.type,zone, index)}>
+            {source !== "lister" ?
+                <div onMouseDown={() => removeCard(cardInfo.type,source, index)}>
                     <strong>Remove</strong>
                 </div>
                 :

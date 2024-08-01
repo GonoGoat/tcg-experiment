@@ -3,37 +3,40 @@ import './blank_card.css'
 import placeholder from '../../res/placeholder.png'
 import useDeckStore from '../../Zustand/DeckStore/store'
 
-const BlankCard = ({isInLister, index, zone}) => {
+const BlankCard = ({index, source}) => {
     const [menu, setMenu] = useState(false);
 
     const addCard = useDeckStore(state => state.addCard)
     const removeCard = useDeckStore(state => state.removeCard)
 
-    // TODO : Distinction for main and extra
+    
+    // Options : 
+    // - In lister
+    //      Blank : Main - Extra - Side
+    // - In Deck : Remove
+    //    Side : Remove
+    
+    // TODO : Edit Remove
     const displayMenu = 
-        <div className='blank-menu'>
-            {zone !== "main" ?
+    <div className='blank-menu'>
+        {source === "lister" ?
+            <React.Fragment>
                 <div onMouseDown={() => addCard({type : "blank"},"main")}>
-                    <strong>Main/Extra</strong>
+                    <strong>Main</strong>
                 </div>
-                :
-                <React.Fragment/>
-            }
-            {zone !== "side" ?
+                <div onMouseDown={() => addCard({type : "blank"},"blank-extra")}>
+                    <strong>Extra</strong>
+                </div>
                 <div onMouseDown={() => addCard({type : "blank"}, "side")}>
                     <strong>Side</strong>
                 </div>
-                :
-                <React.Fragment/>
-            }   
-            {zone !== "lister" ?
-                <div onMouseDown={() => removeCard("blank",zone, index)}>
-                    <strong>Remove</strong>
-                </div>
-                :
-                <React.Fragment/>
-            }
-        </div>
+            </React.Fragment>
+            :
+            <div onMouseDown={() => removeCard("blank", source, index)}>
+                <strong>Remove</strong>
+            </div>
+        }
+    </div>
     
     return (
             <div

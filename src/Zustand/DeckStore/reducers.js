@@ -1,22 +1,28 @@
-const belongsToExtraDeck = (type,zone) => {
-    if ((        
-        type === 'XYZ Monster' ||
-        type === 'Pendulum Effect Fusion Monster' ||
-        type === 'Synchro Monster' ||
-        type === 'Synchro Pendulum Effect Monster' ||
-        type === 'Synchro Tuner Monster' ||
-        type === 'XYZ Pendulum Effect Monster' ||
-        type === 'Fusion Monster' ||
-        type === 'Link Monster'
-    ) && zone === "main") return "extra"
-    else return zone
+const belongsToExtraDeck = (type,source) => {
+    if (
+        (
+            (        
+            type === 'XYZ Monster' ||
+            type === 'Pendulum Effect Fusion Monster' ||
+            type === 'Synchro Monster' ||
+            type === 'Synchro Pendulum Effect Monster' ||
+            type === 'Synchro Tuner Monster' ||
+            type === 'XYZ Pendulum Effect Monster' ||
+            type === 'Fusion Monster' ||
+            type === 'Link Monster'
+            ) 
+            && (source === "main")
+        ) 
+        || source === "blank-extra"
+    ) return "extra"
+    else return source
 }
 
 // TODO : Handle card/deck size limit
-export function addCard (state, payload, zone) {
+export function addCard (state, payload, source) {
     console.log(state)
-    let key = belongsToExtraDeck(payload.type,zone)
-    console.log(zone)
+    let key = belongsToExtraDeck(payload.type,source)
+    console.log(source)
 
     return {
         ...state,
@@ -24,8 +30,8 @@ export function addCard (state, payload, zone) {
     }
 }
 
-export function removeCard (state, payload, zone, index) {
-    let key = belongsToExtraDeck(payload.type,zone)
+export function removeCard (state, payload, source, index) {
+    let key = belongsToExtraDeck(payload.type, source)
 
     return {
         ...state,

@@ -22,16 +22,15 @@ const CardBank = () => {
                 bank.map( (card, index)  =>card.type === "blank"?
                     <BlankCard 
                         index={index}  
-                        isInLister={false}
                         key={shortid.generate()} 
-                        zone="bank"
+                        source="bank"
                     />
                     :
                     <Card 
                         cardInfo={card}
                         key={shortid.generate()} 
                         index={index}    
-                        zone="bank"        
+                        source="bank"        
                     />
                 )
             }

@@ -13,19 +13,19 @@ const Deck = () => {
     const extra = useDeckStore(state => state.extra)
     const side = useDeckStore(state => state.side)
     
-    const getCards = (map, zone) => {
+    const getCards = (map, dest) => {
         return map.map( (card, index) =>card.type === "blank"?
             <BlankCard 
                 index={index}  
                 key={shortid.generate()}
-                zone={zone} 
+                source={dest} 
             />
             :
             <Card 
                 cardInfo={card}
                 key={shortid.generate()} 
                 index={index} 
-                zone={zone}          
+                zone={dest}          
             />
         )
     }
