@@ -31,7 +31,9 @@ export function addCard (state, payload, source) {
 }
 
 export function removeCard (state, payload, source, index) {
+    console.log(source)
     let key = belongsToExtraDeck(payload.type, source)
+    console.log(key)
 
     return {
         ...state,

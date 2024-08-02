@@ -25,7 +25,7 @@ const Deck = () => {
                 cardInfo={card}
                 key={shortid.generate()} 
                 index={index} 
-                zone={dest}          
+                source={dest}          
             />
         )
     }
