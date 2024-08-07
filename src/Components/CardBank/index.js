@@ -18,6 +18,9 @@ const CardBank = () => {
 
     return (
         <div className={getClassName(activeTab,className)}>
+            <div>
+                <h3>Card Bank</h3>
+            </div>
             {
                 bank.map( (card, index)  =>card.type === "blank"?
                     <BlankCard 

@@ -1,3 +1,4 @@
+// TODO : Switch for Regex match ? 
 const belongsToExtraDeck = (type,source) => {
     if (
         (

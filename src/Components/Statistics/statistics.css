@@ -38,3 +38,27 @@
     margin-top: 0;
   }
 }
+
+.markers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.markers div {
+  margin: 10px;
+  border: solid white;
+  border-width: 1px;
+  text-align: center;
+  padding: 1px;
+}
+
+.markers div:hover {
+  background-color: white;
+  color: black;
+  cursor: pointer;
+}
+
+hr {
+  width: 100%;
+}

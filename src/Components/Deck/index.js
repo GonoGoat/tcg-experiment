@@ -36,7 +36,7 @@ const Deck = () => {
                 {getCards(main, "main")}
             </div>
             <div className="extra" tabIndex="0">
-                {getCards(extra, "main")}
+                {getCards(extra, "extra")}
             </div>
             <div className="side" tabIndex="0">
                 {getCards(side, "side")}
