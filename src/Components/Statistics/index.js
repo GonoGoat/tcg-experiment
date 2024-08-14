@@ -11,8 +11,7 @@ const className = "statistics";
 
 // Engine : Starter - Extender - (Brick)
 // Non-Engine : Board Breaker - Hand Trap - (Defensive) - Consistency/Power card
-const typeOfCard = //["Engine", "Non-Engine", "Starter", "Extender", "Hand Trap", "Board Breaker"]
-["Engine", "Non-Engine"]
+const typeOfCard = ["Engine", "Non-Engine"]//["Engine", "Non-Engine", "Starter", "Extender", "Hand Trap", "Board Breaker"]
 
 const Statistics =  () => {
     //const setLoadingState = useAppStore((state) => state.setLoadingState)
@@ -22,17 +21,16 @@ const Statistics =  () => {
     const extra = useDeckStore((state) => state.extra)
     const side = useDeckStore((state) => state.side)
 
-    const [selectedMarker, setSelectedMarker] = useEffect()
+    const [selectedMarker, setSelectedMarker] = useState(-1)
 
     return (
         <div className={getClassName(activeTab,className)}>
             <div className='markers'>
                 {typeOfCard.map( (marker, index) =>
-                <div className={selectedMarker===index?}>
-                
-                </div>
-            )
-                }
+                    <div className={selectedMarker===index?"selected":""} onMouseDown={() => setSelectedMarker(index===selectedMarker?-1:index)}>
+                        {marker}
+                    </div>
+                )}
             </div>
             <hr/>
             <div className='results'>
