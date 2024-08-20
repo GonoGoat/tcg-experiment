@@ -8,11 +8,13 @@ const useDeckStore =  create((set) => ({
     extra: [],
     side: [],
     bank: data.data.data, // []
+    markers : {},
     
     addCard : (payload, zone) => set(state => reducer.addCard(state,payload, zone)),
     removeCard : (payload, zone, index) => set(state => reducer.removeCard (state, payload, zone, index)),
     eraseDeck : () => set(state => reducer.eraseDeck(state)),
     eraseBank : () => set(state => reducer.eraseBank(state)),
+    addMarker : (payload, marker) => set(state => reducer.addMarker(state, payload.id, marker))
 }))
 
 export default useDeckStore

@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
+import "./config"
 import './index.css';
 import Home from './Home';
 import * as serviceWorker from './serviceWorker';

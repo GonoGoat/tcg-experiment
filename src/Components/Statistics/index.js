@@ -9,10 +9,6 @@ import useDeckStore from "../../Zustand/DeckStore/store"
 
 const className = "statistics";
 
-// Engine : Starter - Extender - (Brick)
-// Non-Engine : Board Breaker - Hand Trap - (Defensive) - Consistency/Power card
-const typeOfCard = ["Engine", "Non-Engine"]//["Engine", "Non-Engine", "Starter", "Extender", "Hand Trap", "Board Breaker"]
-
 const Statistics =  () => {
     //const setLoadingState = useAppStore((state) => state.setLoadingState)
     const activeTab = useAppStore((state) => state.activeTab)
@@ -26,9 +22,9 @@ const Statistics =  () => {
     return (
         <div className={getClassName(activeTab,className)}>
             <div className='markers'>
-                {typeOfCard.map( (marker, index) =>
+                {Object.keys(global.config.markers).map( (key, index) =>
                     <div className={selectedMarker===index?"selected":""} onMouseDown={() => setSelectedMarker(index===selectedMarker?-1:index)}>
-                        {marker}
+                        {global.config.markers[key]}
                     </div>
                 )}
             </div>

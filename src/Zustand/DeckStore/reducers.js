@@ -31,6 +31,7 @@ export function addCard (state, payload, source) {
     }
 }
 
+// TODO : Include remove of marker if any
 export function removeCard (state, payload, source, index) {
     console.log(source)
     let key = belongsToExtraDeck(payload.type, source)
@@ -56,5 +57,21 @@ export function eraseBank (state) {
     return {
         ...state,
         bank : []
+    }
+}
+
+// TODO : Always add new marker on end of array
+export function addMarker (state, id, newMarker) {
+    if (state.markers.hasOwnProperty(id)) {
+        for (const marker of state.markers[id]) {
+            if (marker === newMarker) return state
+        }
+        return {
+            ...state,
+            markers : {
+                ...state.markers,
+                [id]: state.markers[id].toSpliced(-1,0, newMarker)
+            }
+        } 
     }
 }
