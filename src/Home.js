@@ -5,6 +5,8 @@ import Tabs from './Components/Tabs'
 import Lister from './Components/Lister'
 //import Options from './Components/Options'
 
+// TODO: useEffect to initiate activeTab of Appstore
+
 function Home() {
   return (
     <div className="Home">

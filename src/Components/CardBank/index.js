@@ -10,7 +10,7 @@ import { getClassName } from '../../res/utils'
 import useDeckStore from '../../Zustand/DeckStore/store'
 import useAppStore from '../../Zustand/AppStore/store'
 
-const className = "card-bank"
+const className = global.config.activeTabs.CARD_BANK
 // TODO : Export/import via File system (same as decks)
 const CardBank = () => {
     const bank = useDeckStore(state => state.bank)

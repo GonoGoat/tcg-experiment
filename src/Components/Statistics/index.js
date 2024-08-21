@@ -7,7 +7,7 @@ import { getClassName } from '../../res/utils'
 import useAppStore from "../../Zustand/AppStore/store"
 import useDeckStore from "../../Zustand/DeckStore/store"
 
-const className = "statistics";
+const className = global.config.activeTabs.STATS;
 
 const Statistics =  () => {
     //const setLoadingState = useAppStore((state) => state.setLoadingState)
@@ -23,7 +23,7 @@ const Statistics =  () => {
         <div className={getClassName(activeTab,className)}>
             <div className='markers'>
                 {Object.keys(global.config.markers).map( (key, index) =>
-                    <div className={selectedMarker===index?"selected":""} onMouseDown={() => setSelectedMarker(index===selectedMarker?-1:index)}>
+                    <div className={selectedMarker===index?"selected":""} key={index} onMouseDown={() => setSelectedMarker(index===selectedMarker?-1:index)}>
                         {global.config.markers[key]}
                     </div>
                 )}

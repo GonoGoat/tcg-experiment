@@ -16,7 +16,6 @@ const BlankCard = ({index, source}) => {
     // - In Deck : Remove
     //    Side : Remove
     
-    // TODO : Edit Remove
     const displayMenu = 
     <div className='blank-menu'>
         {source === "lister" ?

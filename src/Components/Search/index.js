@@ -14,7 +14,7 @@ var axios = Axios.create({
     baseURL: 'https://db.ygoprodeck.com/api/v7/',
 })
 
-const className = "search"
+const className = global.config.activeTabs.SEARCH
 
 const cardTypes = ['Monster', 'Spell Card', 'Trap Card']
 const monsterTypes = ['Ritual', 'Fusion', 'Synchro', 'Link', 'XYZ', 'Toon', 'Spirit', 'Gemini', 'Union']

@@ -12,9 +12,16 @@ export function setActiveTab(state, payload) {
     })
 }
 
-export function setClickZone(state, payload) {
+export function setMarkingCards(state, payload) {
     return ({
         ...state,
-        clickZone : payload
+        isMarkingCards : payload
+    })
+}
+
+export function setActiveMarker(state, payload) {
+    return ({
+        ...state,
+        activeMarker : payload
     })
 }
