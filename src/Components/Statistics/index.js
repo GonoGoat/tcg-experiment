@@ -6,6 +6,7 @@ import { getClassName } from '../../res/utils'
 
 import useAppStore from "../../Zustand/AppStore/store"
 import useDeckStore from "../../Zustand/DeckStore/store"
+import useStatStore from '../../Zustand/StatStore/store'
 
 const className = global.config.activeTabs.STATS;
 
@@ -17,13 +18,20 @@ const Statistics =  () => {
     const extra = useDeckStore((state) => state.extra)
     const side = useDeckStore((state) => state.side)
 
-    const [selectedMarker, setSelectedMarker] = useState(-1)
+    const markers = useStatStore((state) => state.markers)
+    const activeMarker = useStatStore((state) => state.activeMarker)
+    const setActiveMarker = useStatStore((state) => state.setActiveMarker)
 
+    function handleMarking (marker) {
+        setActiveMarker(activeMarker===marker?"":marker)
+    }
+
+    // TODO : Handle display of markers for each card marked
     return (
         <div className={getClassName(activeTab,className)}>
             <div className='markers'>
                 {Object.keys(global.config.markers).map( (key, index) =>
-                    <div className={selectedMarker===index?"selected":""} key={index} onMouseDown={() => setSelectedMarker(index===selectedMarker?-1:index)}>
+                    <div className={global.config.markers[key]===global.config.markers[activeMarker]?"selected":""} key={index} onMouseDown={() => handleMarking(key)}>
                         {global.config.markers[key]}
                     </div>
                 )}
@@ -38,6 +46,10 @@ const Statistics =  () => {
                     <span><strong>Extra size:</strong> {extra.length}</span><br/>
                     <span><strong>Side size:</strong> {side.length}</span><br/>
                 </div>
+                {activeMarker}
+                {Object.keys(markers).map((key, index) => {
+                    
+                })}
             </div>
         </div>
     )

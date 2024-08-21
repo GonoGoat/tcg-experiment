@@ -36,7 +36,7 @@ const Card = ({cardInfo, index, source}) => {
     // - In Bank : Main/Extra - Side - Remove
 
 
-    const displayMenu = 
+    const displayMenu = (
         <div className='menu'>
             {source !== "main" && source !== "extra" ?
                 <div onMouseDown={() => addCard(cardInfo, "main")}>
@@ -67,6 +67,7 @@ const Card = ({cardInfo, index, source}) => {
                 <React.Fragment/>
             }
         </div>
+    )
     
     const handleClick = (event) => {
         setHovering(false) //disables tooltip
@@ -79,13 +80,6 @@ const Card = ({cardInfo, index, source}) => {
             if (!open) {
                 setMenu(!menu)
             }
-            /*isInLister&&!open ?
-            addCard(cardInfo, zone)
-            :
-            open?
-                null // no action if the dialog is up
-                :
-                removeCard(cardInfo.type,zone, index)*/
         }
     }
 

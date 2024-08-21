@@ -1,21 +1,26 @@
 import React, {useState} from 'react'
+
 import './blank_card.css'
 import placeholder from '../../res/placeholder.png'
-import useDeckStore from '../../Zustand/DeckStore/store'
 
-const BlankCard = ({index, source}) => {
+import useDeckStore from '../../Zustand/DeckStore/store'
+import useStatStore from '../../Zustand/StatStore/store'
+
+const BlankCard = ({index, source, id, isHandlingMarking}) => {
     const [menu, setMenu] = useState(false);
 
     const addCard = useDeckStore(state => state.addCard)
     const removeCard = useDeckStore(state => state.removeCard)
 
-    
+    const addMarker = useDeckStore(state => state.addMarker)
+ 
     // Options : 
     // - In lister
     //      Blank : Main - Extra - Side
     // - In Deck : Remove
     //    Side : Remove
     
+    // TODO : Handler for adding marker
     const displayMenu = 
     <div className='blank-menu'>
         {source === "lister" ?
@@ -35,6 +40,7 @@ const BlankCard = ({index, source}) => {
                 <strong>Remove</strong>
             </div>
         }
+        {id}
     </div>
     
     return (
