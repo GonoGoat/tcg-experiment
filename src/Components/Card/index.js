@@ -6,8 +6,9 @@ import './card.css'
 import placeholder from '../../res/placeholder.png'
 
 import useDeckStore from '../../Zustand/DeckStore/store'
+import useStatStore from '../../Zustand/StatStore/store'
 
-const Card = ({cardInfo, index, source}) => {
+const Card = ({cardInfo, index, source, isHandlingMarking, markers}) => {
 
     const [isHovering, setHovering] = useState(false)
     const [open, setOpen] = useState(false);
@@ -16,6 +17,8 @@ const Card = ({cardInfo, index, source}) => {
 
     const addCard = useDeckStore(state => state.addCard)
     const removeCard = useDeckStore(state => state.removeCard)
+
+    const handleMarking = useStatStore(state => state.handleMarking)
 
     const handleClickOpen = () => setOpen(true)
 
@@ -52,7 +55,7 @@ const Card = ({cardInfo, index, source}) => {
                 :
                 <React.Fragment/>
             }   
-            {source !== "bank" ?
+            {source !== "card-bank" ?
                 <div onMouseDown={() => addCard(cardInfo, "bank")}>
                     <strong>Card Bank</strong>
                 </div>
@@ -66,17 +69,19 @@ const Card = ({cardInfo, index, source}) => {
                 :
                 <React.Fragment/>
             }
+            {markers ? markers.map(marker => <div>{marker}</div>) : <React.Fragment/>}
         </div>
     )
     
     const handleClick = (event) => {
         setHovering(false) //disables tooltip
-        if(event.buttons === 2){ //if right click opens modal
+        if(event.buttons === 2){ // right click opens modal
             handleClickOpen()
             event.preventDefault()
             return false
         }
         else { // Middle and left click
+            if (isHandlingMarking) handleMarking(cardInfo.id)
             if (!open) {
                 setMenu(!menu)
             }
@@ -86,8 +91,8 @@ const Card = ({cardInfo, index, source}) => {
     const TooltipDisplay = <div>
         {cardInfo.name?<span>Name: {cardInfo.name}<br/></span>:<React.Fragment/>}
         {cardInfo.level?<span>LV: {cardInfo.level}<br/></span>:<React.Fragment/>}
-        {cardInfo.type?<span>Type: {cardInfo.type}<br/></span>:<React.Fragment/>}
-        {cardInfo.race?<span>Race: {cardInfo.race}<br/></span>:<React.Fragment/>}
+        {cardInfo.type?<span>Card Type: {cardInfo.type}<br/></span>:<React.Fragment/>}
+        {cardInfo.race?<span>Type: {cardInfo.race}<br/></span>:<React.Fragment/>}
         {cardInfo.attribute?<span>Attribute: {cardInfo.attribute}<br/></span>:<React.Fragment/>}
         {cardInfo.atk?<span>ATK: {cardInfo.atk}<br/></span>:<React.Fragment/>}
         {cardInfo.def?<span>DEF: {cardInfo.def}<br/></span>:<React.Fragment/>}

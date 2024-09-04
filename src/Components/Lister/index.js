@@ -62,16 +62,17 @@ const Lister = () => {
         return (
             <div className="lister">
                 <BlankCard 
-                    index={shortid.generate()}  
-                    source = "lister"
+                    index={0}  
+                    source = {global.config.sources.LISTER}
+                    id={shortid.generate()}
                 />
                 {
-                    lister.map(card=>
+                    lister.map((card, index)=>
                         <Card 
                             cardInfo={card} 
-                            index={shortid.generate()} 
+                            index={index+1} 
                             key={shortid.generate()} 
-                            source = "lister"
+                            source = {global.config.sources.LISTER}
                         />
                     )
                 }

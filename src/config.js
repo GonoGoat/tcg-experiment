@@ -5,10 +5,21 @@ module.exports = global.config = {
         ENGINE: "Engine",
         NON_ENGINE: "Non-Engine"//["Engine", "Non-Engine", "Starter", "Extender", "Hand Trap", "Board Breaker"]    
     }),
+    // classname
     activeTabs: Object.freeze({
         STATS: "statistics",
         CARD_BANK: "card-bank",
         SEARCH: "search"
+    }),
+    // name for identification
+    sources: Object.freeze({
+        LISTER: "lister",
+        CARD_BANK: "card-bank",
+        SEARCH: "search",
+        MAIN: "main",
+        EXTRA: "extra",
+        SIDE: "side",
+        BLANK_EXTRA: "blank-extra"
     }),
 
 };

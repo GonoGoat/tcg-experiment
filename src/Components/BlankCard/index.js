@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import shortid from 'shortid'
 
 import './blank_card.css'
 import placeholder from '../../res/placeholder.png'
@@ -6,14 +7,14 @@ import placeholder from '../../res/placeholder.png'
 import useDeckStore from '../../Zustand/DeckStore/store'
 import useStatStore from '../../Zustand/StatStore/store'
 
-const BlankCard = ({index, source, id, isHandlingMarking}) => {
+const BlankCard = ({index, source, id, isHandlingMarking, markers}) => {
     const [menu, setMenu] = useState(false);
 
     const addCard = useDeckStore(state => state.addCard)
+    // TODO : Remove all exemplaries of same card
     const removeCard = useDeckStore(state => state.removeCard)
 
-    const addMarker = useDeckStore(state => state.addMarker)
- 
+    const handleMarking = useStatStore(state => state.handleMarking)
     // Options : 
     // - In lister
     //      Blank : Main - Extra - Side
@@ -23,15 +24,15 @@ const BlankCard = ({index, source, id, isHandlingMarking}) => {
     // TODO : Handler for adding marker
     const displayMenu = 
     <div className='blank-menu'>
-        {source === "lister" ?
+        {source === global.config.sources.LISTER ?
             <React.Fragment>
-                <div onMouseDown={() => addCard({type : "blank"},"main")}>
+                <div onMouseDown={() => addCard({type : "blank", id: shortid.generate()},global.config.sources.MAIN)}>
                     <strong>Main</strong>
                 </div>
-                <div onMouseDown={() => addCard({type : "blank"},"blank-extra")}>
+                <div onMouseDown={() => addCard({type : "blank", id: shortid.generate()}, global.config.sources.BLANK_EXTRA)}>
                     <strong>Extra</strong>
                 </div>
-                <div onMouseDown={() => addCard({type : "blank"}, "side")}>
+                <div onMouseDown={() => addCard({type : "blank", id: shortid.generate()}, global.config.sources.SIDE)}>
                     <strong>Side</strong>
                 </div>
             </React.Fragment>
@@ -40,7 +41,7 @@ const BlankCard = ({index, source, id, isHandlingMarking}) => {
                 <strong>Remove</strong>
             </div>
         }
-        {id}
+        {markers ? markers.map(marker => <div>{marker}</div>) : <React.Fragment/>}
     </div>
     
     return (
@@ -48,7 +49,7 @@ const BlankCard = ({index, source, id, isHandlingMarking}) => {
                 className="blank-card" 
                 tabIndex="0"
 
-                onMouseDown={() => setMenu(!menu)}
+                onMouseDown={() => isHandlingMarking? handleMarking(id) : setMenu(!menu)}
             >
                 <img
                     src={placeholder}

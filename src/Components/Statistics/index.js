@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import {useState} from 'react'
+import React from 'react'
 
 import './statistics.css'
 import { getClassName } from '../../res/utils'
@@ -21,20 +20,32 @@ const Statistics =  () => {
     const markers = useStatStore((state) => state.markers)
     const activeMarker = useStatStore((state) => state.activeMarker)
     const setActiveMarker = useStatStore((state) => state.setActiveMarker)
+    const isRemovingMarker = useStatStore((state) => state.isRemovingMarker)
 
     function handleMarking (marker) {
-        setActiveMarker(activeMarker===marker?"":marker)
+        setActiveMarker(activeMarker===marker?"":global.config.markers[marker])
     }
 
-    // TODO : Handle display of markers for each card marked
+    // TODO : Handles that REMOVE + marker tells which marker is trying to me removed 
     return (
         <div className={getClassName(activeTab,className)}>
             <div className='markers'>
                 {Object.keys(global.config.markers).map( (key, index) =>
-                    <div className={global.config.markers[key]===global.config.markers[activeMarker]?"selected":""} key={index} onMouseDown={() => handleMarking(key)}>
+                    <div
+                        className={global.config.markers[key]===global.config.markers[activeMarker]?"selected":""}
+                        key={index} 
+                        onMouseDown={() => handleMarking(key)}
+                    >
                         {global.config.markers[key]}
                     </div>
                 )}
+                <div 
+                    className={isRemovingMarker? "selected":""} onMouseDown={() => toggleRemovingMarker()}
+                    
+                >
+
+                </div>
+
             </div>
             <hr/>
             <div className='results'>
@@ -47,9 +58,11 @@ const Statistics =  () => {
                     <span><strong>Side size:</strong> {side.length}</span><br/>
                 </div>
                 {activeMarker}
-                {Object.keys(markers).map((key, index) => {
-                    
-                })}
+                {Object.keys(markers).map((key) => 
+                    <div>
+                        {key}
+                    </div>
+                )}
             </div>
         </div>
     )

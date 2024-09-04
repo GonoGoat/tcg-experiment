@@ -2,7 +2,6 @@ import React from 'react'
 import shortid from 'shortid'
 
 import Card from '../Card'
-import BlankCard from '../BlankCard'
 
 import './card_bank.css'
 import { getClassName } from '../../res/utils'
@@ -22,18 +21,12 @@ const CardBank = () => {
                 <h3>Card Bank</h3>
             </div>
             {
-                bank.map( (card, index)  =>card.type === "blank"?
-                    <BlankCard 
-                        index={index}  
-                        key={shortid.generate()} 
-                        source="bank"
-                    />
-                    :
+                bank.map( (card, index)  =>
                     <Card 
                         cardInfo={card}
                         key={shortid.generate()} 
                         index={index}    
-                        source="bank"        
+                        source={global.config.sources.CARD_BANK}   
                     />
                 )
             }

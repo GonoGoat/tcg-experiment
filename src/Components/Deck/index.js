@@ -1,5 +1,4 @@
 import React from 'react'
-import shortid from 'shortid'
 
 import Card from '../Card'
 import BlankCard from '../BlankCard'
@@ -7,11 +6,15 @@ import BlankCard from '../BlankCard'
 import './deck.css'
 
 import useDeckStore from '../../Zustand/DeckStore/store'
+import useStatStore from '../../Zustand/StatStore/store'
 
 const Deck = () => {
     const main = useDeckStore(state => state.main)
     const extra = useDeckStore(state => state.extra)
     const side = useDeckStore(state => state.side)
+
+    const activeMarker = useStatStore((state) => state.activeMarker)
+    const markers = useStatStore((state) => state.markers)
     
     // TODO : Split each zone in its own component
     // TODO : Handle marker display + change the onClick when marker mode is on
@@ -21,8 +24,10 @@ const Deck = () => {
             <BlankCard 
                 index={index}  
                 key={index}
-                id={shortid.generate()}
+                id={card.id}
                 source={dest}
+                isHandlingMarking={activeMarker && (dest === global.config.sources.MAIN)}
+                markers={markers[card.id]}
             />
             :
             <Card 
@@ -30,7 +35,8 @@ const Deck = () => {
                 key={index}
                 index={index} 
                 source={dest}
-                isHandlingMarking          
+                isHandlingMarking={activeMarker && (dest === global.config.sources.MAIN)}
+                markers={markers[card.id]}
             />
         )
     }
@@ -38,13 +44,13 @@ const Deck = () => {
     return (
         <div className="deck">
             <div className="main" tabIndex="0">
-                {getCards(main, "main")}
+                {getCards(main, global.config.sources.MAIN)}
             </div>
             <div className="extra" tabIndex="0">
-                {getCards(extra, "extra")}
+                {getCards(extra, global.config.sources.EXTRA)}
             </div>
             <div className="side" tabIndex="0">
-                {getCards(side, "side")}
+                {getCards(side, global.config.sources.SIDE)}
             </div>
         </div>
     )

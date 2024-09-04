@@ -4,7 +4,7 @@ import * as reducer from './reducers'
 import data from "../../res/data.json"
 
 const useDeckStore =  create((set) => ({
-    main: [],
+    main: data.data.data,
     extra: [],
     side: [],
     bank: data.data.data, // []
