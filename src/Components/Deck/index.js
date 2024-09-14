@@ -13,12 +13,10 @@ const Deck = () => {
     const extra = useDeckStore(state => state.extra)
     const side = useDeckStore(state => state.side)
 
-    const activeMarker = useStatStore((state) => state.activeMarker)
+    const doHandleMarking = useStatStore((state) => state.doHandleMarking)
     const markers = useStatStore((state) => state.markers)
     
     // TODO : Split each zone in its own component
-    // TODO : Handle marker display + change the onClick when marker mode is on
-    // TODO : Differentiate blank cards (Marker goes on one) and other cards (marker goes on every card of same id) => "key" props
     const getCards = (map, dest) => {
         return map.map( (card, index) =>card.type === "blank"?
             <BlankCard 
@@ -26,7 +24,7 @@ const Deck = () => {
                 key={index}
                 id={card.id}
                 source={dest}
-                isHandlingMarking={activeMarker && (dest === global.config.sources.MAIN)}
+                isHandlingMarking={() => doHandleMarking(dest === global.config.sources.MAIN)}         
                 markers={markers[card.id]}
             />
             :
@@ -35,7 +33,7 @@ const Deck = () => {
                 key={index}
                 index={index} 
                 source={dest}
-                isHandlingMarking={activeMarker && (dest === global.config.sources.MAIN)}
+                isHandlingMarking={dest === global.config.sources.MAIN}
                 markers={markers[card.id]}
             />
         )

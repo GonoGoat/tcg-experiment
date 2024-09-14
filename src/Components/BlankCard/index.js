@@ -21,7 +21,6 @@ const BlankCard = ({index, source, id, isHandlingMarking, markers}) => {
     // - In Deck : Remove
     //    Side : Remove
     
-    // TODO : Handler for adding marker
     const displayMenu = 
     <div className='blank-menu'>
         {source === global.config.sources.LISTER ?

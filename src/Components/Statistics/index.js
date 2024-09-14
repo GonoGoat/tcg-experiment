@@ -21,12 +21,14 @@ const Statistics =  () => {
     const activeMarker = useStatStore((state) => state.activeMarker)
     const setActiveMarker = useStatStore((state) => state.setActiveMarker)
     const isRemovingMarker = useStatStore((state) => state.isRemovingMarker)
+    const toggleRemovingMarker = useStatStore((state) => state.toggleRemovingMarker)
+    const isRemovingAllMarkers = useStatStore((state) => state.isRemovingAllMarkers)
+    const toggleRemovingAllMarkers = useStatStore((state) => state.toggleRemovingAllMarkers)
 
     function handleMarking (marker) {
-        setActiveMarker(activeMarker===marker?"":global.config.markers[marker])
+        setActiveMarker(activeMarker===marker?"":marker)
     }
 
-    // TODO : Handles that REMOVE + marker tells which marker is trying to me removed 
     return (
         <div className={getClassName(activeTab,className)}>
             <div className='markers'>
@@ -39,13 +41,17 @@ const Statistics =  () => {
                         {global.config.markers[key]}
                     </div>
                 )}
+                <hr/>
                 <div 
-                    className={isRemovingMarker? "selected":""} onMouseDown={() => toggleRemovingMarker()}
-                    
+                    className={isRemovingMarker? "selected":""} onMouseDown={() => toggleRemovingMarker()} 
                 >
-
+                    <strong>Remove Marker</strong>
                 </div>
-
+                <div 
+                    className={isRemovingAllMarkers? "selected":""} onMouseDown={() => toggleRemovingAllMarkers()} 
+                >
+                    <strong>Remove all Markers</strong>
+                </div>
             </div>
             <hr/>
             <div className='results'>

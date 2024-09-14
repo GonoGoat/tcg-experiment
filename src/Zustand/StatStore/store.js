@@ -1,13 +1,17 @@
 import { create } from 'zustand'
 import * as reducer from "./reducers"
-// TODO : Update of addMarking to handleMarking
+
 const useStatStore =  create((set) => ({
     markers: {},
     activeMarker: "",
     isRemovingMarker: false,
+    isRemovingAllMarkers: false,
 
-    handleMarking : (id, isRemoving) => set(state => isRemoving ? reducer.removeMarker(state, id) :  reducer.addMarker(state, id)),
-    setActiveMarker : (payload) => set((state) => reducer.setActiveMarker(state, payload)),
+    handleMarking: (id) => set(state => reducer.handleMarking(state, id)),
+    setActiveMarker: (payload) => set((state) => reducer.setActiveMarker(state, payload)),
+    toggleRemovingMarker: () => set((state) => reducer.toggleRemovingMarker(state)), 
+    toggleRemovingAllMarkers: () => set((state) => reducer.toggleRemovingAllMarkers(state)),
+    doHandleMarking: (isInMarkingZone) => set((state) => reducer.doHandleMarking(state, isInMarkingZone)),
 }))
 
 export default useStatStore

@@ -21,9 +21,7 @@ const belongsToExtraDeck = (type,source) => {
 
 // TODO : Handle card/deck size limit
 export function addCard (state, payload, source) {
-    console.log(state)
     let key = belongsToExtraDeck(payload.type,source)
-    console.log(source)
 
     return {
         ...state,
@@ -33,9 +31,7 @@ export function addCard (state, payload, source) {
 
 // TODO : Include remove of marker if any
 export function removeCard (state, payload, source, index) {
-    console.log(source)
     let key = belongsToExtraDeck(payload.type, source)
-    console.log(key)
 
     return {
         ...state,
