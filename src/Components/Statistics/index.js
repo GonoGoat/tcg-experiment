@@ -29,6 +29,17 @@ const Statistics =  () => {
         setActiveMarker(activeMarker===marker?"":marker)
     }
 
+    function getAllMarkers() {
+        return Object.keys(markers).reduce((acc, actual) => acc.concat(markers[actual]||[]),[])
+    }
+
+    // TODO : extract amount of each type of marker.
+        // Idea: Use reduce with accumulator initialised with every marker amount started at 0
+    function getAmountOfMarkers() {
+        let markerList = getAllMarkers();
+        
+    }
+
     return (
         <div className={getClassName(activeTab,className)}>
             <div className='markers'>
@@ -69,6 +80,8 @@ const Statistics =  () => {
                         {key}
                     </div>
                 )}
+                <hr/>
+                {getAmountOfMarkers()}
             </div>
         </div>
     )

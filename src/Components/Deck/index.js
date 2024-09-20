@@ -13,8 +13,11 @@ const Deck = () => {
     const extra = useDeckStore(state => state.extra)
     const side = useDeckStore(state => state.side)
 
-    const doHandleMarking = useStatStore((state) => state.doHandleMarking)
+    
     const markers = useStatStore((state) => state.markers)
+    const activeMarker = useStatStore((state) => state.activeMarker)
+    const isRemovingMarker = useStatStore((state) => state.isRemovingMarker)
+    const isRemovingAllMarkers = useStatStore((state) => state.isRemovingAllMarkers)
     
     // TODO : Split each zone in its own component
     const getCards = (map, dest) => {
@@ -24,7 +27,14 @@ const Deck = () => {
                 key={index}
                 id={card.id}
                 source={dest}
-                isHandlingMarking={() => doHandleMarking(dest === global.config.sources.MAIN)}         
+                isHandlingMarking={
+                    dest === global.config.sources.MAIN &&
+                    (
+                        activeMarker ||
+                        isRemovingMarker ||
+                        isRemovingAllMarkers
+                    )
+                }         
                 markers={markers[card.id]}
             />
             :
@@ -33,7 +43,14 @@ const Deck = () => {
                 key={index}
                 index={index} 
                 source={dest}
-                isHandlingMarking={dest === global.config.sources.MAIN}
+                isHandlingMarking={
+                    dest === global.config.sources.MAIN &&
+                    (
+                        activeMarker ||
+                        isRemovingMarker ||
+                        isRemovingAllMarkers
+                    )
+                }         
                 markers={markers[card.id]}
             />
         )

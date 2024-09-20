@@ -11,7 +11,6 @@ const useStatStore =  create((set) => ({
     setActiveMarker: (payload) => set((state) => reducer.setActiveMarker(state, payload)),
     toggleRemovingMarker: () => set((state) => reducer.toggleRemovingMarker(state)), 
     toggleRemovingAllMarkers: () => set((state) => reducer.toggleRemovingAllMarkers(state)),
-    doHandleMarking: (isInMarkingZone) => set((state) => reducer.doHandleMarking(state, isInMarkingZone)),
 }))
 
 export default useStatStore

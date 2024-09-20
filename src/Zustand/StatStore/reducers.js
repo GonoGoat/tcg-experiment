@@ -1,4 +1,5 @@
 export function handleMarking(state, id) {
+    console.log(state.markers)
     var markers;
     if (state.isRemovingAllMarkers) markers = removeCardFromMarkers(state.markers, id) 
     else if (state.isRemovingMarker) markers = removeMarker(state.markers, id, state.activeMarker)
@@ -84,16 +85,4 @@ export function toggleRemovingAllMarkers(state) {
         isRemovingAllMarkers: !state.isRemovingAllMarkers,
         isRemovingMarker: false
     })
-}
-
-export function doHandleMarking(state, isInMarkingZone) {
-    return (
-        isInMarkingZone
-        &&
-        (
-            state.activeMarker ||
-            state.isRemovingMarker ||
-            state.isRemovingAllMarkers
-        )
-    )
 }

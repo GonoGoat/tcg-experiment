@@ -3,7 +3,11 @@ module.exports = global.config = {
         // Engine : Starter - Extender - (Brick)
     // Non-Engine : Board Breaker - Hand Trap - (Defensive) - Consistency/Power card
         ENGINE: "Engine",
-        NON_ENGINE: "Non-Engine"//["Engine", "Non-Engine", "Starter", "Extender", "Hand Trap", "Board Breaker"]    
+        NON_ENGINE: "Non-Engine",
+        STARTER: "Starter",
+        EXTENDER: "Extender",
+        HAND_TRAP: "Hand Trap",
+        BOARD_BREAKER: "Board Breaker"    
     }),
     // classname
     activeTabs: Object.freeze({
