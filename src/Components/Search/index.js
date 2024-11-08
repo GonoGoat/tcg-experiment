@@ -52,7 +52,6 @@ const Search =  () => {
     const [isTuner, setTuner] = useState('')
 
     const setLoadingState = useAppStore((state) => state.setLoadingState)
-    const activeTab = useAppStore((state) => state.activeTab)
 
     const setNextPageToLoad = useListerStore((state) => state.setNextPageToLoad)
     const setHasMoreItemsToLoad = useListerStore((state) => state.setHasMoreItemsToLoad)
@@ -295,7 +294,7 @@ const Search =  () => {
     )
 
     return (
-        <div className={getClassName(activeTab,className)}>
+        <div className={className}>
             <div>
                 <h3>Search</h3>
             </div>

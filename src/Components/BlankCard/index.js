@@ -5,16 +5,13 @@ import './blank_card.css'
 import placeholder from '../../res/placeholder.png'
 
 import useDeckStore from '../../Zustand/DeckStore/store'
-import useStatStore from '../../Zustand/StatStore/store'
 
 const BlankCard = ({index, source, id, isHandlingMarking, markers}) => {
     const [menu, setMenu] = useState(false);
 
     const addCard = useDeckStore(state => state.addCard)
-    // TODO : Remove all exemplaries of same card
     const removeCard = useDeckStore(state => state.removeCard)
 
-    const handleMarking = useStatStore(state => state.handleMarking)
     // Options : 
     // - In lister
     //      Blank : Main - Extra - Side
@@ -48,7 +45,7 @@ const BlankCard = ({index, source, id, isHandlingMarking, markers}) => {
                 className="blank-card" 
                 tabIndex="0"
 
-                onMouseDown={() => isHandlingMarking? handleMarking(id) : setMenu(!menu)}
+                onMouseDown={() => setMenu(!menu)}
             >
                 <img
                     src={placeholder}

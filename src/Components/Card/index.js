@@ -6,7 +6,6 @@ import './card.css'
 import placeholder from '../../res/placeholder.png'
 
 import useDeckStore from '../../Zustand/DeckStore/store'
-import useStatStore from '../../Zustand/StatStore/store'
 
 const Card = ({cardInfo, index, source, isHandlingMarking, markers}) => {
 
@@ -17,8 +16,6 @@ const Card = ({cardInfo, index, source, isHandlingMarking, markers}) => {
 
     const addCard = useDeckStore(state => state.addCard)
     const removeCard = useDeckStore(state => state.removeCard)
-
-    const handleMarking = useStatStore(state => state.handleMarking)
 
     const handleClickOpen = () => setOpen(true)
 
@@ -55,13 +52,6 @@ const Card = ({cardInfo, index, source, isHandlingMarking, markers}) => {
                 :
                 <React.Fragment/>
             }   
-            {source !== "card-bank" ?
-                <div onMouseDown={() => addCard(cardInfo, "bank")}>
-                    <strong>Card Bank</strong>
-                </div>
-                :
-                <React.Fragment/>
-            }
             {source !== "lister" ?
                 <div onMouseDown={() => removeCard(cardInfo.type,source, index)}>
                     <strong>Remove</strong>
@@ -81,7 +71,6 @@ const Card = ({cardInfo, index, source, isHandlingMarking, markers}) => {
             return false
         }
         else { // Middle and left click
-            if (isHandlingMarking) handleMarking(cardInfo.id)
             if (!open) {
                 setMenu(!menu)
             }
