@@ -5,7 +5,7 @@ import {default as Axios} from 'axios'
 import './search.css'
 import useAppStore from "../../Zustand/AppStore/store"
 import useListerStore from '../../Zustand/ListerStore/store'
-import data from "../../res/data.json"
+//import data from "../../res/data.json"
 
 var axios = Axios.create({
     baseURL: 'https://db.ygoprodeck.com/api/v7/',
@@ -34,8 +34,8 @@ const Search =  () => {
     const request = async () => {
         setLoadingState(true)
         try{
-            //let response = await axios.get(queryBuilder())
-            let response = data;
+            let response = await axios.get(queryBuilder())
+            //let response = data;
             console.log(response)
             if(response.data.meta.pages_remaining !== 0){
                 setHasMoreItemsToLoad(true)
