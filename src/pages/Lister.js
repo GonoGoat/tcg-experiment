@@ -1,15 +1,13 @@
 import React, {useState} from 'react'
 import shortid from 'shortid'
 import {default as Axios} from 'axios'
-
-import Card from '../Card'
-import BlankCard from '../BlankCard'
-
-import './lister.css'
 import CircularProgress from '@mui/material/CircularProgress'
 
-import useAppStore from "../../Zustand/AppStore/store"
-import useListerStore from '../../Zustand/ListerStore/store'
+import '../assets/style/pages/Lister.css'
+import useAppStore from "../context/AppStore/store"
+import useListerStore from '../context/ListerStore/store'
+
+import {Card, BlankCard} from '../components'
 
 var axios = Axios.create({
     baseURL: 'https://db.ygoprodeck.com/api/v7/',

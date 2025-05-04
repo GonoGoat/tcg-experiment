@@ -1,7 +1,9 @@
 import React from 'react'
-import './options.css'
-import useDeckStore from '../../Zustand/DeckStore/store'
 import fileDownload from 'js-file-download'
+
+import '../assets/style/pages/Options.css'
+
+import useDeckStore from '../context/DeckStore/store'
 
 const Options = () => {
     const eraseDeck =  useDeckStore(state => state.eraseDeck)

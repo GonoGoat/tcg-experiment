@@ -1,12 +1,10 @@
 import React from 'react'
 import shortid from 'shortid'
 
-import Card from '../Card'
-import BlankCard from '../BlankCard'
+import {Card, BlankCard} from '../components'
 
-import './deck.css'
-
-import useDeckStore from '../../Zustand/DeckStore/store'
+import '../assets/style/pages/Deck.css'
+import useDeckStore from '../context/DeckStore/store'
 
 const Deck = () => {
     const main = useDeckStore(state => state.main)

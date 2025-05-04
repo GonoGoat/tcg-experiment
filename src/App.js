@@ -1,8 +1,6 @@
 import React from 'react';
-import './Home.css';
-import Deck from './Components/Deck'
-import Search from './Components/Search'
-import Lister from './Components/Lister'
+import './assets/style/App.css';
+import { Deck, Search, Lister} from './pages'
 //import Options from './Components/Options'
 
 function Home() {

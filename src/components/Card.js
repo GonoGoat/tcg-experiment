@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
 import Tooltip from '@mui/material/Tooltip'
 import Dialog from '@mui/material/Dialog'
-import './card.css'
-import placeholder from '../../res/placeholder.png'
-import useDeckStore from '../../Zustand/DeckStore/store'
+
+import '../assets/style/components/Card.css'
+import placeholder from '../assets/pictures/placeholder.png'
+import useDeckStore from '../context/DeckStore/store'
 
 const Card = ({cardInfo, isDraggable, index}) => {
 
