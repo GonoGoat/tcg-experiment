@@ -2,10 +2,12 @@ import React from 'react'
 import {useState} from 'react'
 //import {useDispatch} from 'react-redux'
 import {default as Axios} from 'axios'
-import './search.css'
-import useAppStore from "../../Zustand/AppStore/store"
-import useListerStore from '../../Zustand/ListerStore/store'
+
+import '../assets/style/pages/Search.css'
 //import data from "../../res/data.json"
+
+import useAppStore from "../context/AppStore/store"
+import useListerStore from '../context/ListerStore/store'
 
 var axios = Axios.create({
     baseURL: 'https://db.ygoprodeck.com/api/v7/',

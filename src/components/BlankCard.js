@@ -1,7 +1,8 @@
 import React from 'react'
-import './blank_card.css'
-import placeholder from '../../res/placeholder.png'
-import useDeckStore from '../../Zustand/DeckStore/store'
+
+import '../assets/style/components/BlankCard.css'
+import placeholder from '../assets/pictures/placeholder.png'
+import useDeckStore from '../context/DeckStore/store'
 
 const BlankCard = ({isDraggable, index}) => {
     const addCardToDeck = useDeckStore(state => state.addCardToDeck)
