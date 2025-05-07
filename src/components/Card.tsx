@@ -1,28 +1,33 @@
-import React, {useState} from 'react'
+import {useState, FC, SyntheticEvent} from 'react'
 import Tooltip from '@mui/material/Tooltip'
 import Dialog from '@mui/material/Dialog'
 
-import '../assets/style/components/Card.css'
-import placeholder from '../assets/pictures/placeholder.png'
-import useDeckStore from '../context/DeckStore/store'
+import 'assets/style/components/Card.css'
+import placeholder from 'assets/pictures/placeholder.png'
+import useDeckStore from 'context/DeckStore/store'
 
-const Card = ({cardInfo, isDraggable, index}) => {
+interface CardProps {
+    cardInfo: Record<string, any>,
+    isDraggable: boolean,
+    index: number;
+}
 
-    const [isHovering, setHovering] = useState(false)
-    const [open, setOpen] = useState(false);
+const Card: FC<CardProps> = ({cardInfo, isDraggable, index}) => {
+    const [isHovering, setHovering] = useState<boolean>(false)
+    const [open, setOpen] = useState<boolean>(false);
     const img_url = cardInfo.card_images[0].image_url_small
 
     const addCardToDeck = useDeckStore(state => state.addCardToDeck)
     const removeCardFromDeck = useDeckStore(state => state.removeCardFromDeck)
 
     const handleClickOpen = () => setOpen(true)
-    const handleClose = (event, reason) => {
+    const handleClose = (event: Event | SyntheticEvent<Element, Event>, reason: string) => {
         setOpen(false);
         if (reason !== "escapeKeyDown") {
             setHovering(false)
         }
     }
-    const handleClick = (event) => {
+    const handleClick = (event: React.SyntheticEvent | Event) => {
         setHovering(false) //disables tooltip
         if(event.buttons === 2){ //if right click opens modal
             handleClickOpen()

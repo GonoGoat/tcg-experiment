@@ -1,9 +1,8 @@
-import React from 'react';
-import './assets/style/App.css';
-import { Deck, Search, Lister} from './pages'
+import 'assets/style/App.css';
+import { Deck, Search, Lister} from 'pages'
 //import Options from './Components/Options'
 
-function Home() {
+const App = () => {
   return (
     <div className="Home">
       <Search/>
@@ -21,4 +20,4 @@ function Home() {
   );*/
 }
 
-export default Home;
+export default App;

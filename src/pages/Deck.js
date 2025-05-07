@@ -1,4 +1,3 @@
-import React from 'react'
 import shortid from 'shortid'
 
 import {Card, BlankCard} from '../components'
