@@ -1,4 +1,4 @@
-import {useState, FC, SyntheticEvent} from 'react'
+import {useState, FC, MouseEvent, KeyboardEvent} from 'react'
 import Tooltip from '@mui/material/Tooltip'
 import Dialog from '@mui/material/Dialog'
 
@@ -21,13 +21,13 @@ const Card: FC<CardProps> = ({cardInfo, isDraggable, index}) => {
     const removeCardFromDeck = useDeckStore(state => state.removeCardFromDeck)
 
     const handleClickOpen = () => setOpen(true)
-    const handleClose = (event: Event | SyntheticEvent<Element, Event>, reason: string) => {
+    const handleKeyPress = (event: KeyboardEvent) => {
         setOpen(false);
-        if (reason !== "escapeKeyDown") {
+        if (event.key !== "escapeKeyDown") {
             setHovering(false)
         }
     }
-    const handleClick = (event: React.SyntheticEvent | Event) => {
+    const handleClick = (event: MouseEvent) => {
         setHovering(false) //disables tooltip
         if(event.buttons === 2){ //if right click opens modal
             handleClickOpen()
@@ -71,7 +71,7 @@ const Card: FC<CardProps> = ({cardInfo, isDraggable, index}) => {
             title={TooltipDisplay}
             placement="right" 
             open={isHovering && !open} 
-            onClose={handleClose}
+            onKeyDown={handleKeyPress}
         >
             <div
                 className="card"
@@ -95,7 +95,7 @@ const Card: FC<CardProps> = ({cardInfo, isDraggable, index}) => {
                 />
                 <Dialog 
                     open={open} 
-                    onClose={handleClose} 
+                    onKeyDown={handleKeyPress}
                     maxWidth="md"
                 >
                     {DialogDisplay}
@@ -105,6 +105,5 @@ const Card: FC<CardProps> = ({cardInfo, isDraggable, index}) => {
     )
     
 }
-
 
 export default Card
