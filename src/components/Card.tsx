@@ -3,11 +3,12 @@ import Tooltip from '@mui/material/Tooltip'
 import Dialog from '@mui/material/Dialog'
 
 import 'assets/style/components/Card.css'
+import {cardInfo as cardType} from 'types/ygopro.types'
 import placeholder from 'assets/pictures/placeholder.png'
 import useDeckStore from 'context/DeckStore/store'
 
 interface CardProps {
-    cardInfo: Record<string, any>,
+    cardInfo: cardType,
     isDraggable: boolean,
     index: number;
 }
@@ -15,7 +16,7 @@ interface CardProps {
 const Card: FC<CardProps> = ({cardInfo, isDraggable, index}) => {
     const [isHovering, setHovering] = useState<boolean>(false)
     const [open, setOpen] = useState<boolean>(false);
-    const img_url = cardInfo.card_images[0].image_url_small
+    const img_url: string = cardInfo.card_images[0].image_url_small
 
     const addCardToDeck = useDeckStore(state => state.addCardToDeck)
     const removeCardFromDeck = useDeckStore(state => state.removeCardFromDeck)
