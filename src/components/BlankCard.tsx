@@ -6,7 +6,7 @@ import useDeckStore from 'context/DeckStore/store'
 
 interface BlankCardProps {
     isDraggable: boolean,
-    index: number;
+    index?: number;
 }
 
 const BlankCard: FC<BlankCardProps> = ({isDraggable, index}) => {

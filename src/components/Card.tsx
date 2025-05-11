@@ -10,7 +10,7 @@ import useDeckStore from 'context/DeckStore/store'
 interface CardProps {
     cardInfo: cardType,
     isDraggable: boolean,
-    index: number;
+    index?: number;
 }
 
 const Card: FC<CardProps> = ({cardInfo, isDraggable, index}) => {

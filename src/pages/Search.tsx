@@ -1,12 +1,11 @@
 import {useState} from 'react'
-//import {useDispatch} from 'react-redux'
 import {default as Axios} from 'axios'
 
-import '../assets/style/pages/Search.css'
+import 'assets/style/pages/Search.css'
 //import data from "../../res/data.json"
 
-import useAppStore from "../context/AppStore/store"
-import useListerStore from '../context/ListerStore/store'
+import useAppStore from "context/AppStore/store"
+import useListerStore from 'context/ListerStore/store'
 
 var axios = Axios.create({
     baseURL: 'https://db.ygoprodeck.com/api/v7/',
@@ -16,13 +15,13 @@ var axios = Axios.create({
 const Search =  () => {
 
     //const dispatch = useDispatch()
-    const [name, setName] = useState('')
-    const [desc, setDesc] = useState('')
-    const [race, setRace] = useState('') //race is what usually is called type
-    const [type, setType] = useState('')
-    const [attribute, setAttribute] = useState('')
-    const [level, setLevel] = useState('')
-    const [cardType, setCardType] = useState('')
+    const [name, setName] = useState<string>('')
+    const [desc, setDesc] = useState<string>('')
+    const [race, setRace] = useState<string>('') //race is what usually is called type
+    const [type, setType] = useState<string>('')
+    const [attribute, setAttribute] = useState<string>('')
+    const [level, setLevel] = useState<string>('')
+    const [cardType, setCardType] = useState<string>('')
 
     const monsterTypes = []
 

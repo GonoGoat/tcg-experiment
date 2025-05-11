@@ -3,22 +3,22 @@ import shortid from 'shortid'
 import {default as Axios} from 'axios'
 import CircularProgress from '@mui/material/CircularProgress'
 
-import '../assets/style/pages/Lister.css'
-import useAppStore from "../context/AppStore/store"
-import useListerStore from '../context/ListerStore/store'
+import 'assets/style/pages/Lister.css'
+import { cardInfo } from 'types/ygopro.types'
+import useAppStore from "context/AppStore/store"
+import useListerStore from 'context/ListerStore/store'
 
-import {Card, BlankCard} from '../components'
+import {Card, BlankCard} from 'components'
 
 var axios = Axios.create({
     baseURL: 'https://db.ygoprodeck.com/api/v7/',
 })
 
 const Lister = () => {
-    const [isLoadingMoreItems, setLoadingMoreItems] = useState(false)
+    const [isLoadingMoreItems, setLoadingMoreItems] = useState<boolean>(false)
 
     const isLoading = useAppStore(state => state.isLoading)
     const setLoadingState = useAppStore(state => state.setLoadingState)
-
     const lister = useListerStore((state) => state.lister)
     const hasMoreItemsToLoad = useListerStore((state) => state.hasMoreItemsToLoad)
     const nextPageToLoad = useListerStore((state) => state.nextPageToLoad)
@@ -58,15 +58,13 @@ const Lister = () => {
     else {
         return (
             <div className="lister">
-                <BlankCard 
-                    index={shortid.generate()}  
+                <BlankCard  
                     isDraggable={true}
                 />
                 {
-                    lister.map(card=>
+                    lister.map((card: cardInfo) =>
                         <Card 
-                            cardInfo={card} 
-                            index={shortid.generate()} 
+                            cardInfo={card}  
                             key={card.id} 
                             isDraggable={true}
                         />

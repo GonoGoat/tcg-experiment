@@ -1,8 +1,7 @@
-import React from 'react'
 import fileDownload from 'js-file-download'
 
-import '../assets/style/pages/Options.css'
-
+import 'assets/style/pages/Options.css'
+import { cardInfo } from 'types/ygopro.types'
 import useDeckStore from '../context/DeckStore/store'
 
 const Options = () => {
@@ -15,9 +14,9 @@ const Options = () => {
         
         deckFileToDownload += `#created by DaisukiTamago's Deck Builder https://github.com/DaisukiTamago/yugioh-react-deck-builder\n`
         deckFileToDownload += `#main\n`
-        main.map(card => deckFileToDownload+= card.id.toString() + '\n')
+        main.map((card: cardInfo) => deckFileToDownload+= card.id.toString() + '\n')
         deckFileToDownload += `#extra\n`
-        extra.map(card => deckFileToDownload+= card.id.toString() + '\n')
+        extra.map((card: cardInfo) => deckFileToDownload+= card.id.toString() + '\n')
 
         fileDownload(deckFileToDownload, 'deck.ydk', 'application/octet-stream')
     }
