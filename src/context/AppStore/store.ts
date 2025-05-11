@@ -8,7 +8,7 @@ interface AppState {
 
 const useAppStore =  create((set) => ({
     isLoading: false,
-    setLoadingState : (payload) => set((state) => setLoadingState(state, payload))
+    setLoadingState : (payload: boolean) => set((state) => setLoadingState(state, payload))
 }))
 
 export default useAppStore
