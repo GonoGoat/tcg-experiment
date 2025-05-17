@@ -1,9 +1,12 @@
+import { DeckState } from "types/context.types"
+import { genericCard } from "types/ygopro.types"
+
 /**
  * 
  * @param {string} type Card type
  * @returns true/false if this card type belongs to the extra deck
  */
-const belongsToExtraDeck = (type) => {
+const belongsToExtraDeck = (type: string) => {
     return(        
         type === 'XYZ Monster' ||
         type === 'Pendulum Effect Fusion Monster' ||
@@ -16,7 +19,7 @@ const belongsToExtraDeck = (type) => {
     )
 }
 
-export function addCardToDeck (state, payload) {
+export function addCardToDeck (state: DeckState, payload: genericCard) {
     if (belongsToExtraDeck(payload.type)){
         return {
             ...state,
@@ -31,7 +34,7 @@ export function addCardToDeck (state, payload) {
     }
 }
 
-export function removeCardFromDeck (state, payload, index) {
+export function removeCardFromDeck (state: DeckState, payload: string, index:number) {
     if (belongsToExtraDeck(payload)){
         return {
             ...state,
@@ -46,7 +49,7 @@ export function removeCardFromDeck (state, payload, index) {
     }
 }
 
-export function eraseDeck (state) {
+export function eraseDeck (state: DeckState) {
     return {
         ...state,
         main: [],

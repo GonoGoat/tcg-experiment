@@ -2,7 +2,7 @@ import shortid from 'shortid'
 
 import {Card, BlankCard} from 'components'
 
-import { cardInfo } from 'types/ygopro.types'
+import { genericCard, cardInfo } from 'types/ygopro.types'
 import 'assets/style/pages/Deck.css'
 import useDeckStore from 'context/DeckStore/store'
 
@@ -10,7 +10,7 @@ const Deck = () => {
     const main = useDeckStore(state => state.main)
     const extra = useDeckStore(state => state.extra)
 
-    const getCardComponent = (card: cardInfo, index: number) => {
+    const getCardComponent = (card: genericCard, index: number) => {
         if (card.type === "blank") {
             return (
                 <BlankCard 
@@ -23,7 +23,7 @@ const Deck = () => {
         else {
             return (
                 <Card
-                    cardInfo={card}
+                    cardInfo={card as cardInfo}
                     key={shortid.generate()} 
                     index={index}
                     isDraggable={false}          

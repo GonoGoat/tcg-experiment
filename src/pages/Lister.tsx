@@ -60,13 +60,15 @@ const Lister = () => {
             <div className="lister">
                 <BlankCard  
                     isDraggable={true}
+                    index={0}
                 />
                 {
-                    lister.map((card: cardInfo) =>
+                    lister.map((card: cardInfo, index: number) =>
                         <Card 
                             cardInfo={card}  
                             key={card.id} 
                             isDraggable={true}
+                            index={index}
                         />
                     )
                 }

@@ -5,7 +5,7 @@ import { cardInfo } from 'types/ygopro.types'
 import useDeckStore from '../context/DeckStore/store'
 
 const Options = () => {
-    const eraseDeck =  useDeckStore(state => state.eraseDeck)
+/*    const eraseDeck =  useDeckStore(state => state.eraseDeck)
     const main = useDeckStore(state => state.main)
     const extra = useDeckStore(state => state.extra)
       
@@ -26,7 +26,7 @@ const Options = () => {
                 <button onClick={() => eraseDeck()} >Erase</button>
                 <button onClick={() => deckBuilder()}>Download</button>
             </div>
-    )
+    )*/
 }
 
 export default Options

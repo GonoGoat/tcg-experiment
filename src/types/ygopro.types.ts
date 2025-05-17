@@ -6,6 +6,10 @@ export interface cardList {
     } 
 }
 
+export interface blankCardInfo {
+    type: "blank"
+}
+
 export interface cardInfo {
     id: number,
     name: string,
@@ -23,3 +27,5 @@ export interface cardInfo {
     level?: number,
     attribute?: string
 }
+
+export type genericCard = cardInfo | blankCardInfo

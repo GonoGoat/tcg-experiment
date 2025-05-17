@@ -1,12 +1,9 @@
 import { create } from 'zustand'
+
 import {setLoadingState} from './reducers'
+import {AppState} from "types/context.types"
 
-interface AppState {
-    isLoading: boolean,
-    setLoadingState: (payload: boolean) => void
-}
-
-const useAppStore =  create((set) => ({
+const useAppStore =  create<AppState>((set) => ({
     isLoading: false,
     setLoadingState : (payload: boolean) => set((state) => setLoadingState(state, payload))
 }))

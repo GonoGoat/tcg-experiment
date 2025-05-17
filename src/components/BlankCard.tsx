@@ -1,17 +1,20 @@
 import { FC } from 'react';
 
+import { blankCardInfo } from 'types/ygopro.types';
 import 'assets/style/components/BlankCard.css'
 import placeholder from 'assets/pictures/placeholder.png'
 import useDeckStore from 'context/DeckStore/store'
 
 interface BlankCardProps {
     isDraggable: boolean,
-    index?: number;
+    index: number;
 }
 
 const BlankCard: FC<BlankCardProps> = ({isDraggable, index}) => {
     const addCardToDeck = useDeckStore(state => state.addCardToDeck)
     const removeCardFromDeck = useDeckStore(state => state.removeCardFromDeck)
+
+    const blankCardPayload: blankCardInfo = {type: "blank"}
     
     return (
             <div
@@ -22,9 +25,9 @@ const BlankCard: FC<BlankCardProps> = ({isDraggable, index}) => {
                     width="90px" 
                     height="120px" 
                     onClick={()=>isDraggable?
-                        addCardToDeck({type : "blank"})
+                        addCardToDeck(blankCardPayload)
                         :
-                        removeCardFromDeck("blank",index)
+                        removeCardFromDeck(blankCardPayload.type, index)
                     }
                     alt="Blank card"
                 />
