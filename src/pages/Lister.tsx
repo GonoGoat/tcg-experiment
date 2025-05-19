@@ -8,7 +8,7 @@ import { cardInfo } from 'types/ygopro.types'
 import useAppStore from "context/AppStore/store"
 import useListerStore from 'context/ListerStore/store'
 
-import {Card, BlankCard} from 'components'
+import {Card, BlankCard} from 'components/Cards'
 
 var axios = Axios.create({
     baseURL: 'https://db.ygoprodeck.com/api/v7/',

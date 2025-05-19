@@ -1,6 +1,6 @@
 import shortid from 'shortid'
 
-import {Card, BlankCard} from 'components'
+import {Card, BlankCard} from 'components/Cards'
 
 import { genericCard, cardInfo } from 'types/ygopro.types'
 import 'assets/style/pages/Deck.css'

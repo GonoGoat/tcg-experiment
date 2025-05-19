@@ -3,12 +3,9 @@
     flex-flow: column;
     flex-wrap: wrap;
     justify-content: flex-start;
-    padding: 15px;
     align-items: flex-start;
     border-top: 2px solid #ffffff;
-    padding-top: 30px;
     min-height:  48vh;
-    grid-area: search;
     color: white;
     font-size: 20px;
     text-shadow: 0px 0px 5px white;
@@ -45,7 +42,7 @@
     background-color: #202879;
 }
 
-.search td{
+.search label {
     padding-left: 10px;
 }
 
@@ -56,7 +53,6 @@
     width: 85px;
     height: 40px;
     align-self: center;
-    margin-top: 20px;
     font-weight: bolder;
     color: white;
     /*font-family: 'Times New Roman', Times, serif;*/
@@ -64,7 +60,6 @@
     font-size: 1vw;
     transition: 0.5s;
     outline: none;
-    background: rgb(0,98,157);
     background: linear-gradient(311deg, rgba(0,98,157,1) 25%, rgba(18,124,67,1) 77%);
 }
 
@@ -73,4 +68,76 @@
     box-shadow: 0px 0px 0px;
     border: 0;
     opacity: 0.9;
+}
+
+/* TODO : Style for disabled button*/
+
+.switch-toggle {
+    float: left;
+    background: #242729;
+ }
+ .switch-toggle input {
+   position: absolute;
+   opacity: 0;
+ }
+ .switch-toggle input + label {
+   padding: 7px;
+   float:left;
+   color: #fff;
+   cursor: pointer;
+ }
+ .switch-toggle input:checked + label {
+   background: rgb(0,98,157);
+ }
+ /* NEW */
+
+ /* Style inputs, select elements and textareas */
+input[type=text], select, textarea{
+  width: 80px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+  
+  /* Style the label to display next to the inputs */
+label {
+  display: inline-block;
+}
+  
+/* Style the submit button */
+/*input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}*/
+
+/* Floating column for labels: 25% width */
+.col-25 {
+  float: left;
+  max-width: 50%;
+}
+
+/* Floating column for inputs: 75% width */
+.col-75 {
+  float: left;
+  max-width: 100%;
+  margin-left: 20px;
+  font-size: 2vh;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
 }
