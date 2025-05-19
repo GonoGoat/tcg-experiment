@@ -22,7 +22,6 @@ const Select: FC<SelectProps> = ({className, label, name, options, onChange}) =>
             </div>
         </div>
     )
-    
 }
 
 export default Select
