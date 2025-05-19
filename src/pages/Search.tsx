@@ -6,18 +6,18 @@ import sample from "data/data.json"
 
 import useAppStore from "context/AppStore/store"
 import useListerStore from 'context/ListerStore/store'
-import {ToggleSwitch, Select, NumberInput} from 'components/Forms'
+import {ToggleSwitch, Select, NumberInput, NumberInputWithButton} from 'components/Forms'
 import { Root } from 'types/ygopro.types'
 
 var axios = Axios.create({
     baseURL: 'https://db.ygoprodeck.com/api/v7/',
 })
 
-const cardTypes = ['Monster', 'Spell Card', 'Trap Card']
+const cardTypes = ['Monster Card', 'Spell Card', 'Trap Card']
 const monsterTypes = ['Ritual', 'Fusion', 'Synchro', 'Link', 'XYZ', 'Toon', 'Spirit', 'Gemini', 'Union']
 const monsterAttributes = ['Earth', 'Wind', 'Fire', 'Water', 'Light', 'Dark', 'Divine']
 const monsterRaces = ['Aqua', 'Beast', 'Beast-Warrior', 'Cyberse', 'Dinosaur', 'Divine-Beast', 'Dragon', 'Fairy', 'Fiend', 'Fish', 'Insect', 'Illusion', 'Machine', 'Plant', 'Psychic', 'Pyro', 'Reptile', 'Rock', 'Sea Serpent', 'Spellcaster', 'Thunder', 'Warrior', 'Winged Beast', 'Wyrm', 'Zombie']
-const spellRaces = [ 'Normal', 'Field', 'Equip', 'Continuous', 'Quick-Play', 'Ritual']
+const spellRaces = ['Normal', 'Field', 'Equip', 'Continuous', 'Quick-Play', 'Ritual']
 const trapRaces = ['Normal', 'Continuous', 'Counter']
 /*
 "Skill Card"
@@ -57,9 +57,10 @@ const Search =  () => {
     const request = async () => {
         setLoadingState(true)
         try{
-            //let response = await axios.get(queryBuilder())
             console.log(queryBuilder())
-            let response: Root = sample;
+            let response: Root = await axios.get(queryBuilder())
+            console.log(queryBuilder())
+            //let response: Root = sample;
             console.log(response)
             if(response.meta.pages_remaining !== 0){
                 setHasMoreItemsToLoad(true)
@@ -86,10 +87,10 @@ const Search =  () => {
             if (parseInt(value) <= maximum) setter(`&${prefix}=${value}`)
         }
     }
-    
-    const queryBuilder = () => {        
-        var reg = new RegExp(`^${monsterType}${hasEffect}${isPendulum}${isTuner}`)
-        var types = monsterCardTypes.filter((type) => reg.test(type.toLowerCase()))
+    // TODO adapt filter
+    const queryBuilder = () => {
+        var reg = new RegExp(`^${monsterType}${hasEffect}${isPendulum}${isTuner}${type}`)
+        var types = [...monsterCardTypes, ...cardTypes].filter((cardType) => reg.test(cardType.toLowerCase()))
 
         // TODO : Alert si pas de filtre pour tous ceux choisi
 
@@ -251,7 +252,7 @@ const Search =  () => {
         onChange={({target: {value}}) => handleNumericChange(value,13,setPendulumScale,"scale")}
     />
 
-    /*const symbolMap = new Map()
+    const symbolMap = new Map()
     symbolMap.set("=", '=')
     symbolMap.set("=lt", "<")
     symbolMap.set("=gt",">")
@@ -259,41 +260,40 @@ const Search =  () => {
     const getSymbol = (state: string) => {
         let sub;
         if (!state) sub = "=";
-        else sub = state.match(/=[a-z]{0,2}/)[0];
+        else sub = (/=[a-z]{0,2}/.exec(state) || [""])[0];
         return symbolMap.get(sub);
     }
 
+    // TODO move regex evaluation to utils
     const changeSymbol = (state: string, setter: (val: string) => void) =>  {
         if (state) {
-            let sub = state.match(/=[a-z]{0,2}/)[0]; // Extract the "=..."
-            let nextIndex = (symbolMap.keys().toArray().indexOf(sub) + 1) % symbolMap.size; // Get the index in symbolMap
-            setter(`${state.match(/&[a-z]+/)[0]}${symbolMap.keys().toArray()[nextIndex]}${state.match(/\d+/)[0]}`); // Change the stat depending on new symbol
+            let sub = (/=[a-z]{0,2}/.exec(state) || [""])[0]; // Extract the "=..."
+            let nextIndex = (Array.from(symbolMap.keys()).indexOf(sub) + 1) % symbolMap.size; // Get the index in symbolMap
+            setter(`${(/&[a-z]+/.exec(state) || [""])[0]}${Array.from(symbolMap.keys())[nextIndex]}${(/\d+/.exec(state) || [""])[0]}`); // Change the stat depending on new symbol
         }
     }
+    
+    const atkSelector = <NumberInputWithButton
+        className='row'
+        label='ATK'
+        name='atk'
+        value={(/\d+/.exec(atk) || [""])[0]}
+        onChange={({target: {value}}) => handleNumericChange(value,9999,setAtk,"atk")}
+        isButtonDisabled={!Boolean(atk)}
+        onClick={() => changeSymbol(atk,setAtk)}
+        displayName={getSymbol(atk)}
+    />
 
-    const atkSelector = (
-        <div className='row'>
-            <div className='col-25'>
-                <label htmlFor="atk">Atk</label>
-            </div>
-            <div className='col-75'>
-                <button className="atk-filter" disabled={!Boolean(atk)} onClick={() => changeSymbol(atk,setAtk)}>{getSymbol(atk)}</button>
-                <input className='number-input' name="atk" type="text" inputMode='decimal' value={/\d+/.test(atk)?atk.match(/\d+/)[0]:""} onChange={({target: {value}}) => handleNumericChange(value,9999,setAtk,"atk")}/>
-            </div>
-        </div>
-    )
-
-    const defSelector = (
-        <div className='row'>
-            <div className='col-25'>
-                <label htmlFor="def">Def</label>
-            </div>
-            <div className='col-75'>
-                <button className="def-filter" disabled={!Boolean(def)} onClick={() => changeSymbol(def,setDef)}>{getSymbol(def)}</button>
-                <input className='number-input' name="def" type="text" inputMode='decimal' value={/\d+/.test(def)?def.match(/\d+/)[0]:""} onChange={({target: {value}}) => handleNumericChange(value,9999,setDef,"def")}/>
-            </div>
-        </div>
-    )*/
+    const defSelector = <NumberInputWithButton
+        className='row'
+        label='DEF'
+        name='def'
+        value={(/\d+/.exec(def) || [""])[0]}
+        onChange={({target: {value}}) => handleNumericChange(value,9999,setDef,"def")}
+        isButtonDisabled={!Boolean(def)}
+        onClick={() => changeSymbol(def,setDef)}
+        displayName={getSymbol(def)}
+    />
 
     return (
         //<div className={getClassName(activeTab,className)}>
@@ -313,7 +313,7 @@ const Search =  () => {
             </div>
             {typeSelector}
 
-            {/*type.includes("monster")?
+            {type.includes("monster")?
                 <>
                     {monsterCardTypeSelector}
                     {monsterTypeSelector}
@@ -332,7 +332,7 @@ const Search =  () => {
                 </>
                 :
                 <></>
-            */pendulumSelector}
+            }
             {type.includes("spell")?
                 <>
                     {spellTypeSelector}
