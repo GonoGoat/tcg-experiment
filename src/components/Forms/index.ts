@@ -1,1 +1,1 @@
-export { default as RadioInput } from "./RadioInput";
+export { default as ToggleSwitch } from "./ToggleSwitch";

@@ -6,8 +6,8 @@ import sample from "data/data.json"
 
 import useAppStore from "context/AppStore/store"
 import useListerStore from 'context/ListerStore/store'
-import { RadioInputType } from 'components/Forms/RadioInput'
 import ToggleSwitch from 'components/Forms/ToggleSwitch'
+import Select from 'components/Forms/Select'
 import { Root } from 'types/ygopro.types'
 
 var axios = Axios.create({
@@ -101,67 +101,60 @@ const Search =  () => {
         //*************GENERIC SELECTORS******************
     
         // Overall type of card : Monster spell or trap
-        /*const typeSelector = (
-            <div className='row'>
-                <div className='col-25'>
-                    <label htmlFor="type">Card Type</label>
-                </div>
-                <div className='col-75'>
-                    <select name='type' onChange={({target: {value}}) => setType(value.toLowerCase() === 'unset'?'':`&type=${value.toLowerCase()}`)}>
-                        <option key="0">Unset</option>
-                        {cardTypes.map((cardType, index) => <option key={index+1}>{cardType}</option>)}
-                    </select>
-                </div>  
-            </div>
-        )
-    
+        const typeSelector = <Select
+            className='row'
+            label='Card type'
+            name='type'
+            options={cardTypes}
+            onChange={({target: {value}}) => setType(value.toLowerCase() === 'unset'?'':`&type=${value.toLowerCase()}`)}
+        />
+        
         // Generic Race selector (sub type : monster type (aqua, machine, ...) or spell/trap type (normal, continuous))
-        const cardSubTypeSelector = ( (options: string[], label: string) =>
-            <div  className='row'>
-                <div className='col-25'>
-                    <label htmlFor="card-subtype">{label}</label>
-                </div>
-                <div className='col-75'>
-                    <select name='card-subtype' onChange={({target: {value}}) => setRace(value.toLowerCase() === 'unset'?'':`&race=${value}`)}>
-                        <option key="0">Unset</option>
-                        {options.map((cardType, index) => <option key={index+1}>{cardType}</option>)}
-                    </select>
-                </div>  
-            </div>
-        )
+        const cardSubTypeSelector = (options: string[], label: string) => <Select
+            className='row'
+            label={label}
+            name='card-subtype'
+            options={options}
+            onChange={({target: {value}}) => setRace(value.toLowerCase() === 'unset'?'':`&race=${value}`)}
+        />
     
         // Race for each type of card
         const monsterTypeSelector = cardSubTypeSelector(monsterRaces, "Monster Type")
         const spellTypeSelector = cardSubTypeSelector(spellRaces, "Spell Type")
-        const trapTypeSelector = cardSubTypeSelector(trapRaces, "Trap Type")*/
-    
+        const trapTypeSelector = cardSubTypeSelector(trapRaces, "Trap Type")
+        
         //*************MONSTER SPECIFIC SELECTORS******************
-        // TODO use enum
-        const effectSelector = <ToggleSwitch className='row' label='Monster effect' name='state-e' radioInputs={
-            [
-                {
-                    id: "normal",
-                    name: "state-e",
-                    displayName: "Normal",
-                    checked: Boolean(hasEffect === "(?=.*normal)"),
-                    onClick: () => setHasEffect("(?=.*normal)")
-                },
-                {
-                    id: "na-effect",
-                    name: "state-e",
-                    displayName: "N/A",
-                    checked: Boolean(hasEffect === ""),
-                    onClick: () => setHasEffect("")
-                },
-                {
-                    id: "effect",
-                    name: "state-e",
-                    displayName: "Effect",
-                    checked: Boolean(hasEffect === "(?=.*effect)"),
-                    onClick: () => setHasEffect("(?=.*effect)")
-                }
-            ]
-        }/>
+        // TODO use enum for values
+        const effectSelector = <ToggleSwitch 
+            className='row'
+            label='Monster effect'
+            name='state-e'
+            radioInputs={
+                [
+                    {
+                        id: "normal",
+                        name: "state-e",
+                        displayName: "Normal",
+                        checked: Boolean(hasEffect === "(?=.*normal)"),
+                        onClick: () => setHasEffect("(?=.*normal)")
+                    },
+                    {
+                        id: "na-effect",
+                        name: "state-e",
+                        displayName: "N/A",
+                        checked: Boolean(hasEffect === ""),
+                        onClick: () => setHasEffect("")
+                    },
+                    {
+                        id: "effect",
+                        name: "state-e",
+                        displayName: "Effect",
+                        checked: Boolean(hasEffect === "(?=.*effect)"),
+                        onClick: () => setHasEffect("(?=.*effect)")
+                    }
+                ]
+            }
+        />
         /*
         (
             // <div class="switch-toggle switch-3 switch-candy">
@@ -329,8 +322,8 @@ const Search =  () => {
                     />
                     */}
                 </div>
-                {//typeSelector}
-}
+                {typeSelector}
+
                 {/*type.includes("monster")?
                     <>
                         {monsterCardTypeSelector}
@@ -351,19 +344,19 @@ const Search =  () => {
                     :
                     <></>
                 */effectSelector}
-                {/*type.includes("spell")?
+                {type.includes("spell")?
                     <>
                         {spellTypeSelector}
                     </>
                     :
-                    <></>*/
+                    <></>
                 }
-                {/*type.includes("trap")?
+                {type.includes("trap")?
                     <>
                         {trapTypeSelector}
                     </>
                     :
-                    <></>*/
+                    <></>
                 }
                 {
                     //<button className="search-button" onClick={() => setLoadingState(true)}>Search</button>

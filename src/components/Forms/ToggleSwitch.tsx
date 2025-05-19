@@ -1,12 +1,18 @@
 import { FC } from 'react';
-import {RadioInputType} from './RadioInput';
-import RadioInput from './RadioInput';
 
 interface ToggleSwitchProps {
     className: string,
     label: string,
     name: string,
-    radioInputs: RadioInputType[]
+    radioInputs: RadioInputProps[]
+}
+
+export type RadioInputProps = {
+    id: string,
+    name: string,
+    checked: boolean,
+    onClick: () => void,
+    displayName: string
 }
 
 const ToggleSwitch: FC<ToggleSwitchProps> = ({className, label, name, radioInputs}) => {    
@@ -16,7 +22,12 @@ const ToggleSwitch: FC<ToggleSwitchProps> = ({className, label, name, radioInput
                 <label htmlFor={name}>{label}</label>
             </div>
             <div className="switch-toggle col-75">
-                {radioInputs.map( (radioInput: RadioInputType, index: number) => <RadioInput key={index} props={radioInput}/>)}
+                {radioInputs.map( (radioInput: RadioInputProps) =>
+                    <>
+                        <input id={radioInput.id} name={radioInput.name} type="radio" readOnly checked={radioInput.checked}/>
+                        <label htmlFor={radioInput.id} onClick={radioInput.onClick}>{radioInput.displayName}</label>
+                    </>
+                )}
             </div>
         </div>
     )
