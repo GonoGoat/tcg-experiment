@@ -11,6 +11,7 @@ import { Root } from 'types/ygopro.types'
 
 var axios = Axios.create({
     baseURL: 'https://db.ygoprodeck.com/api/v7/',
+    // https://yugioh-open-api.vercel.app/
 })
 
 const cardTypes = ['Monster', 'Spell Card', 'Trap Card']
