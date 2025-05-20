@@ -3,11 +3,14 @@ import {default as Axios} from 'axios'
 
 import 'assets/style/pages/Search.css'
 import sample from "data/data.json"
+import { handleNumericChange } from 'utils/formHandlers'
+import { getSingleRegexMatch, getStringAmongStringsRegExp, getStringNotAmongStringsRegExp } from 'utils/regex'
 
 import useAppStore from "context/AppStore/store"
 import useListerStore from 'context/ListerStore/store'
 import {ToggleSwitch, Select, NumberInput, NumberInputWithButton} from 'components/Forms'
 import { Root } from 'types/ygopro.types'
+import { REGEX } from "types/regex.enum"
 
 var axios = Axios.create({
     baseURL: 'https://db.ygoprodeck.com/api/v7/',
@@ -15,7 +18,7 @@ var axios = Axios.create({
 })
 
 const cardTypes = ['Monster', 'Spell Card', 'Trap Card']
-const monsterTypes = ['Ritual', 'Fusion', 'Synchro', 'Link', 'XYZ', 'Toon', 'Spirit', 'Gemini', 'Union']
+const monsterTypes = ['Ritual', 'Fusion', 'Synchro', 'Link', 'XYZ', 'Toon', 'Spirit', 'Gemini', 'Union'] // TODO add flip
 const monsterAttributes = ['Earth', 'Wind', 'Fire', 'Water', 'Light', 'Dark', 'Divine']
 const monsterRaces = ['Aqua', 'Beast', 'Beast-Warrior', 'Cyberse', 'Dinosaur', 'Divine-Beast', 'Dragon', 'Fairy', 'Fiend', 'Fish', 'Insect', 'Illusion', 'Machine', 'Plant', 'Psychic', 'Pyro', 'Reptile', 'Rock', 'Sea Serpent', 'Spellcaster', 'Thunder', 'Warrior', 'Winged Beast', 'Wyrm', 'Zombie']
 const spellRaces = ['Normal', 'Field', 'Equip', 'Continuous', 'Quick-Play', 'Ritual']
@@ -80,22 +83,17 @@ const Search =  () => {
         }
     }
 
-    const handleNumericChange = (value: string, maximum: number, setter: (val: string) => void, prefix: string) => {
-        if (value === "") {
-            setter("")
-        }
-        else if (!isNaN(Number(value))) {
-            if (parseInt(value) <= maximum) setter(`&${prefix}=${value}`)
-        }
-    }
-    // TODO adapt filter
+    /**
+     * Convert the filters from the form to valid query parameters to use in the API call
+     * @returns {string} URL that includes selected filters
+     */
     const queryBuilder = () => {
         var reg = new RegExp(`^${monsterType}${hasEffect}${isPendulum}${isTuner}${type}`)
         var types = monsterCardTypes.filter((cardType) => reg.test(cardType.toLowerCase()))
 
         // TODO : Alert si pas de filtre pour tous ceux choisi
 
-        return `cardinfo.php?num=30&offset=30`+name+race+atk+def+(types.length > 0 ?`&type=${types.join(',').toLowerCase()}`:type)+level+attribute
+        return `cardinfo.php?num=30&offset=0`+name+race+atk+def+(types.length > 0 ?`&type=${types.join(',').toLowerCase()}`:type)+level+attribute
         //+desc
     }
 
@@ -110,7 +108,12 @@ const Search =  () => {
         onChange={({target: {value}}) => setType(value.toLowerCase() === 'unset'?'':`(?=.*${value.toLowerCase()})`)}
     />
     
-    // Generic Race selector (sub type : monster type (aqua, machine, ...) or spell/trap type (normal, continuous))
+    /**
+     * Generic Race selector (sub type : monster type (aqua, machine, ...) or spell/trap type (normal, continuous))
+     * @param options collection of options (select)
+     * @param label Label displayed in the form
+     * @returns {JSX.Element} Customized select component
+     */
     const cardSubTypeSelector = (options: string[], label: string) => <Select
         className='row'
         label={label}
@@ -126,6 +129,7 @@ const Search =  () => {
     
     //*************MONSTER SPECIFIC SELECTORS******************
     // TODO use enum for values
+    // Effect or Normal monster
     const effectSelector = <ToggleSwitch 
         className='row'
         label='Monster effect'
@@ -136,8 +140,8 @@ const Search =  () => {
                     id: "normal",
                     name: "state-e",
                     displayName: "Normal",
-                    checked: Boolean(hasEffect === "(?=.*normal)"),
-                    onClick: () => setHasEffect("(?=.*normal)")
+                    checked: Boolean(hasEffect === getStringAmongStringsRegExp("normal")),
+                    onClick: () => setHasEffect(getStringAmongStringsRegExp("normal"))
                 },
                 {
                     id: "na-effect",
@@ -150,13 +154,14 @@ const Search =  () => {
                     id: "effect",
                     name: "state-e",
                     displayName: "Effect",
-                    checked: Boolean(hasEffect === "(?=.*effect)"),
-                    onClick: () => setHasEffect("(?=.*effect)")
+                    checked: Boolean(hasEffect === getStringAmongStringsRegExp("effect")),
+                    onClick: () => setHasEffect(getStringAmongStringsRegExp("effect"))
                 }
             ]
         }
     />
 
+    // Monster attribute
     const attributeSelector = <Select
         className='row'
         label='Attribute'
@@ -174,6 +179,7 @@ const Search =  () => {
         onChange={({target: {value}}) => setMonsterType(value.toLowerCase() === 'unset'?'':`(/^(?!.*${value.toLowerCase()})/)`)}
     />
 
+    // (Non-) Pendulum monster
     const isPendulumSelector = <ToggleSwitch 
         className='row'
         label='Pendulum'
@@ -184,8 +190,8 @@ const Search =  () => {
                     id: "non-pendulum",
                     name: "state-p",
                     displayName: "No",
-                    checked: Boolean(isPendulum === "(?!.*pendulum)"),
-                    onClick: () => setPendulum("(?!.*pendulum)")
+                    checked: Boolean(isPendulum === getStringNotAmongStringsRegExp("pendulum")),
+                    onClick: () => setPendulum(getStringNotAmongStringsRegExp("pendulum"))
                 },
                 {
                     id: "na-pendulum",
@@ -198,13 +204,14 @@ const Search =  () => {
                     id: "pendulum",
                     name: "state-p",
                     displayName: "Yes",
-                    checked: Boolean(isPendulum === "(?=.*pendulum)"),
-                    onClick: () => setPendulum("(?=.*pendulum)")
+                    checked: Boolean(isPendulum === getStringAmongStringsRegExp("pendulum")),
+                    onClick: () => setPendulum(getStringAmongStringsRegExp("pendulum"))
                 }
             ]
         }
     />
 
+    // (Non-) Tuner monster
     const isTunerSelector = <ToggleSwitch 
         className='row'
         label='Tuner'
@@ -215,8 +222,8 @@ const Search =  () => {
                     id: "non-tuner",
                     name: "state-t",
                     displayName: "No",
-                    checked: Boolean(isTuner === "(?!.*tuner)"),
-                    onClick: () => setTuner("(?!.*tuner)")
+                    checked: Boolean(isTuner === getStringNotAmongStringsRegExp("tuner")),
+                    onClick: () => setTuner(getStringNotAmongStringsRegExp("tuner"))
                 },
                 {
                     id: "na-tuner",
@@ -229,67 +236,82 @@ const Search =  () => {
                     id: "tuner",
                     name: "state-t",
                     displayName: "Yes",
-                    checked: Boolean(isTuner === "(?=.*tuner)"),
-                    onClick: () => setTuner("(?=.*tuner)")
+                    checked: Boolean(isTuner === getStringAmongStringsRegExp("tuner")),
+                    onClick: () => setTuner(getStringAmongStringsRegExp("tuner"))
                 }
             ]
         }
     />
 
     // TODO add enum in regex
+    // Monster level/rank
     const levelSelector = <NumberInput
         className='row'
         label='Level / Rank'
         name='monster-level'
-        value={(/\d+/.exec(level) || [""])[0]}
+        value={getSingleRegexMatch(REGEX.NUMBER, level)}
         onChange={({target: {value}}) => handleNumericChange(value,13,setLevel,"level")}
     />
         
+    // Monster pendulum scale
     const pendulumSelector = <NumberInput
         className='row'
         label='Pendulum Scale'
         name='pendulum-scale'
-        value={(/\d+/.exec(pendulumScale) || [""])[0]}
+        value={getSingleRegexMatch(REGEX.NUMBER, pendulumScale)}
         onChange={({target: {value}}) => handleNumericChange(value,13,setPendulumScale,"scale")}
     />
 
+    // List of symbol for ATK/DEF search
     const symbolMap = new Map()
     symbolMap.set("=", '=')
     symbolMap.set("=lt", "<")
     symbolMap.set("=gt",">")
 
+    /**
+     * Extract the mathematic indicator from the query parameter and transform it to its matching symbol (ie "lt" becomes "<")
+     * @param state Query parameter
+     * @returns Mathematic symbol matching the query parameter
+     */
     const getSymbol = (state: string) => {
         let sub;
-        if (!state) sub = "=";
-        else sub = (/=[a-z]{0,2}/.exec(state) || [""])[0];
-        return symbolMap.get(sub);
+        if (!state) sub = "="; // = is default
+        else sub = getSingleRegexMatch(REGEX.MATH_SYMBOL, state); // Extract the indicator (=, =lt or =gt)
+        return symbolMap.get(sub); // Return the associated symbol
     }
 
     // TODO move regex evaluation to utils
+    /**
+     * Update the state with a new mathematic indicator without changing the value
+     * @param state Original state
+     * @param setter Function to update the state
+     */
     const changeSymbol = (state: string, setter: (val: string) => void) =>  {
         if (state) {
-            let sub = (/=[a-z]{0,2}/.exec(state) || [""])[0]; // Extract the "=..."
+            let sub = getSingleRegexMatch(REGEX.MATH_SYMBOL, state); // Extract the "=..."
             let nextIndex = (Array.from(symbolMap.keys()).indexOf(sub) + 1) % symbolMap.size; // Get the index in symbolMap
-            setter(`${(/&[a-z]+/.exec(state) || [""])[0]}${Array.from(symbolMap.keys())[nextIndex]}${(/\d+/.exec(state) || [""])[0]}`); // Change the stat depending on new symbol
+            setter(`${getSingleRegexMatch(REGEX.QUERY_PARAM, state)}${Array.from(symbolMap.keys())[nextIndex]}${getSingleRegexMatch(REGEX.NUMBER, state)}`); // Change the state depending on new symbol
         }
     }
     
+    // Monster ATK Number input
     const atkSelector = <NumberInputWithButton
         className='row'
         label='ATK'
         name='atk'
-        value={(/\d+/.exec(atk) || [""])[0]}
+        value={getSingleRegexMatch(REGEX.NUMBER, atk)}
         onChange={({target: {value}}) => handleNumericChange(value,9999,setAtk,"atk")}
         isButtonDisabled={!Boolean(atk)}
         onClick={() => changeSymbol(atk,setAtk)}
         displayName={getSymbol(atk)}
     />
 
+    // Monster DEF Number input
     const defSelector = <NumberInputWithButton
         className='row'
         label='DEF'
         name='def'
-        value={(/\d+/.exec(def) || [""])[0]}
+        value={getSingleRegexMatch(REGEX.NUMBER, def)}
         onChange={({target: {value}}) => handleNumericChange(value,9999,setDef,"def")}
         isButtonDisabled={!Boolean(def)}
         onClick={() => changeSymbol(def,setDef)}
