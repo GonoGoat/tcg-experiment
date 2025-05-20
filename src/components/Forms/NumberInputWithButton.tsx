@@ -26,7 +26,6 @@ const NumberInputWithButton: FC<NumberInputWithButtonProps> = ({className, label
             </div>
         </div>
     )
-    
 }
 
 export default NumberInputWithButton

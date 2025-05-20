@@ -13,7 +13,7 @@ var axios = Axios.create({
     baseURL: 'https://db.ygoprodeck.com/api/v7/',
 })
 
-const cardTypes = ['Monster Card', 'Spell Card', 'Trap Card']
+const cardTypes = ['Monster', 'Spell Card', 'Trap Card']
 const monsterTypes = ['Ritual', 'Fusion', 'Synchro', 'Link', 'XYZ', 'Toon', 'Spirit', 'Gemini', 'Union']
 const monsterAttributes = ['Earth', 'Wind', 'Fire', 'Water', 'Light', 'Dark', 'Divine']
 const monsterRaces = ['Aqua', 'Beast', 'Beast-Warrior', 'Cyberse', 'Dinosaur', 'Divine-Beast', 'Dragon', 'Fairy', 'Fiend', 'Fish', 'Insect', 'Illusion', 'Machine', 'Plant', 'Psychic', 'Pyro', 'Reptile', 'Rock', 'Sea Serpent', 'Spellcaster', 'Thunder', 'Warrior', 'Winged Beast', 'Wyrm', 'Zombie']
@@ -58,7 +58,7 @@ const Search =  () => {
         setLoadingState(true)
         try{
             console.log(queryBuilder())
-            let response: Root = await axios.get(queryBuilder())
+            let response: Root = (await axios.get(queryBuilder())).data
             console.log(queryBuilder())
             //let response: Root = sample;
             console.log(response)
@@ -90,11 +90,11 @@ const Search =  () => {
     // TODO adapt filter
     const queryBuilder = () => {
         var reg = new RegExp(`^${monsterType}${hasEffect}${isPendulum}${isTuner}${type}`)
-        var types = [...monsterCardTypes, ...cardTypes].filter((cardType) => reg.test(cardType.toLowerCase()))
+        var types = monsterCardTypes.filter((cardType) => reg.test(cardType.toLowerCase()))
 
         // TODO : Alert si pas de filtre pour tous ceux choisi
 
-        return `cardinfo.php?num=30&offset=0`+name+race+atk+def+(types.length > 0 ?`&type=${types.join(',').toLowerCase()}`:type)+level+attribute
+        return `cardinfo.php?num=30&offset=30`+name+race+atk+def+(types.length > 0 ?`&type=${types.join(',').toLowerCase()}`:type)+level+attribute
         //+desc
     }
 
@@ -106,7 +106,7 @@ const Search =  () => {
         label='Card type'
         name='type'
         options={cardTypes}
-        onChange={({target: {value}}) => setType(value.toLowerCase() === 'unset'?'':`&type=${value.toLowerCase()}`)}
+        onChange={({target: {value}}) => setType(value.toLowerCase() === 'unset'?'':`(?=.*${value.toLowerCase()})`)}
     />
     
     // Generic Race selector (sub type : monster type (aqua, machine, ...) or spell/trap type (normal, continuous))
