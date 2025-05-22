@@ -4,7 +4,7 @@ import {default as Axios} from 'axios'
 import CircularProgress from '@mui/material/CircularProgress'
 
 import 'assets/style/pages/Lister.css'
-import { cardInfo } from 'types/ygopro.types'
+import { cardInfo, Root } from 'types/ygopro.types'
 import useAppStore from "context/AppStore/store"
 import useListerStore from 'context/ListerStore/store'
 
@@ -19,6 +19,7 @@ const Lister = () => {
 
     const isLoading = useAppStore(state => state.isLoading)
     const setLoadingState = useAppStore(state => state.setLoadingState)
+    
     const lister = useListerStore((state) => state.lister)
     const hasMoreItemsToLoad = useListerStore((state) => state.hasMoreItemsToLoad)
     const nextPageToLoad = useListerStore((state) => state.nextPageToLoad)
@@ -30,16 +31,16 @@ const Lister = () => {
         setHasMoreItemsToLoad(false)
         setLoadingMoreItems(true)
         try{
-            let response = await axios.get(nextPageToLoad)
+            let response: Root = (await axios.get(nextPageToLoad)).data
             console.log(response)
-            if(response.data.meta.pages_remaining !== 0){
+            if(response.meta.pages_remaining !== 0){
                 setHasMoreItemsToLoad(true)
-                setNextPageToLoad(true)
+                setNextPageToLoad(response.meta.next_page || '')
             }
             else {
                 setHasMoreItemsToLoad(false)
             }
-            addListerItems(response.data.data)
+            addListerItems(response.data)
         } 
         catch (err) {
             alert(err)
@@ -68,7 +69,7 @@ const Lister = () => {
                             cardInfo={card}  
                             key={card.id} 
                             isDraggable={true}
-                            index={index}
+                            index={index+1}
                         />
                     )
                 }
