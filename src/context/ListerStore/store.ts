@@ -1,7 +1,9 @@
 import { create } from 'zustand'
 import * as reducer from "./reducers"
 
-const useListerStore =  create((set) => ({
+import { ListerState } from 'types/context.types'
+
+const useListerStore =  create<ListerState>((set) => ({
     lister: [],
     hasMoreItemsToLoad: false,
     nextPageToLoad: '',
