@@ -1,22 +1,35 @@
-.deck-container {
-    grid-area: deck;
-    
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    border: 1px solid #001B0C;
-}
-
 .deck {
-    height: fit-content;
     overflow-y: auto;
-   
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    /*border-top: 1px solid #FFFFFF;*/
+    scrollbar-base-color: transparent;
+    scrollbar-color: green;
+    grid-area: deck;
+    min-height: 50vh;
+
+    scrollbar-width: 100px;
+    scrollbar-color: green;
 }
 
-
-.deck div {
-    margin-right: 5px;
-    margin-left: 5px;
-    margin-bottom: 5px;
+.deck .card, .deck .blank-card {
     float: left;
+}
+
+.main {
+    overflow-y: auto;
+    min-height: 20vh;
+    height: 70vh;
+    width: 100vw;
+    background-color: #ff0000;
+}
+
+.extra {
+    min-height: 5vh;
+    height: 15vh;
+    width: 100vw;
+    background-color: #0000FF;
 }
