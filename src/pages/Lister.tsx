@@ -19,6 +19,7 @@ const Lister = () => {
 
     const isLoading = useAppStore(state => state.isLoading)
     const setLoadingState = useAppStore(state => state.setLoadingState)
+    
     const lister = useListerStore((state) => state.lister)
     const hasMoreItemsToLoad = useListerStore((state) => state.hasMoreItemsToLoad)
     const nextPageToLoad = useListerStore((state) => state.nextPageToLoad)
