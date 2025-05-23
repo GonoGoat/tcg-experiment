@@ -1,8 +1,9 @@
 import { DeckState } from "types/context.types"
 import { genericCard } from "types/ygopro.types"
+import { CARD_ZONES } from "types/global.enum"
 
 /**
- * 
+ * TODO replace with REGEX
  * @param {string} type Card type
  * @returns true/false if this card type belongs to the extra deck
  */
@@ -19,7 +20,14 @@ const belongsToExtraDeck = (type: string) => {
     )
 }
 
-export function addCardToDeck (state: DeckState, payload: genericCard) {
+export function addCard (state: DeckState, payload: genericCard, dest: CARD_ZONES) {
+    return {
+        ...state,
+        [dest]: [...state[dest], payload]
+    }
+}
+
+export function dispatchCard (state: DeckState, payload: genericCard) {
     if (belongsToExtraDeck(payload.type)){
         return {
             ...state,

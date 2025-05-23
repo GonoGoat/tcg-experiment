@@ -3,7 +3,7 @@ import shortid from 'shortid'
 import {Card, BlankCard} from 'components'
 
 import { genericCard, cardInfo } from 'types/ygopro.types'
-import { SOURCES } from 'types/global.enum'
+import { CARD_ZONES } from 'types/global.enum'
 import 'assets/style/pages/Deck.css'
 import useDeckStore from 'context/DeckStore/store'
 
@@ -11,7 +11,7 @@ const Deck = () => {
     const main = useDeckStore(state => state.main)
     const extra = useDeckStore(state => state.extra)
 
-    const getCards = (map: genericCard[], dest: SOURCES) => {
+    const getCards = (map: genericCard[], dest: CARD_ZONES) => {
         return map.map( (card, index) => {
             if (card.type === "blank") {
                 return (
@@ -38,10 +38,10 @@ const Deck = () => {
     return (
         <div className="deck">
             <div className="main" tabIndex={0}>
-                {getCards(main, SOURCES.MAIN)}
+                {getCards(main, CARD_ZONES.MAIN)}
             </div>
             <div className="extra" tabIndex={0}>
-                {getCards(extra, SOURCES.EXTRA)}
+                {getCards(extra, CARD_ZONES.EXTRA)}
             </div>
         </div>
     )

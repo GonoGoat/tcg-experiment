@@ -4,11 +4,13 @@ import {default as Axios} from 'axios'
 import CircularProgress from '@mui/material/CircularProgress'
 
 import 'assets/style/pages/Lister.css'
-import { cardInfo, Root } from 'types/ygopro.types'
+import { cardInfo, Root, blankCardInfo } from 'types/ygopro.types'
+import { CARD_ZONES } from 'types/global.enum'
 import useAppStore from "context/AppStore/store"
 import useListerStore from 'context/ListerStore/store'
+import useDeckStore from 'context/DeckStore/store'
 
-import {Card, BlankCard} from 'components'
+import {Card, BlankCard, ActionMenu} from 'components'
 
 var axios = Axios.create({
     baseURL: 'https://db.ygoprodeck.com/api/v7/',
@@ -26,6 +28,10 @@ const Lister = () => {
     const setNextPageToLoad = useListerStore((state) => state.setNextPageToLoad)
     const setHasMoreItemsToLoad = useListerStore((state) => state.setHasMoreItemsToLoad)
     const addListerItems = useListerStore((state) => state.addListerItems)
+
+    const addCard = useDeckStore(state => state.addCard)
+
+    const blankCardPayload: blankCardInfo = {type: "blank"}
    
     async function loadMoreItems(){
         setHasMoreItemsToLoad(false)
@@ -49,6 +55,17 @@ const Lister = () => {
         setLoadingMoreItems(false)
     }
 
+    const blankCardActions = [
+        {
+            label: "Main",
+            onClick: () => addCard(blankCardPayload, CARD_ZONES.MAIN)
+        },
+        {
+            label: "Extra",
+            onClick: () => addCard(blankCardPayload, CARD_ZONES.EXTRA)
+        }
+    ]
+
     if(isLoading){
        return (
         <div className="lister" style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -62,7 +79,11 @@ const Lister = () => {
                 <BlankCard  
                     isDraggable={true}
                     index={0}
-                />
+                >
+                    <ActionMenu
+                        actions={blankCardActions}
+                    />
+                </BlankCard>
                 {
                     lister.map((card: cardInfo, index: number) =>
                         <Card 

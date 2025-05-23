@@ -18,7 +18,7 @@ const Card: FC<CardProps> = ({cardInfo, isDraggable, index}) => {
     const [open, setOpen] = useState<boolean>(false);
     const img_url: string = cardInfo.card_images[0].image_url_small
 
-    const addCardToDeck = useDeckStore(state => state.addCardToDeck)
+    const addCardToDeck = useDeckStore(state => state.dispatchCard)
     const removeCardFromDeck = useDeckStore(state => state.removeCardFromDeck)
 
     const handleClickOpen = () => setOpen(true)
@@ -85,7 +85,7 @@ const Card: FC<CardProps> = ({cardInfo, isDraggable, index}) => {
                     open?
                         null // no action if the dialog is up
                         :
-                        removeCardFromDeck(cardInfo.type,index)
+                        removeCardFromDeck(cardInfo,index)
                 }
             >
                 <img
