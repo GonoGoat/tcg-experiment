@@ -10,7 +10,7 @@ const belongsToExtraDeck = (type: string) => {
     return(new RegExp(Object.values(ED_MONSTER_TYPES).map(type => `(${type})`).join('|')).test(type.toLowerCase()))
 }
 
-/**
+/** TODO : Handle card/deck size limit
  * Add a card to a specific destination
  * @param state Deck state
  * @param payload Card to be added
@@ -45,18 +45,17 @@ export function dispatchCard (state: DeckState, payload: genericCard) {
     }
 }
 
-export function removeCardFromDeck (state: DeckState, payload: string, index:number) {
-    if (belongsToExtraDeck(payload)){
-        return {
-            ...state,
-            extra: [...state.extra.slice(0,index).concat(state.extra.slice(index+1))]
-        }
-    }
-    else {
-        return {
-            ...state,
-            main: [...state.main.slice(0,index).concat(state.main.slice(index+1))]
-        }
+/**
+ * Remove a card from a specific source collection
+ * @param state Deck state
+ * @param index Index of the card to be removed
+ * @param source Where to remove the card
+ * @returns State with a card removed from the source collection
+ */
+export function removeCard (state: DeckState, index: number, source: CARD_ZONES) {
+    return {
+        ...state,
+        [source]: [...state[source].slice(0,index).concat(state[source].slice(index+1))]
     }
 }
 

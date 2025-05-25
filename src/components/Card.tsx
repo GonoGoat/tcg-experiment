@@ -19,7 +19,7 @@ const Card: FC<CardProps> = ({cardInfo, isDraggable, index}) => {
     const img_url: string = cardInfo.card_images[0].image_url_small
 
     const addCardToDeck = useDeckStore(state => state.dispatchCard)
-    const removeCardFromDeck = useDeckStore(state => state.removeCardFromDeck)
+    const removeCardFromDeck = useDeckStore(state => state.removeCard)
 
     const handleClickOpen = () => setOpen(true)
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -82,10 +82,10 @@ const Card: FC<CardProps> = ({cardInfo, isDraggable, index}) => {
                 onClick={()=>isDraggable?
                     addCardToDeck(cardInfo)
                     :
-                    open?
+                    //open?
                         null // no action if the dialog is up
-                        :
-                        removeCardFromDeck(cardInfo,index)
+                    //    :
+                    //    removeCard(cardInfo,index)
                 }
             >
                 <img

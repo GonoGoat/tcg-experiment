@@ -1,6 +1,6 @@
 import shortid from 'shortid'
 
-import {Card, BlankCard} from 'components'
+import {Card, BlankCard, ActionMenu} from 'components'
 
 import { genericCard, cardInfo } from 'types/ygopro.types'
 import { CARD_ZONES } from 'types/global.enum'
@@ -11,6 +11,16 @@ const Deck = () => {
     const main = useDeckStore(state => state.main)
     const extra = useDeckStore(state => state.extra)
 
+    const removeCard = useDeckStore(state => state.removeCard)
+
+    const blankCardActions = (index: number, dest: CARD_ZONES) => 
+    [
+        {
+            label: "Remove",
+            onClick: () => removeCard(index, dest)
+        }
+    ]
+
     const getCards = (map: genericCard[], dest: CARD_ZONES) => {
         return map.map( (card, index) => {
             if (card.type === "blank") {
@@ -19,7 +29,11 @@ const Deck = () => {
                         index={index}  
                         key={shortid.generate()}
                         isDraggable={false} 
-                    />
+                    >
+                        <ActionMenu
+                            actions={blankCardActions(index, dest)}
+                        />
+                    </BlankCard>
                 )
             }
             else {

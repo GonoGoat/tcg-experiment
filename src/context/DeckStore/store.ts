@@ -9,7 +9,7 @@ const useDeckStore =  create<DeckState>((set) => ({
 
     dispatchCard : (payload) => set(state => reducer.dispatchCard(state, payload)),
     addCard : (payload, dest) => set(state => reducer.addCard(state, payload, dest)),
-    removeCardFromDeck : (payload, index) => set(state => reducer.removeCardFromDeck(state, payload.type, index)),
+    removeCard : (index, source) => set(state => reducer.removeCard(state, index, source)),
     eraseDeck : () => set(state => reducer.eraseDeck(state)),
 }))
 

@@ -12,7 +12,7 @@ export interface DeckState {
 
     dispatchCard: (payload: genericCard) => void
     addCard: (payload: genericCard, dest: CARD_ZONES) => void,
-    removeCardFromDeck: (payload: genericCard, index: number) => void,
+    removeCard: (index: number, source: CARD_ZONES) => void,
     eraseDeck: () => void
 }
 
