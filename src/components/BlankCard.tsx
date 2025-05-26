@@ -14,6 +14,7 @@ interface BlankCardProps {
 const BlankCard: FC<BlankCardProps> = ({isDraggable, index, children}) => {
     const [menu, setMenu] = useState(false);
     
+    // TODO different handlers on right/left click?
     return (
             <div
                 className="blank-card"

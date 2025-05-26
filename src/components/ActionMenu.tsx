@@ -12,9 +12,8 @@ interface ActionMenuProps {
     actions: ActionProps[]
 }
 
+
 const ActionMenu: FC<ActionMenuProps> = ({actions}) => {
-    const [isHovering, setHovering] = useState<boolean>(false)
-    const [open, setOpen] = useState<boolean>(false);
     
     return (
         <div className='menu'>
