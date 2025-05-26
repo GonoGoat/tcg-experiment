@@ -63,6 +63,10 @@ const Lister = () => {
         {
             label: "Extra",
             onClick: () => addCard(blankCardPayload, CARD_ZONES.EXTRA)
+        },
+        {
+            label: "Side",
+            onClick: () => addCard(blankCardPayload, CARD_ZONES.SIDE)
         }
     ]
 
