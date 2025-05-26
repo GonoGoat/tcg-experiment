@@ -16,6 +16,8 @@ interface CardProps {
 const Card: FC<CardProps> = ({cardInfo, isDraggable, index}) => {
     const [isHovering, setHovering] = useState<boolean>(false)
     const [open, setOpen] = useState<boolean>(false);
+    const [menu, setMenu] = useState(false);
+
     const img_url: string = cardInfo.card_images[0].image_url_small
 
     const addCardToDeck = useDeckStore(state => state.dispatchCard)
@@ -34,7 +36,12 @@ const Card: FC<CardProps> = ({cardInfo, isDraggable, index}) => {
             handleClickOpen()
             event.preventDefault()
             return false
-        } 
+        }
+        else { // Middle and left click
+            if (!open) {
+                setMenu(!menu)
+            }
+        }
     }
 
     const TooltipDisplay = <div>
@@ -79,14 +86,14 @@ const Card: FC<CardProps> = ({cardInfo, isDraggable, index}) => {
                 onMouseOver={()=>setHovering(true)}
                 onMouseOut={()=>setHovering(false)}
                 onMouseDown={e=>handleClick(e)} 
-                onClick={()=>isDraggable?
+                /*onClick={()=>isDraggable?
                     addCardToDeck(cardInfo)
                     :
                     //open?
                         null // no action if the dialog is up
                     //    :
                     //    removeCard(cardInfo,index)
-                }
+                }*/
             >
                 <img
                     src={img_url}
