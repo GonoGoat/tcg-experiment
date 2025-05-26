@@ -4,7 +4,7 @@ import {default as Axios} from 'axios'
 import CircularProgress from '@mui/material/CircularProgress'
 
 import 'assets/style/pages/Lister.css'
-import { cardInfo, Root, blankCardInfo } from 'types/ygopro.types'
+import { cardInfo, Root, blankCardInfo, genericCard } from 'types/ygopro.types'
 import { CARD_ZONES } from 'types/global.enum'
 import useAppStore from "context/AppStore/store"
 import useListerStore from 'context/ListerStore/store'
@@ -30,6 +30,7 @@ const Lister = () => {
     const addListerItems = useListerStore((state) => state.addListerItems)
 
     const addCard = useDeckStore(state => state.addCard)
+    const dispatchCard = useDeckStore(state => state.dispatchCard)
 
     const blankCardPayload: blankCardInfo = {type: "blank"}
    
@@ -70,6 +71,18 @@ const Lister = () => {
         }
     ]
 
+    const cardActions = (card: genericCard) => 
+    [
+        {
+            label: "Main/Extra",
+            onClick: () => dispatchCard(card)
+        },
+        {
+            label: "Side",
+            onClick: () => addCard(card, CARD_ZONES.SIDE)
+        }
+    ]
+
     if(isLoading){
        return (
         <div className="lister" style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -89,13 +102,17 @@ const Lister = () => {
                     />
                 </BlankCard>
                 {
-                    lister.map((card: cardInfo, index: number) =>
+                    lister.map( (card: cardInfo, index: number) =>
                         <Card 
                             cardInfo={card}  
                             key={card.id} 
                             isDraggable={true}
                             index={index+1}
-                        />
+                        >
+                            <ActionMenu
+                                actions={cardActions(card)}
+                            />
+                        </Card>
                     )
                 }
                 <div style={{display: 'flex', flexDirection: 'column', width: '100%', margin: 0, justifyContent: 'center', alignItems: 'center'}}>

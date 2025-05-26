@@ -10,10 +10,11 @@ import useDeckStore from 'context/DeckStore/store'
 interface CardProps {
     cardInfo: cardType,
     isDraggable: boolean,
-    index: number;
+    index: number,
+    children?: React.ReactNode
 }
 
-const Card: FC<CardProps> = ({cardInfo, isDraggable, index}) => {
+const Card: FC<CardProps> = ({cardInfo, isDraggable, index, children}) => {
     const [isHovering, setHovering] = useState<boolean>(false)
     const [open, setOpen] = useState<boolean>(false);
     const [menu, setMenu] = useState(false);
@@ -84,8 +85,7 @@ const Card: FC<CardProps> = ({cardInfo, isDraggable, index}) => {
             <div
                 className="card"
                 onMouseOver={()=>setHovering(true)}
-                onMouseOut={()=>setHovering(false)}
-                onMouseDown={e=>handleClick(e)} 
+                onMouseOut={()=>setHovering(false)} 
                 /*onClick={()=>isDraggable?
                     addCardToDeck(cardInfo)
                     :
@@ -100,14 +100,16 @@ const Card: FC<CardProps> = ({cardInfo, isDraggable, index}) => {
                     width="90px" 
                     height="120px" 
                     alt={cardInfo.name}
+                    onMouseDown={e=>handleClick(e)}
                 />
-                <Dialog 
+                {menu ? children : <></>}
+                {/*<Dialog 
                     open={open} 
                     onKeyDown={handleKeyPress}
                     maxWidth="md"
                 >
                     {DialogDisplay}
-                </Dialog>
+                </Dialog>*/}
             </div>
         </Tooltip>
     )

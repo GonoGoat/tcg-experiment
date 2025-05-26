@@ -34,7 +34,7 @@ export function dispatchCard (state: DeckState, payload: genericCard) {
     if (belongsToExtraDeck(payload.type)){
         return {
             ...state,
-            extra:[...state.extra, payload]
+            extra: [...state.extra, payload]
         }
     } 
     else {
