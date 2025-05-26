@@ -4,8 +4,10 @@ import {default as Axios} from 'axios'
 import CircularProgress from '@mui/material/CircularProgress'
 
 import 'assets/style/pages/Lister.css'
-import { cardInfo, Root, blankCardInfo, genericCard } from 'types/ygopro.types'
+import { cardInfo, Root, genericCard } from 'types/ygopro.types'
 import { CARD_ZONES } from 'types/global.enum'
+import { capitalizeFirstLetter } from 'utils/beautifiers'
+import { blankCardPayload } from 'utils/global.const'
 import useAppStore from "context/AppStore/store"
 import useListerStore from 'context/ListerStore/store'
 import useDeckStore from 'context/DeckStore/store'
@@ -31,8 +33,6 @@ const Lister = () => {
 
     const addCard = useDeckStore(state => state.addCard)
     const dispatchCard = useDeckStore(state => state.dispatchCard)
-
-    const blankCardPayload: blankCardInfo = {type: "blank"}
    
     async function loadMoreItems(){
         setHasMoreItemsToLoad(false)
@@ -56,20 +56,12 @@ const Lister = () => {
         setLoadingMoreItems(false)
     }
 
-    const blankCardActions = [
-        {
-            label: "Main",
-            onClick: () => addCard(blankCardPayload, CARD_ZONES.MAIN)
-        },
-        {
-            label: "Extra",
-            onClick: () => addCard(blankCardPayload, CARD_ZONES.EXTRA)
-        },
-        {
-            label: "Side",
-            onClick: () => addCard(blankCardPayload, CARD_ZONES.SIDE)
+    const blankCardActions = Object.keys(CARD_ZONES).map( (key) => {
+        return {
+            label: capitalizeFirstLetter(CARD_ZONES[key as keyof typeof CARD_ZONES]),
+            onClick: () => addCard(blankCardPayload, CARD_ZONES[key as keyof typeof CARD_ZONES])
         }
-    ]
+    })
 
     const cardActions = (card: genericCard) => 
     [
@@ -93,25 +85,17 @@ const Lister = () => {
     else {
         return (
             <div className="lister">
-                <BlankCard  
-                    isDraggable={true}
-                    index={0}
-                >
-                    <ActionMenu
-                        actions={blankCardActions}
-                    />
+                <BlankCard  index={0}>
+                    <ActionMenu actions={blankCardActions}/>
                 </BlankCard>
                 {
                     lister.map( (card: cardInfo, index: number) =>
                         <Card 
                             cardInfo={card}  
                             key={card.id} 
-                            isDraggable={true}
                             index={index+1}
                         >
-                            <ActionMenu
-                                actions={cardActions(card)}
-                            />
+                            <ActionMenu actions={cardActions(card)}/>
                         </Card>
                     )
                 }

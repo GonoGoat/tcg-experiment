@@ -5,24 +5,19 @@ import Dialog from '@mui/material/Dialog'
 import 'assets/style/components/Card.css'
 import {cardInfo as cardType} from 'types/ygopro.types'
 import placeholder from 'assets/pictures/placeholder.png'
-import useDeckStore from 'context/DeckStore/store'
 
 interface CardProps {
     cardInfo: cardType,
-    isDraggable: boolean,
     index: number,
     children?: React.ReactNode
 }
 
-const Card: FC<CardProps> = ({cardInfo, isDraggable, index, children}) => {
+const Card: FC<CardProps> = ({cardInfo, index, children}) => {
     const [isHovering, setHovering] = useState<boolean>(false)
     const [open, setOpen] = useState<boolean>(false);
     const [menu, setMenu] = useState(false);
 
     const img_url: string = cardInfo.card_images[0].image_url_small
-
-    const addCardToDeck = useDeckStore(state => state.dispatchCard)
-    const removeCardFromDeck = useDeckStore(state => state.removeCard)
 
     const handleClickOpen = () => setOpen(true)
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -103,13 +98,13 @@ const Card: FC<CardProps> = ({cardInfo, isDraggable, index, children}) => {
                     onMouseDown={e=>handleClick(e)}
                 />
                 {menu ? children : <></>}
-                {/*<Dialog 
+                <Dialog 
                     open={open} 
                     onKeyDown={handleKeyPress}
                     maxWidth="md"
                 >
                     {DialogDisplay}
-                </Dialog>*/}
+                </Dialog>
             </div>
         </Tooltip>
     )

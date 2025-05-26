@@ -4,6 +4,8 @@ import {Card, BlankCard, ActionMenu} from 'components'
 
 import { genericCard, cardInfo } from 'types/ygopro.types'
 import { CARD_ZONES } from 'types/global.enum'
+import { capitalizeFirstLetter } from 'utils/beautifiers'
+import { blankCardPayload } from 'utils/global.const'
 import 'assets/style/pages/Deck.css'
 import useDeckStore from 'context/DeckStore/store'
 
@@ -12,28 +14,59 @@ const Deck = () => {
     const extra = useDeckStore(state => state.extra)
     const side = useDeckStore(state => state.side)
 
+    const addCard = useDeckStore(state => state.addCard)
+    const dispatchCard = useDeckStore(state => state.dispatchCard)
     const removeCard = useDeckStore(state => state.removeCard)
 
     const blankCardActions = (index: number, dest: CARD_ZONES) => 
     [
+        ...(Object.keys(CARD_ZONES).map( (key) => {
+            return {
+                label: capitalizeFirstLetter(CARD_ZONES[key as keyof typeof CARD_ZONES]),
+                onClick: () => addCard(blankCardPayload, CARD_ZONES[key as keyof typeof CARD_ZONES])
+            }
+        })),
         {
             label: "Remove",
             onClick: () => removeCard(index, dest)
         }
     ]
 
+    const cardActions = (card: genericCard, index: number, dest: CARD_ZONES) => {
+        let res = [
+            {
+                label: "Remove",
+                onClick: () => removeCard(index, dest) 
+            }
+        ];
+        switch(dest) {
+            case (CARD_ZONES.SIDE):
+                res = [
+                    ...res,
+                    {
+                        label: "Main/Extra",
+                        onClick: () => dispatchCard(card)
+                    }
+                ]
+                break;
+            default: // In MD and ED
+                res = [
+                    ...res,
+                    {
+                        label: "Side",
+                        onClick: () => addCard(card, CARD_ZONES.SIDE)
+                    }
+                ]
+        }
+        return res;
+    }
+
     const getCards = (map: genericCard[], dest: CARD_ZONES) => {
         return map.map( (card, index) => {
             if (card.type === "blank") {
                 return (
-                    <BlankCard 
-                        index={index}  
-                        key={shortid.generate()}
-                        isDraggable={false} 
-                    >
-                        <ActionMenu
-                            actions={blankCardActions(index, dest)}
-                        />
+                    <BlankCard index={index} key={shortid.generate()}>
+                        <ActionMenu actions={blankCardActions(index, dest)}/>
                     </BlankCard>
                 )
             }
@@ -43,8 +76,9 @@ const Deck = () => {
                         cardInfo={card as cardInfo}
                         key={shortid.generate()} 
                         index={index}
-                        isDraggable={false}          
-                    />
+                    >
+                        <ActionMenu actions={cardActions(card, index, dest)}/>
+                    </Card>
                 )
             }
         })
