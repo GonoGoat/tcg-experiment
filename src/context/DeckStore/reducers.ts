@@ -59,10 +59,13 @@ export function removeCard (state: DeckState, index: number, source: CARD_ZONES)
     }
 }
 
+// TODO handle remove per deck
 export function eraseDeck (state: DeckState) {
     return {
         ...state,
         main: [],
-        extra: []
+        extra: [],
+        side: []
+
     }
 }

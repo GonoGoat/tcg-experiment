@@ -33,3 +33,10 @@
     width: 100vw;
     background-color: #0000FF;
 }
+
+.side {
+    min-height: 5vh;
+    height: 15vh;
+    width: 100vw;
+    background-color: #00FF00;
+}

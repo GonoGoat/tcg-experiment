@@ -10,6 +10,7 @@ import useDeckStore from 'context/DeckStore/store'
 const Deck = () => {
     const main = useDeckStore(state => state.main)
     const extra = useDeckStore(state => state.extra)
+    const side = useDeckStore(state => state.side)
 
     const removeCard = useDeckStore(state => state.removeCard)
 
@@ -56,6 +57,9 @@ const Deck = () => {
             </div>
             <div className="extra" tabIndex={0}>
                 {getCards(extra, CARD_ZONES.EXTRA)}
+            </div>
+            <div className="side" tabIndex={0}>
+                {getCards(side, CARD_ZONES.SIDE)}
             </div>
         </div>
     )
