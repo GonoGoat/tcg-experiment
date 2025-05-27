@@ -3,14 +3,16 @@ import { create } from 'zustand'
 import * as reducer from './reducers'
 import { DeckState } from 'types/context.types'
 
+//import data from "data/data.json"
+
 const useDeckStore =  create<DeckState>((set) => ({
     main: [],
     extra: [],
     side: [],
-    bulk: [],
 
-    addCardToDeck : (payload) => set(state => reducer.addCardToDeck(state, payload)),
-    removeCardFromDeck : (payload, index) => set(state => reducer.removeCardFromDeck(state, payload, index)),
+    dispatchCard : (payload) => set(state => reducer.dispatchCard(state, payload)),
+    addCard : (payload, dest) => set(state => reducer.addCard(state, payload, dest)),
+    removeCard : (index, source) => set(state => reducer.removeCard(state, index, source)),
     eraseDeck : () => set(state => reducer.eraseDeck(state)),
 }))
 

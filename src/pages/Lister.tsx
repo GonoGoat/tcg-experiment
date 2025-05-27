@@ -4,11 +4,15 @@ import {default as Axios} from 'axios'
 import CircularProgress from '@mui/material/CircularProgress'
 
 import 'assets/style/pages/Lister.css'
-import { cardInfo, Root } from 'types/ygopro.types'
+import { cardInfo, Root, genericCard } from 'types/ygopro.types'
+import { CARD_ZONES } from 'types/global.enum'
+import { capitalizeFirstLetter } from 'utils/beautifiers'
+import { blankCardPayload } from 'utils/global.const'
 import useAppStore from "context/AppStore/store"
 import useListerStore from 'context/ListerStore/store'
+import useDeckStore from 'context/DeckStore/store'
 
-import {Card, BlankCard} from 'components'
+import {Card, BlankCard, ActionMenu} from 'components'
 
 var axios = Axios.create({
     baseURL: 'https://db.ygoprodeck.com/api/v7/',
@@ -26,6 +30,9 @@ const Lister = () => {
     const setNextPageToLoad = useListerStore((state) => state.setNextPageToLoad)
     const setHasMoreItemsToLoad = useListerStore((state) => state.setHasMoreItemsToLoad)
     const addListerItems = useListerStore((state) => state.addListerItems)
+
+    const addCard = useDeckStore(state => state.addCard)
+    const dispatchCard = useDeckStore(state => state.dispatchCard)
    
     async function loadMoreItems(){
         setHasMoreItemsToLoad(false)
@@ -49,6 +56,25 @@ const Lister = () => {
         setLoadingMoreItems(false)
     }
 
+    const blankCardActions = Object.keys(CARD_ZONES).map( (key) => {
+        return {
+            label: capitalizeFirstLetter(CARD_ZONES[key as keyof typeof CARD_ZONES]),
+            onClick: () => addCard(blankCardPayload, CARD_ZONES[key as keyof typeof CARD_ZONES])
+        }
+    })
+
+    const cardActions = (card: genericCard) => 
+    [
+        {
+            label: "Main/Extra",
+            onClick: () => dispatchCard(card)
+        },
+        {
+            label: "Side",
+            onClick: () => addCard(card, CARD_ZONES.SIDE)
+        }
+    ]
+
     if(isLoading){
        return (
         <div className="lister" style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -59,18 +85,18 @@ const Lister = () => {
     else {
         return (
             <div className="lister">
-                <BlankCard  
-                    isDraggable={true}
-                    index={0}
-                />
+                <BlankCard  index={0}>
+                    <ActionMenu actions={blankCardActions}/>
+                </BlankCard>
                 {
-                    lister.map((card: cardInfo, index: number) =>
+                    lister.map( (card: cardInfo, index: number) =>
                         <Card 
                             cardInfo={card}  
                             key={card.id} 
-                            isDraggable={true}
                             index={index+1}
-                        />
+                        >
+                            <ActionMenu actions={cardActions(card)}/>
+                        </Card>
                     )
                 }
                 <div style={{display: 'flex', flexDirection: 'column', width: '100%', margin: 0, justifyContent: 'center', alignItems: 'center'}}>

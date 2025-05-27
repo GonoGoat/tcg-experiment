@@ -3,14 +3,18 @@
     height: 120px;
     background-color: gray;
     box-shadow: 0px 0px 10px black;
-    cursor: pointer;
     background-repeat: no-repeat;
     background-size: contain;
     background-image: url('../../pictures/placeholder.png');
+    position: relative;
 }
 
 .blank-card:hover{
-    cursor: pointer;
+    background: none;
+    opacity: 0.5;
+}
+
+.blank-card:focus {
     background: none;
     opacity: 0.5;
 }

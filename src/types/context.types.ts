@@ -1,20 +1,20 @@
 import { genericCard, cardInfo } from "./ygopro.types"
+import { CARD_ZONES } from "./global.enum"
 
 export interface AppState {
     isLoading: boolean,
     setLoadingState: (payload: boolean) => void
 }
 
-// TODO main should have blank card or card
 export interface DeckState {
     main: genericCard[],
     extra: genericCard[],
     side: genericCard[],
-    bulk: genericCard[],
 
-    addCardToDeck : (payload: genericCard) => void,
-    removeCardFromDeck : (payload: string, index: number) => void,
-    eraseDeck : () => void
+    dispatchCard: (payload: genericCard) => void
+    addCard: (payload: genericCard, dest: CARD_ZONES) => void,
+    removeCard: (index: number, source: CARD_ZONES) => void,
+    eraseDeck: () => void
 }
 
 export interface ListerState {

@@ -5,21 +5,19 @@ import Dialog from '@mui/material/Dialog'
 import 'assets/style/components/Card.css'
 import {cardInfo as cardType} from 'types/ygopro.types'
 import placeholder from 'assets/pictures/placeholder.png'
-import useDeckStore from 'context/DeckStore/store'
 
 interface CardProps {
     cardInfo: cardType,
-    isDraggable: boolean,
-    index: number;
+    index: number,
+    children?: React.ReactNode
 }
 
-const Card: FC<CardProps> = ({cardInfo, isDraggable, index}) => {
+const Card: FC<CardProps> = ({cardInfo, index, children}) => {
     const [isHovering, setHovering] = useState<boolean>(false)
     const [open, setOpen] = useState<boolean>(false);
-    const img_url: string = cardInfo.card_images[0].image_url_small
+    const [menu, setMenu] = useState(false);
 
-    const addCardToDeck = useDeckStore(state => state.addCardToDeck)
-    const removeCardFromDeck = useDeckStore(state => state.removeCardFromDeck)
+    const img_url: string = cardInfo.card_images[0].image_url_small
 
     const handleClickOpen = () => setOpen(true)
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -34,7 +32,12 @@ const Card: FC<CardProps> = ({cardInfo, isDraggable, index}) => {
             handleClickOpen()
             event.preventDefault()
             return false
-        } 
+        }
+        else { // Middle and left click
+            if (!open) {
+                setMenu(!menu)
+            }
+        }
     }
 
     const TooltipDisplay = <div>
@@ -77,23 +80,24 @@ const Card: FC<CardProps> = ({cardInfo, isDraggable, index}) => {
             <div
                 className="card"
                 onMouseOver={()=>setHovering(true)}
-                onMouseOut={()=>setHovering(false)}
-                onMouseDown={e=>handleClick(e)} 
-                onClick={()=>isDraggable?
+                onMouseOut={()=>setHovering(false)} 
+                /*onClick={()=>isDraggable?
                     addCardToDeck(cardInfo)
                     :
-                    open?
+                    //open?
                         null // no action if the dialog is up
-                        :
-                        removeCardFromDeck(cardInfo.type,index)
-                }
+                    //    :
+                    //    removeCard(cardInfo,index)
+                }*/
             >
                 <img
                     src={img_url}
                     width="90px" 
                     height="120px" 
                     alt={cardInfo.name}
+                    onMouseDown={e=>handleClick(e)}
                 />
+                {menu ? children : <></>}
                 <Dialog 
                     open={open} 
                     onKeyDown={handleKeyPress}
