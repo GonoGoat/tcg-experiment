@@ -20,10 +20,10 @@ const Deck = () => {
 
     const blankCardActions = (index: number, dest: CARD_ZONES) => 
     [
-        ...(Object.keys(CARD_ZONES).map( (key) => {
+        ...( Object.values(CARD_ZONES).filter( (value) => value !== CARD_ZONES.BANK).map( (value) => {
             return {
-                label: capitalizeFirstLetter(CARD_ZONES[key as keyof typeof CARD_ZONES]),
-                onClick: () => addCard(blankCardPayload, CARD_ZONES[key as keyof typeof CARD_ZONES])
+                label: capitalizeFirstLetter(value),
+                onClick: () => addCard(blankCardPayload, value)
             }
         })),
         {
