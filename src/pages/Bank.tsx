@@ -13,10 +13,12 @@ import {Card, ActionMenu} from 'components'
 const Bank = () => {
 
     const bank = useDeckStore(state => state.bank)
+
     const addCard = useDeckStore(state => state.addCard)
     const dispatchCard = useDeckStore(state => state.dispatchCard)
+    const removeCard = useDeckStore(state => state.removeCard)
 
-    const cardActions = (card: genericCard) => 
+    const cardActions = (card: genericCard, index: number) => 
     [
         {
             label: "Main/Extra",
@@ -25,6 +27,10 @@ const Bank = () => {
         {
             label: "Side",
             onClick: () => addCard(card, CARD_ZONES.SIDE)
+        },
+        {
+            label: "Remove",
+            onClick: () => removeCard(index, CARD_ZONES.BANK)
         }
     ]
 
@@ -40,7 +46,7 @@ const Bank = () => {
                         key={card.id} 
                         index={index}
                     >
-                        <ActionMenu actions={cardActions(card)}/>
+                        <ActionMenu actions={cardActions(card, index)}/>
                     </Card>
                 )
             }
