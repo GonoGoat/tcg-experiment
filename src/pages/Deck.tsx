@@ -46,6 +46,23 @@ const Deck = () => {
                     {
                         label: "Main/Extra",
                         onClick: () => dispatchCard(card)
+                    },
+                    {
+                        label: "Card Bank",
+                        onClick: () => addCard(card, CARD_ZONES.BANK)
+                    }
+                ]
+                break;
+            case (CARD_ZONES.BANK):
+                res = [
+                    ...res,
+                    {
+                        label: "Main/Extra",
+                        onClick: () => dispatchCard(card)
+                    },
+                    {
+                        label: "Side",
+                        onClick: () => addCard(card, CARD_ZONES.SIDE)
                     }
                 ]
                 break;
@@ -55,6 +72,10 @@ const Deck = () => {
                     {
                         label: "Side",
                         onClick: () => addCard(card, CARD_ZONES.SIDE)
+                    },
+                    {
+                        label: "Card Bank",
+                        onClick: () => addCard(card, CARD_ZONES.BANK)
                     }
                 ]
         }

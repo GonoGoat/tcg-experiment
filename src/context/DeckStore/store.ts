@@ -9,7 +9,7 @@ const useDeckStore =  create<DeckState>((set) => ({
     main: [],
     extra: [],
     side: [],
-    bank: data.data.data,
+    bank: [],
 
     dispatchCard : (payload) => set(state => reducer.dispatchCard(state, payload)),
     addCard : (payload, dest) => set(state => reducer.addCard(state, payload, dest)),

@@ -24,12 +24,15 @@ const Bank = () => {
         },
         {
             label: "Side",
-            onClick: () => addCard(card, CARD_ZONES.BANK)
+            onClick: () => addCard(card, CARD_ZONES.SIDE)
         }
     ]
 
     return (
         <div className="bank">
+            <div>
+                <h3>Card Bank</h3>
+            </div>
             {
                 bank.map( (card: cardInfo, index: number) =>
                     <Card 
