@@ -1,5 +1,5 @@
 import 'assets/style/App.css';
-import { Deck, Search, Lister} from 'pages'
+import { Deck, Search, Lister, Statistics} from 'pages'
 //import Options from './Components/Options'
 
 const App = () => {
@@ -8,6 +8,7 @@ const App = () => {
       <Search/>
       <Lister/>
       <Deck/>
+      <Statistics/>
     </div>
   );
   /*return (

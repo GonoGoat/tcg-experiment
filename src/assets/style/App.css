@@ -1,9 +1,10 @@
 .Home {
   width: 100vw;
   height: 100vh;
+  
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1fr 3fr 1fr;
   grid-template-rows: 1fr 1fr 1.5fr;
   
-  grid-template-areas: "search deck" "search deck" "lister deck";
+  grid-template-areas: "search deck statistics" "lister deck statistics";
 }
