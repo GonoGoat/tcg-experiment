@@ -3,15 +3,16 @@ import React from 'react'
 import 'assets/style/pages/Statistics.css'
 import { MARKERS } from 'types/global.enum'
 import useDeckStore from "context/DeckStore/store"
-//import useStatStore from 'context/StatStore/store'
+import useStatStore from 'context/StatStore/store'
 
 const Statistics =  () => {
-
-    const [activeMarker, setActiveMarker] = React.useState<string>('')
 
     const main = useDeckStore((state) => state.main)
     const extra = useDeckStore((state) => state.extra)
     const side = useDeckStore((state) => state.side)
+    const activeMarker = useStatStore((state) => state.activeMarker)
+
+    const setActiveMarker = useStatStore((state) => state.setActiveMarker)
 
     function handleMarking (marker: MARKERS) {
         setActiveMarker(activeMarker===marker?"":marker)
