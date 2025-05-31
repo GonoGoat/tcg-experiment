@@ -1,6 +1,6 @@
 import shortid from 'shortid'
 
-import {Card, BlankCard, ActionMenu} from 'components'
+import {Card, BlankCard, ActionMenu, DisplayMenu} from 'components'
 
 import { genericCard, cardInfo } from 'types/ygopro.types'
 import { CARD_ZONES } from 'types/global.enum'
@@ -8,6 +8,7 @@ import { capitalizeFirstLetter } from 'utils/beautifiers'
 import { blankCardPayload } from 'utils/global.const'
 import 'assets/style/pages/Deck.css'
 import useDeckStore from 'context/DeckStore/store'
+import useStatStore from 'context/StatStore/store'
 
 const Deck = () => {
     const main = useDeckStore(state => state.main)
@@ -18,12 +19,16 @@ const Deck = () => {
     const dispatchCard = useDeckStore(state => state.dispatchCard)
     const removeCard = useDeckStore(state => state.removeCard)
 
+    const markers = useStatStore(state => state.markers)
+
+    const activeMarker = useStatStore(state => state.activeMarker)
+
     const blankCardActions = (index: number, dest: CARD_ZONES) => 
     [
         ...(Object.keys(CARD_ZONES).map( (key) => {
             return {
                 label: capitalizeFirstLetter(CARD_ZONES[key as keyof typeof CARD_ZONES]),
-                onClick: () => addCard(blankCardPayload, CARD_ZONES[key as keyof typeof CARD_ZONES])
+                onClick: () => addCard({...blankCardPayload, id: shortid.generate()}, CARD_ZONES[key as keyof typeof CARD_ZONES])
             }
         })),
         {
@@ -65,8 +70,12 @@ const Deck = () => {
         return map.map( (card, index) => {
             if (card.type === "blank") {
                 return (
-                    <BlankCard index={index} key={shortid.generate()}>
-                        <ActionMenu actions={blankCardActions(index, dest)}/>
+                    <BlankCard index={index} key={card.id}>
+                        {Boolean(activeMarker)? 
+                            <DisplayMenu display={markers[card.id] ? markers[card.id] : [card.id.toString()]}/>
+                            :
+                            <ActionMenu actions={blankCardActions(index, dest)}/>
+                        }
                     </BlankCard>
                 )
             }
@@ -77,7 +86,11 @@ const Deck = () => {
                         key={shortid.generate()} 
                         index={index}
                     >
-                        <ActionMenu actions={cardActions(card, index, dest)}/>
+                        {Boolean(activeMarker)? 
+                            <DisplayMenu display={markers[card.id] ? [...markers[card.id], card.id.toString()] : [card.id.toString()]}/>
+                            :
+                            <ActionMenu actions={cardActions(card, index, dest)}/>
+                        }
                     </Card>
                 )
             }

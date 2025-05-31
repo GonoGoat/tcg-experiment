@@ -42,7 +42,7 @@ const Lister = () => {
             console.log(response)
             if(response.meta.pages_remaining !== 0){
                 setHasMoreItemsToLoad(true)
-                setNextPageToLoad(response.meta.next_page || '')
+                setNextPageToLoad(response.meta.next_page || '') // TODO to change, is boolean operator and not default value
             }
             else {
                 setHasMoreItemsToLoad(false)
@@ -59,7 +59,7 @@ const Lister = () => {
     const blankCardActions = Object.keys(CARD_ZONES).map( (key) => {
         return {
             label: capitalizeFirstLetter(CARD_ZONES[key as keyof typeof CARD_ZONES]),
-            onClick: () => addCard(blankCardPayload, CARD_ZONES[key as keyof typeof CARD_ZONES])
+            onClick: () => addCard({...blankCardPayload, id: shortid.generate()}, CARD_ZONES[key as keyof typeof CARD_ZONES])
         }
     })
 
