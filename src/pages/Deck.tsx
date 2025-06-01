@@ -3,7 +3,7 @@ import shortid from 'shortid'
 import {Card, BlankCard, ActionMenu, DisplayMenu} from 'components'
 
 import { genericCard, cardInfo } from 'types/ygopro.types'
-import { CARD_ZONES } from 'types/global.enum'
+import { CARD_ZONES, MARKING_MODE } from 'types/global.enum'
 import { capitalizeFirstLetter } from 'utils/beautifiers'
 import { blankCardPayload } from 'utils/global.const'
 import 'assets/style/pages/Deck.css'
@@ -20,8 +20,7 @@ const Deck = () => {
     const removeCard = useDeckStore(state => state.removeCard)
 
     const markers = useStatStore(state => state.markers)
-
-    const activeMarker = useStatStore(state => state.activeMarker)
+    const markingMode = useStatStore(state => state.markingMode)
 
     const blankCardActions = (index: number, dest: CARD_ZONES) => 
     [
@@ -71,7 +70,7 @@ const Deck = () => {
             if (card.type === "blank") {
                 return (
                     <BlankCard index={index} key={card.id}>
-                        {Boolean(activeMarker)? 
+                        {markingMode !== MARKING_MODE.INACTIVE?  
                             <DisplayMenu display={markers[card.id] ? markers[card.id] : [card.id.toString()]}/>
                             :
                             <ActionMenu actions={blankCardActions(index, dest)}/>
@@ -86,7 +85,7 @@ const Deck = () => {
                         key={shortid.generate()} 
                         index={index}
                     >
-                        {Boolean(activeMarker)? 
+                        {markingMode !== MARKING_MODE.INACTIVE? 
                             <DisplayMenu display={markers[card.id] ? [...markers[card.id], card.id.toString()] : [card.id.toString()]}/>
                             :
                             <ActionMenu actions={cardActions(card, index, dest)}/>

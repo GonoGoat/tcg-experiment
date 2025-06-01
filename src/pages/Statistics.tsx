@@ -10,22 +10,20 @@ const Statistics =  () => {
     const main = useDeckStore((state) => state.main)
     const extra = useDeckStore((state) => state.extra)
     const side = useDeckStore((state) => state.side)
+
     const activeMarker = useStatStore((state) => state.activeMarker)
 
-    const setActiveMarker = useStatStore((state) => state.setActiveMarker)
-
-    function handleMarking (marker: MARKERS) {
-        setActiveMarker(activeMarker===marker?"":marker)
-    }
+    const enableMarking = useStatStore((state) => state.enableMarking)
+    const disableMarking = useStatStore((state) => state.disableMarking)
 
     return (
         <div className="statistics">
             <div className='markers'>
-                {Object.values(MARKERS).map( (value, index) =>
+                {Object.values(MARKERS).filter(value => value !== MARKERS.DEFAULT).map( (value, index) =>
                     <div
                         className={value === activeMarker ?"selected":""}
                         key={index} 
-                        onMouseDown={() => handleMarking(value)}
+                        onMouseDown={value === activeMarker ? (() => disableMarking()) : (() => enableMarking(value))}
                     >
                         {value}
                     </div>

@@ -12,7 +12,7 @@ interface CardProps {
     children?: React.ReactNode
 }
 
-const Card: FC<CardProps> = ({cardInfo, index, children}) => {
+const Card: FC<CardProps> = ({cardInfo, index, children = <></>}) => {
     const [isHovering, setHovering] = useState<boolean>(false)
     const [open, setOpen] = useState<boolean>(false);
     const [menu, setMenu] = useState(false);
@@ -31,7 +31,6 @@ const Card: FC<CardProps> = ({cardInfo, index, children}) => {
         if(event.buttons === 2){ //if right click opens modal
             handleClickOpen()
             event.preventDefault()
-            return false
         }
         else { // Middle and left click
             if (!open) {

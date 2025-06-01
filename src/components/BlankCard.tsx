@@ -10,7 +10,7 @@ interface BlankCardProps {
     children?: React.ReactNode
 }
 
-const BlankCard: FC<BlankCardProps> = ({index, children}) => {
+const BlankCard: FC<BlankCardProps> = ({index, children = <></>}) => {
     const [menu, setMenu] = useState(false);
     
     // TODO different handlers on right/left click?
