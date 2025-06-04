@@ -1,6 +1,7 @@
 import {useState, FC, MouseEvent, KeyboardEvent} from 'react'
 import Tooltip from '@mui/material/Tooltip'
-import Dialog from '@mui/material/Dialog'
+
+import { CardDialog, CardPlaceholder } from "components"
 
 import 'assets/style/components/Card.css'
 import {cardInfo as cardType} from 'types/ygopro.types'
@@ -89,21 +90,9 @@ const Card: FC<CardProps> = ({cardInfo, index, children = <></>}) => {
                     //    removeCard(cardInfo,index)
                 }*/
             >
-                <img
-                    src={img_url}
-                    width="90px" 
-                    height="120px" 
-                    alt={cardInfo.name}
-                    onMouseDown={e=>handleClick(e)}
-                />
+                <CardPlaceholder img={img_url} name={cardInfo.name} clickHandler={e=>handleClick(e)}/>
                 {menu ? children : <></>}
-                <Dialog 
-                    open={open} 
-                    onKeyDown={handleKeyPress}
-                    maxWidth="md"
-                >
-                    {DialogDisplay}
-                </Dialog>
+                <CardDialog open={open} KeyPressHandler={handleKeyPress} cardInfo={cardInfo}/>
             </div>
         </Tooltip>
     )

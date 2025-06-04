@@ -1,5 +1,7 @@
 import { FC, useState } from 'react';
 
+import { CardPlaceholder } from "components"
+
 import { blankCardInfo } from 'types/ygopro.types';
 import 'assets/style/components/BlankCard.css'
 import placeholder from 'assets/pictures/placeholder.png'
@@ -18,18 +20,7 @@ const BlankCard: FC<BlankCardProps> = ({index, children = <></>}) => {
             <div
                 className="blank-card"
             >
-                <img
-                    src={placeholder}
-                    width="90px" 
-                    height="120px"
-                    onMouseDown={() => setMenu(!menu)}
-                    /*onClick={()=>isDraggable?
-                        addCardToDeck(blankCardPayload)
-                        :
-                        removeCardFromDeck(blankCardPayload, index)
-                    }*/
-                    alt="Blank card"
-                />
+                <CardPlaceholder name="Blank card" clickHandler={() => setMenu(!menu)}/>
                 {menu ? children : <></>}
             </div>
     )
