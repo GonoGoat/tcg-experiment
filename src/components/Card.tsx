@@ -5,7 +5,6 @@ import { CardDialog, CardPlaceholder } from "components"
 
 import 'assets/style/components/Card.css'
 import {cardInfo as cardType} from 'types/ygopro.types'
-import placeholder from 'assets/pictures/placeholder.png'
 
 interface CardProps {
     cardInfo: cardType,
@@ -51,24 +50,6 @@ const Card: FC<CardProps> = ({cardInfo, index, children = <></>}) => {
         {cardInfo.desc?<span>Description: {cardInfo.desc}<br/></span>:<></>} 
     </div>
 
-    const DialogDisplay = <div className="card-modal">
-        {cardInfo.card_images[0].image_url?
-            <img src={cardInfo.card_images[0].image_url} alt={cardInfo.name}/>
-            :
-            <img src={placeholder} alt={cardInfo.name}/>
-        }
-        <div>
-            {cardInfo.name?<h6>{cardInfo.name}<br/></h6>:<></>}
-            {cardInfo.level?<span>LV: {cardInfo.level}<br/></span>:<></>}
-            {cardInfo.type?<span>Type: {cardInfo.type}<br/></span>:<></>}
-            {cardInfo.race?<span>Race: {cardInfo.race}<br/></span>:<></>}
-            {cardInfo.attribute?<span>Attribute: {cardInfo.attribute}<br/></span>:<></>}
-            {cardInfo.atk?<span>ATK: {cardInfo.atk}<br/></span>:<></>}
-            {cardInfo.def?<span>DEF: {cardInfo.def}<br/></span>:<></>}
-            {cardInfo.desc?<span>Description: {cardInfo.desc}<br/></span>:<></>} 
-        </div>
-    </div>
-    
     
     return (
         <Tooltip 
