@@ -22,6 +22,8 @@ const Deck = () => {
     const markers = useStatStore(state => state.markers)
     const markingMode = useStatStore(state => state.markingMode)
 
+    const handleMarking = useStatStore(state => state.handleMarking)
+
     const blankCardActions = (index: number, dest: CARD_ZONES) => 
     [
         ...(Object.keys(CARD_ZONES).map( (key) => {
@@ -67,7 +69,9 @@ const Deck = () => {
 
     const getCards = (map: genericCard[], dest: CARD_ZONES) => {
         return map.map( (card, index) => {
+            const displayMenu = <DisplayMenu display={markers[card.id] ? markers[card.id] : [card.id.toString()]} onClickHandler={() => handleMarking(card.id.toString())}/>
             if (card.type === blankCardPayload.type) {
+                const actionMenu = <ActionMenu actions={blankCardActions(index, dest)}/>
                 return (
                     <BlankCard
                         index={index}
@@ -76,14 +80,15 @@ const Deck = () => {
                         menuToggleMode={markingMode !== MARKING_MODE.ACTIVE}
                     >
                         {markingMode !== MARKING_MODE.INACTIVE?  
-                            <DisplayMenu display={markers[card.id] ? markers[card.id] : [card.id.toString()]}/>
+                            displayMenu
                             :
-                            <ActionMenu actions={blankCardActions(index, dest)}/>
+                            actionMenu
                         }
                     </BlankCard>
                 )
             }
             else {
+                const actionMenu = <ActionMenu actions={cardActions(card, index, dest)}/>
                 return (
                     <Card
                         cardInfo={card as cardInfo}
@@ -93,9 +98,9 @@ const Deck = () => {
                         menuToggleMode={markingMode !== MARKING_MODE.ACTIVE}
                     >
                         {markingMode !== MARKING_MODE.INACTIVE? 
-                            <DisplayMenu display={markers[card.id] ? [...markers[card.id], card.id.toString()] : [card.id.toString()]}/>
+                            displayMenu
                             :
-                            <ActionMenu actions={cardActions(card, index, dest)}/>
+                            actionMenu
                         }
                     </Card>
                 )
