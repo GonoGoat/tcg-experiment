@@ -25,34 +25,58 @@ export function setMarkingMode(state: StatState, payload: MARKING_MODE) {
 }
 
 export function handleMarking(state: StatState, id: string) {
-    //var markers;
-    //if (state.isRemovingAllMarkers) markers = removeCardFromMarkers(state.markers, id) 
-    //else if (state.isRemovingMarker) markers = removeMarker(state.markers, id, state.activeMarker)
-    var markers = addMarker(state.markers, id, state.activeMarker)
+    var markers;
+    if (id in state.markers) { // If the card has markers already
+        for (const marker of state.markers[id]) { // Check every marker of the card
+            if (marker === state.activeMarker) {
+                return {
+                    ...state,
+                    markers: removeMarker(state.markers, id, state.activeMarker)
+                }
+            }
+        }
+        markers = addMarker(state.markers, id, state.activeMarker)
+    }
+    else { // If the card has no marker yet
+        markers = addNewMarker(state.markers, id, state.activeMarker)
+    }
+    
     return {
         ...state,
         markers: markers
     }
 }
 
+// Add the selected marker to the others
 function addMarker (markers: Record<string, MARKERS[]>, id: string, activeMarker: MARKERS) {
-    if (markers.hasOwnProperty(id)) { // If the card has markers already
-        for (const marker of markers[id]) { // Check every marker of the card
-            if (marker === activeMarker) return markers // End the process if the marker has already the given marker
-        }
-
-        // Add the selected marker to the others
-        return {
-            ...markers,
-            [id]: [...(markers[id]), activeMarker]
-        }
+    return {
+        ...markers,
+        [id]: [...(markers[id]), activeMarker]
     }
-    else { // If the card has no marker yet
+}
 
-        // Add the first marker to the card
-        return {
-            ...markers,
-            [id]: [activeMarker]
-        }
+// Add the first marker to the card
+function addNewMarker (markers: Record<string, MARKERS[]>, id: string, activeMarker: MARKERS) {
+    return {
+        ...markers,
+        [id]: [activeMarker]
     }
+}
+
+// Remove the marker among the others
+function removeMarker (markers: Record<string, MARKERS[]>, id: string, activeMarker: MARKERS) {           
+    if (markers[id].length === 1) { // If the selected marker is the last one of the card
+        return removeStringKeyFromObject(markers, id) // Remove the id of the card from marker collection
+    }
+
+    return {
+        ...markers,
+        [id]: markers[id].filter((mark => mark !== activeMarker))
+    }
+}
+
+function removeStringKeyFromObject(object: Record<string,any>, key: string) {
+    return (
+        (({[key]:bulk, ...keep}) => keep) (object)
+    )
 }
