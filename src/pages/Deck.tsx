@@ -67,9 +67,14 @@ const Deck = () => {
 
     const getCards = (map: genericCard[], dest: CARD_ZONES) => {
         return map.map( (card, index) => {
-            if (card.type === "blank") {
+            if (card.type === blankCardPayload.type) {
                 return (
-                    <BlankCard index={index} key={card.id}>
+                    <BlankCard
+                        index={index}
+                        key={card.id}
+                        defaultMenu={markingMode === MARKING_MODE.ACTIVE}
+                        menuToggleMode={markingMode !== MARKING_MODE.ACTIVE}
+                    >
                         {markingMode !== MARKING_MODE.INACTIVE?  
                             <DisplayMenu display={markers[card.id] ? markers[card.id] : [card.id.toString()]}/>
                             :
@@ -84,6 +89,8 @@ const Deck = () => {
                         cardInfo={card as cardInfo}
                         key={shortid.generate()} 
                         index={index}
+                        defaultMenu={markingMode === MARKING_MODE.ACTIVE}
+                        menuToggleMode={markingMode !== MARKING_MODE.ACTIVE}
                     >
                         {markingMode !== MARKING_MODE.INACTIVE? 
                             <DisplayMenu display={markers[card.id] ? [...markers[card.id], card.id.toString()] : [card.id.toString()]}/>

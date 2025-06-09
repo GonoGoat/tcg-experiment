@@ -30,7 +30,7 @@ const CardDialog: FC<CardDialogProps> = (props) => {
     
 
     return (
-        <Dialog open={props.open} onKeyDown={props.KeyPressHandler}maxWidth="md">
+        <Dialog open={props.open} onKeyDown={props.KeyPressHandler} maxWidth="md">
             {DialogDisplay}
         </Dialog>
     )

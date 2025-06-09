@@ -9,17 +9,19 @@ import {cardInfo as cardType} from 'types/ygopro.types'
 interface CardProps {
     cardInfo: cardType,
     index: number,
-    children?: React.ReactNode
+    children?: React.ReactNode,
+    defaultMenu?: boolean,
+    menuToggleMode?: boolean,
+    extraClickHandler?: () => void
 }
 
-const Card: FC<CardProps> = ({cardInfo, index, children = <></>}) => {
+const Card: FC<CardProps> = ({cardInfo, index, children, defaultMenu = false, menuToggleMode = true, extraClickHandler = () => null}) => {
     const [isHovering, setHovering] = useState<boolean>(false)
     const [open, setOpen] = useState<boolean>(false);
-    const [menu, setMenu] = useState(false);
+    const [menu, setMenu] = useState<boolean>(defaultMenu);
 
     const img_url: string = cardInfo.card_images[0].image_url_small
 
-    const handleClickOpen = () => setOpen(true)
     const handleKeyPress = (event: KeyboardEvent) => {
         setOpen(false);
         if (event.key !== "escapeKeyDown") {
@@ -29,12 +31,13 @@ const Card: FC<CardProps> = ({cardInfo, index, children = <></>}) => {
     const handleClick = (event: MouseEvent) => {
         setHovering(false) //disables tooltip
         if(event.buttons === 2){ //if right click opens modal
-            handleClickOpen()
+            setOpen(true)
             event.preventDefault()
         }
         else { // Middle and left click
             if (!open) {
-                setMenu(!menu)
+                extraClickHandler()
+                setMenu(menuToggleMode ? !menu : menu)
             }
         }
     }
