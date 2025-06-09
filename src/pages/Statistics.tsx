@@ -15,9 +15,11 @@ const Statistics =  () => {
 
     const enableMarking = useStatStore((state) => state.enableMarking)
     const disableMarking = useStatStore((state) => state.disableMarking)
+    const resetMarkings = useStatStore((state) => state.resetMarkings)
 
     return (
         <div className="statistics">
+            <button onClick={() => resetMarkings()}>Reset all markings</button>
             <div className='markers'>
                 {Object.values(MARKERS).filter(value => value !== MARKERS.DEFAULT).map( (value, index) =>
                     <div

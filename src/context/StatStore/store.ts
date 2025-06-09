@@ -12,7 +12,8 @@ const useStatStore =  create<StatState>((set) => ({
     enableMarking: (payload) => set((state) => reducer.enableMarking(state, payload)),
     disableMarking: () => set((state) => reducer.disableMarking(state)),
     handleMarking: (id) => set((state) => reducer.handleMarking(state, id)),
-    setMarkingMode: (payload) => set((state) => reducer.setMarkingMode(state, payload))
+    setMarkingMode: (payload) => set((state) => reducer.setMarkingMode(state, payload)),
+    resetMarkings: () => set((state) => reducer.resetMarkings(state))
 }))
 
 export default useStatStore

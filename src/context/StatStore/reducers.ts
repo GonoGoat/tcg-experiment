@@ -75,6 +75,13 @@ function removeMarker (markers: Record<string, MARKERS[]>, id: string, activeMar
     }
 }
 
+export function resetMarkings (state: StatState) {           
+    return {
+        ...state,
+        markers: {}
+    }
+}
+
 function removeStringKeyFromObject(object: Record<string,any>, key: string) {
     return (
         (({[key]:bulk, ...keep}) => keep) (object)

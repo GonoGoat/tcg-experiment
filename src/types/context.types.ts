@@ -37,4 +37,5 @@ export interface StatState {
     disableMarking: () => void,
     handleMarking: (id: string) => void
     setMarkingMode: (payload: MARKING_MODE) => void
+    resetMarkings: () => void
 }
