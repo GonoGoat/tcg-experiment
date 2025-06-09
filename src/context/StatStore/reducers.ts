@@ -28,7 +28,7 @@ export function handleMarking(state: StatState, id: string) {
     //var markers;
     //if (state.isRemovingAllMarkers) markers = removeCardFromMarkers(state.markers, id) 
     //else if (state.isRemovingMarker) markers = removeMarker(state.markers, id, state.activeMarker)
-    var markers: Record<string, MARKERS[]> = addMarker(state.markers, id, state.activeMarker)
+    var markers = addMarker(state.markers, id, state.activeMarker)
     return {
         ...state,
         markers: markers
@@ -44,7 +44,7 @@ function addMarker (markers: Record<string, MARKERS[]>, id: string, activeMarker
         // Add the selected marker to the others
         return {
             ...markers,
-            [id]: markers[id].splice(markers[id].length, 0, activeMarker)
+            [id]: [...(markers[id]), activeMarker]
         }
     }
     else { // If the card has no marker yet

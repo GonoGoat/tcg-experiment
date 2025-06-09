@@ -1,16 +1,17 @@
-import {useState, FC} from 'react'
+import { FC } from 'react'
 
 import 'assets/style/components/DisplayMenu.css'
 
 interface DisplayMenuProps {
-    display: string[]
+    display: string[],
+    onClickHandler?: () => void
 }
 
 
-const DisplayMenu: FC<DisplayMenuProps> = ({display}) => {
+const DisplayMenu: FC<DisplayMenuProps> = ({display, onClickHandler = () => null}) => {
     
     return (
-        <div className='display'>
+        <div className='display' onMouseDown={() => onClickHandler()}>
             {display.map( (item, index) => 
                 <div key={index}>
                     <strong>{item}</strong>

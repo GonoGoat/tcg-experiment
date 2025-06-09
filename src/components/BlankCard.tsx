@@ -1,37 +1,37 @@
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 
-import { blankCardInfo } from 'types/ygopro.types';
+import { CardPlaceholder } from "components"
+
 import 'assets/style/components/BlankCard.css'
-import placeholder from 'assets/pictures/placeholder.png'
-import useDeckStore from 'context/DeckStore/store'
 
 interface BlankCardProps {
     index: number,
-    children?: React.ReactNode
+    children?: React.ReactNode,
+    defaultMenu?: boolean,
+    menuToggleMode?: boolean,
+    extraClickHandler?: () => void
 }
 
-const BlankCard: FC<BlankCardProps> = ({index, children = <></>}) => {
-    const [menu, setMenu] = useState(false);
+const BlankCard: FC<BlankCardProps> = ({index, children = <></>, defaultMenu = false, menuToggleMode = true, extraClickHandler = () => null}) => {
+    const [menu, setMenu] = useState<boolean>(defaultMenu);
+
+    // TODO remove blinking effect
+    useEffect(() => {
+        setMenu(defaultMenu)
+    }, [defaultMenu])
+
+    const handleClick = () => {
+        extraClickHandler()
+        setMenu(menuToggleMode ? !menu : menu)
+    }
+    
     
     // TODO different handlers on right/left click?
     return (
-            <div
-                className="blank-card"
-            >
-                <img
-                    src={placeholder}
-                    width="90px" 
-                    height="120px"
-                    onMouseDown={() => setMenu(!menu)}
-                    /*onClick={()=>isDraggable?
-                        addCardToDeck(blankCardPayload)
-                        :
-                        removeCardFromDeck(blankCardPayload, index)
-                    }*/
-                    alt="Blank card"
-                />
-                {menu ? children : <></>}
-            </div>
+        <div className="blank-card">
+            <CardPlaceholder name="Blank card" clickHandler={() => handleClick()}/>
+            {menu ? children : <></>}
+        </div>
     )
     
 }
