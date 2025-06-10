@@ -1,5 +1,5 @@
 import { genericCard, cardInfo } from "./ygopro.types"
-import { CARD_ZONES } from "./global.enum"
+import { CARD_ZONES, MARKERS, MARKING_MODE } from "./global.enum"
 
 export interface AppState {
     isLoading: boolean,
@@ -26,4 +26,16 @@ export interface ListerState {
     addListerItems : (payload: cardInfo[]) => void,
     setHasMoreItemsToLoad : (payload: boolean) => void,
     setNextPageToLoad : (payload: string) => void
+}
+
+export interface StatState {
+    markers: Record<string, MARKERS[]>,
+    activeMarker: MARKERS,
+    markingMode: MARKING_MODE,
+
+    enableMarking: (payload: MARKERS) => void,
+    disableMarking: () => void,
+    handleMarking: (id: string) => void
+    setMarkingMode: (payload: MARKING_MODE) => void
+    resetMarkings: () => void
 }

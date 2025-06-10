@@ -1,3 +1,3 @@
-import { blankCardInfo } from 'types/ygopro.types'
+import { blankCardTypePayload } from 'types/ygopro.types'
 
-export const blankCardPayload: blankCardInfo = {type: "blank"}
+export const blankCardPayload: blankCardTypePayload = {type: "blank"}
