@@ -41,6 +41,12 @@ const Statistics =  () => {
                     <span><strong>Extra size:</strong> {extra.length}</span><br/>
                     <span><strong>Side size:</strong> {side.length}</span><br/>
                 </div>
+                <br/>
+                <div>
+                    <span><strong>Monster cards count:</strong> {main.filter( (card) => new RegExp("monster").test(card.type.toLowerCase())).length}</span><br/>
+                    <span><strong>Spell cards count:</strong> {main.filter( (card) => new RegExp("spell").test(card.type.toLowerCase())).length}</span><br/>
+                    <span><strong>Trap cards count:</strong> {main.filter( (card) => new RegExp("trap").test(card.type.toLowerCase())).length}</span><br/>
+                </div>
             </div>
         </div>
     )

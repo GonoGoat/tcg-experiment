@@ -1,14 +1,16 @@
 .statistics {
-    display: flex;
-    flex-flow: column;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    border-top: 2px solid #ffffff;
-    min-height:  48vh;
-    color: white;
-    font-size: 20px;
-    text-shadow: 0px 0px 5px white;
+  display: flex;
+  flex-flow: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border-top: 2px solid #ffffff;
+  min-height:  48vh;
+  color: white;
+  font-size: 20px;
+  text-shadow: 0px 0px 5px white;
+  height: 100%;
+  grid-area: statistics;
 }
 
 /* Floating column for labels: 25% width */
@@ -64,27 +66,27 @@ hr {
 }
 
 .statistics button{
-    border: none;
-    border-radius: 10px;
-    padding: 1px;
-    width: 85px;
-    height: 40px;
-    align-self: center;
-    margin-top: 20px;
-    font-weight: bolder;
-    color: white;
-    /*font-family: 'Times New Roman', Times, serif;*/
-    box-shadow: 5px 5px 10px black;
-    font-size: 1vw;
-    transition: 0.5s;
-    outline: none;
-    background: rgb(0,98,157);
-    background: linear-gradient(311deg, rgba(0,98,157,1) 25%, rgba(18,124,67,1) 77%);
+  border: none;
+  border-radius: 10px;
+  padding: 1px;
+  width: 85px;
+  height: 40px;
+  align-self: center;
+  margin-top: 20px;
+  font-weight: bolder;
+  color: white;
+  /*font-family: 'Times New Roman', Times, serif;*/
+  box-shadow: 5px 5px 10px black;
+  font-size: 1vw;
+  transition: 0.5s;
+  outline: none;
+  background: rgb(0,98,157);
+  background: linear-gradient(311deg, rgba(0,98,157,1) 25%, rgba(18,124,67,1) 77%);
 }
 
 .statistics button:hover{
-    cursor: pointer;
-    box-shadow: 0px 0px 0px;
-    border: 0;
-    opacity: 0.9;
+  cursor: pointer;
+  box-shadow: 0px 0px 0px;
+  border: 0;
+  opacity: 0.9;
 }
