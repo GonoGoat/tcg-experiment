@@ -1,4 +1,4 @@
-import { genericCard, cardInfo } from "./ygopro.types"
+import { genericCard, cardInfo, genericCardWithCount } from "./ygopro.types"
 import { CARD_ZONES, MARKERS, MARKING_MODE } from "./global.enum"
 
 export interface AppState {
@@ -7,9 +7,9 @@ export interface AppState {
 }
 
 export interface DeckState {
-    main: genericCard[],
-    extra: genericCard[],
-    side: genericCard[],
+    main: Record<string, genericCardWithCount>,
+    extra: Record<string, genericCardWithCount>,
+    side: Record<string, genericCardWithCount>,
 
     dispatchCard: (payload: genericCard) => void
     addCard: (payload: genericCard, dest: CARD_ZONES) => void,

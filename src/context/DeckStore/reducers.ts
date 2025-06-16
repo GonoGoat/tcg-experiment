@@ -6,8 +6,17 @@ import { CARD_ZONES, ED_MONSTER_TYPES } from "types/global.enum"
  * @param {string} type Card type
  * @returns true/false if this card type belongs to the extra deck
  */
-const belongsToExtraDeck = (type: string) => {
+function belongsToExtraDeck (type: string) {
     return(new RegExp(Object.values(ED_MONSTER_TYPES).map(type => `(${type})`).join('|')).test(type.toLowerCase()))
+}
+
+function deckStateParser (card: genericCard) {
+    return {
+        [card.id]: {
+            card: card,
+            count: 1
+        }
+    }
 }
 
 /** TODO : Handle card/deck size limit
@@ -18,9 +27,15 @@ const belongsToExtraDeck = (type: string) => {
  * @returns State with a new card in the destination collection
  */
 export function addCard (state: DeckState, payload: genericCard, dest: CARD_ZONES) {
-    return {
+    /*return {
         ...state,
         [dest]: [...state[dest], payload]
+    }*/
+          return {
+        ...state,
+        main: {},
+        extra: {},
+        side: {}
     }
 }
 
@@ -31,7 +46,7 @@ export function addCard (state: DeckState, payload: genericCard, dest: CARD_ZONE
  * @returns State with a new card in either main deck or extra deck
  */
 export function dispatchCard (state: DeckState, payload: genericCard) {
-    if (belongsToExtraDeck(payload.type)){
+    /*if (belongsToExtraDeck(payload.type)){
         return {
             ...state,
             extra: [...state.extra, payload]
@@ -42,6 +57,12 @@ export function dispatchCard (state: DeckState, payload: genericCard) {
             ...state,
             main: [...state.main, payload]
         }
+    }*/
+          return {
+        ...state,
+        main: {},
+        extra: {},
+        side: {}
     }
 }
 
@@ -53,9 +74,15 @@ export function dispatchCard (state: DeckState, payload: genericCard) {
  * @returns State with a card removed from the source collection
  */
 export function removeCard (state: DeckState, index: number, source: CARD_ZONES) {
-    return {
+    /*return {
         ...state,
         [source]: [...state[source].slice(0,index).concat(state[source].slice(index+1))]
+    }*/
+       return {
+        ...state,
+        main: {},
+        extra: {},
+        side: {}
     }
 }
 
@@ -63,9 +90,8 @@ export function removeCard (state: DeckState, index: number, source: CARD_ZONES)
 export function eraseDeck (state: DeckState) {
     return {
         ...state,
-        main: [],
-        extra: [],
-        side: []
-
+        main: {},
+        extra: {},
+        side: {}
     }
 }

@@ -6,6 +6,11 @@ export interface blankCardInfo extends blankCardTypePayload {
   id: string
 }
 
+export interface genericCardWithCount {
+    card: genericCard,
+    count: number
+}
+
 export type genericCard = cardInfo | blankCardInfo
 
 export interface Root {

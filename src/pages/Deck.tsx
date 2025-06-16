@@ -2,7 +2,7 @@ import shortid from 'shortid'
 
 import {Card, BlankCard, ActionMenu, DisplayMenu} from 'components'
 
-import { genericCard, cardInfo } from 'types/ygopro.types'
+import { genericCard, cardInfo,genericCardWithCount } from 'types/ygopro.types'
 import { CARD_ZONES, MARKING_MODE } from 'types/global.enum'
 import { capitalizeFirstLetter } from 'utils/beautifiers'
 import { blankCardPayload } from 'utils/global.const'
@@ -38,7 +38,7 @@ const Deck = () => {
         }
     ]
 
-    const cardActions = (card: genericCard, index: number, dest: CARD_ZONES) => {
+    const cardActions = (card: genericCardWithCount, index: number, dest: CARD_ZONES) => {
         let res = [
             {
                 label: "Remove",
@@ -51,7 +51,7 @@ const Deck = () => {
                     ...res,
                     {
                         label: "Main/Extra",
-                        onClick: () => dispatchCard(card)
+                        onClick: () => dispatchCard(card.card)
                     }
                 ]
                 break;
@@ -60,22 +60,22 @@ const Deck = () => {
                     ...res,
                     {
                         label: "Side",
-                        onClick: () => addCard(card, CARD_ZONES.SIDE)
+                        onClick: () => addCard(card.card, CARD_ZONES.SIDE)
                     }
                 ]
         }
         return res;
     }
 
-    const getCards = (map: genericCard[], dest: CARD_ZONES) => {
-        return map.map( (card, index) => {
-            const displayMenu = <DisplayMenu display={markers[card.id] ? markers[card.id] : [card.id.toString()]} onClickHandler={() => handleMarking(card.id.toString())}/>
-            if (card.type === blankCardPayload.type) {
+    const getCards = (cards: Record<string, genericCardWithCount>, dest: CARD_ZONES) => {
+        return Object.keys(cards).map( (cardId, index) => {
+            const displayMenu = <DisplayMenu display={markers[cardId] ? markers[cardId] : [cardId]} onClickHandler={() => handleMarking(cardId)}/>
+            if (cards[cardId].card.type === blankCardPayload.type) {
                 const actionMenu = <ActionMenu actions={blankCardActions(index, dest)}/>
                 return (
                     <BlankCard
                         index={index}
-                        key={card.id}
+                        key={cardId}
                         defaultMenu={markingMode === MARKING_MODE.ACTIVE}
                         menuToggleMode={markingMode !== MARKING_MODE.ACTIVE}
                     >
@@ -88,24 +88,28 @@ const Deck = () => {
                 )
             }
             else {
-                const actionMenu = <ActionMenu actions={cardActions(card, index, dest)}/>
-                return (
-                    <Card
-                        cardInfo={card as cardInfo}
-                        key={shortid.generate()} 
-                        index={index}
-                        defaultMenu={markingMode === MARKING_MODE.ACTIVE}
-                        menuToggleMode={markingMode !== MARKING_MODE.ACTIVE}
-                    >
-                        {markingMode !== MARKING_MODE.INACTIVE? 
-                            displayMenu
-                            :
-                            actionMenu
-                        }
-                    </Card>
-                )
+                const actionMenu = <ActionMenu actions={cardActions(cards[cardId], index, dest)}/>
+                let res = [];
+                for (let i = 0; i < cards[cardId].count; i++) {
+                    res.push(                    
+                        <Card
+                            cardInfo={cards[cardId].card as cardInfo}
+                            key={shortid.generate()} 
+                            index={index}
+                            defaultMenu={markingMode === MARKING_MODE.ACTIVE}
+                            menuToggleMode={markingMode !== MARKING_MODE.ACTIVE}
+                        >
+                            {markingMode !== MARKING_MODE.INACTIVE? 
+                                displayMenu
+                                :
+                                actionMenu
+                            }
+                        </Card>
+                    )
+                }
+                return res
             }
-        })
+        }).flat()
     }
     
     return (
