@@ -24,7 +24,7 @@ const Deck = () => {
 
     const handleMarking = useStatStore(state => state.handleMarking)
 
-    const blankCardActions = (index: number, dest: CARD_ZONES) => 
+    const blankCardActions = (cardId: string, dest: CARD_ZONES) => 
     [
         ...(Object.keys(CARD_ZONES).map( (key) => {
             return {
@@ -34,15 +34,15 @@ const Deck = () => {
         })),
         {
             label: "Remove",
-            onClick: () => removeCard(index, dest)
+            onClick: () => removeCard(cardId, dest)
         }
     ]
 
-    const cardActions = (card: genericCardWithCount, index: number, dest: CARD_ZONES) => {
+    const cardActions = (card: genericCardWithCount, dest: CARD_ZONES) => {
         let res = [
             {
                 label: "Remove",
-                onClick: () => removeCard(index, dest) 
+                onClick: () => removeCard(card.card.id.toString(), dest) 
             }
         ];
         switch(dest) {
@@ -68,10 +68,13 @@ const Deck = () => {
     }
 
     const getCards = (cards: Record<string, genericCardWithCount>, dest: CARD_ZONES) => {
-        return Object.keys(cards).map( (cardId, index) => {
+        let index = -1; // started at -1 to be at 0 on first card
+        return Object.keys(cards).sort( (a,b) => cards[a].index - cards[b].index)
+        .map( (cardId) => {
             const displayMenu = <DisplayMenu display={markers[cardId] ? markers[cardId] : [cardId]} onClickHandler={() => handleMarking(cardId)}/>
             if (cards[cardId].card.type === blankCardPayload.type) {
-                const actionMenu = <ActionMenu actions={blankCardActions(index, dest)}/>
+                const actionMenu = <ActionMenu actions={blankCardActions(cardId, dest)}/>
+                index += 1;
                 return (
                     <BlankCard
                         index={index}
@@ -79,18 +82,19 @@ const Deck = () => {
                         defaultMenu={markingMode === MARKING_MODE.ACTIVE}
                         menuToggleMode={markingMode !== MARKING_MODE.ACTIVE}
                     >
-                        {markingMode !== MARKING_MODE.INACTIVE?  
-                            displayMenu
+                            {markingMode !== MARKING_MODE.INACTIVE? 
+                            <>{displayMenu}<div>{index}</div></>   
                             :
-                            actionMenu
-                        }
+                            <>{actionMenu}<div>{index}</div></>  
+                            }
                     </BlankCard>
                 )
             }
             else {
-                const actionMenu = <ActionMenu actions={cardActions(cards[cardId], index, dest)}/>
+                const actionMenu = <ActionMenu actions={cardActions(cards[cardId], dest)}/>
                 let res = [];
                 for (let i = 0; i < cards[cardId].count; i++) {
+                    index += 1;
                     res.push(                    
                         <Card
                             cardInfo={cards[cardId].card as cardInfo}
@@ -100,9 +104,9 @@ const Deck = () => {
                             menuToggleMode={markingMode !== MARKING_MODE.ACTIVE}
                         >
                             {markingMode !== MARKING_MODE.INACTIVE? 
-                                displayMenu
-                                :
-                                actionMenu
+                            <>{displayMenu}<div>{index}</div></>   
+                            :
+                            <>{actionMenu}<div>{index}</div></>  
                             }
                         </Card>
                     )

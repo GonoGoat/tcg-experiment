@@ -1,5 +1,6 @@
 import { StatState } from 'types/context.types'
 import { MARKERS, MARKING_MODE } from 'types/global.enum'
+import { removeStringKeyFromObject } from 'utils/utils'
 
 export function disableMarking(state: StatState) {
     let updatedState = setMarkingMode(state, MARKING_MODE.INACTIVE)
@@ -80,10 +81,4 @@ export function resetMarkings (state: StatState) {
         ...state,
         markers: {}
     }
-}
-
-function removeStringKeyFromObject(object: Record<string,any>, key: string) {
-    return (
-        (({[key]:bulk, ...keep}) => keep) (object)
-    )
 }
