@@ -69,7 +69,7 @@ const Deck = () => {
 
     const getCards = (cards: Record<string, genericCardWithCount>, dest: CARD_ZONES) => {
         let index = -1; // started at -1 to be at 0 on first card
-        return Object.keys(cards).sort( (a,b) => cards[a].index - cards[b].index)
+        return Object.keys(cards).sort( (a,b) => cards[a].addedDate.getTime() - cards[b].addedDate.getTime())
         .map( (cardId) => {
             const displayMenu = <DisplayMenu display={markers[cardId] ? markers[cardId] : [cardId]} onClickHandler={() => handleMarking(cardId)}/>
             if (cards[cardId].card.type === blankCardPayload.type) {

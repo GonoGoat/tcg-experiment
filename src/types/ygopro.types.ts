@@ -7,9 +7,9 @@ export interface blankCardInfo extends blankCardTypePayload {
 }
 
 export interface genericCardWithCount {
-    card: genericCard,
+    card: genericCard
     count: number
-    index: number
+    addedDate: Date
 }
 
 export type genericCard = cardInfo | blankCardInfo

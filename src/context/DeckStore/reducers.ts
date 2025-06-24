@@ -16,7 +16,7 @@ function deckStateParser (card: genericCard, index: number) {
         [card.id]: {
             card: card,
             count: 1,
-            index: index
+            addedDate: new Date()
         }
     }
 }
