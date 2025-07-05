@@ -4,14 +4,15 @@ import {default as Axios} from 'axios'
 import CircularProgress from '@mui/material/CircularProgress'
 
 import 'assets/style/pages/Lister.css'
-import { cardInfo } from 'types/ygopro.types'
+import { Root, cardInfo } from 'types/ygoOpenAPI.types'
+import { incrementPageNumberFromURL } from 'utils/externalAPI'
 import useAppStore from "context/AppStore/store"
 import useListerStore from 'context/ListerStore/store'
 
 import {Card, BlankCard} from 'components/Cards'
 
 var axios = Axios.create({
-    baseURL: 'https://db.ygoprodeck.com/api/v7/',
+    baseURL: 'https://yugioh-open-api.fauzancodes.com/v1'
 })
 
 const Lister = () => {
@@ -30,16 +31,15 @@ const Lister = () => {
         setHasMoreItemsToLoad(false)
         setLoadingMoreItems(true)
         try{
-            let response = await axios.get(nextPageToLoad)
-            console.log(response)
-            if(response.data.meta.pages_remaining !== 0){
+            let response: Root = (await axios.get(nextPageToLoad)).data
+            if(response.next){
                 setHasMoreItemsToLoad(true)
-                setNextPageToLoad(true)
+                setNextPageToLoad(incrementPageNumberFromURL(nextPageToLoad))
             }
             else {
                 setHasMoreItemsToLoad(false)
             }
-            addListerItems(response.data.data)
+            addListerItems(response.data)
         } 
         catch (err) {
             alert(err)

@@ -1,7 +1,7 @@
 import fileDownload from 'js-file-download'
 
 import 'assets/style/pages/Options.css'
-import { cardInfo } from 'types/ygopro.types'
+import { cardInfo } from 'types/ygoOpenAPI.types'
 import useDeckStore from '../context/DeckStore/store'
 
 const Options = () => {

@@ -1,4 +1,4 @@
-import { genericCard } from "./ygopro.types"
+import { genericCard } from "./ygoOpenAPI.types"
 
 export interface AppState {
     isLoading: boolean,

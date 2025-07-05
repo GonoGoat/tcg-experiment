@@ -2,7 +2,7 @@ import shortid from 'shortid'
 
 import {Card, BlankCard} from 'components/Cards'
 
-import { genericCard, cardInfo } from 'types/ygopro.types'
+import { genericCard, cardInfo } from 'types/ygoOpenAPI.types'
 import 'assets/style/pages/Deck.css'
 import useDeckStore from 'context/DeckStore/store'
 

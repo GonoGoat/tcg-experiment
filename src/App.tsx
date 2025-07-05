@@ -5,9 +5,9 @@ import { Deck, Search, Lister} from 'pages'
 const App = () => {
   return (
     <div className="Home">
-      <Search/>
       <Lister/>
       <Deck/>
+      <Search/>
     </div>
   );
   /*return (

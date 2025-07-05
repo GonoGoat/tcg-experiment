@@ -4,18 +4,14 @@ import {default as Axios} from 'axios'
 import 'assets/style/pages/Search.css'
 import sample from "data/data.json"
 import { handleNumericChange } from 'utils/formHandlers'
-import { getSingleRegexMatch, getStringAmongStringsRegExp, getStringNotAmongStringsRegExp } from 'utils/regex'
+import { getSingleRegexMatchString, getStringAmongStringsRegExp, getStringNotAmongStringsRegExp } from 'utils/regex'
 
 import useAppStore from "context/AppStore/store"
 import useListerStore from 'context/ListerStore/store'
 import {ToggleSwitch, Select, NumberInput, NumberInputWithButton} from 'components/Forms'
-import { Root } from 'types/ygopro.types'
+import { Root } from 'types/ygoOpenAPI.types'
 import { REGEX } from "types/regex.enum"
-
-var axios = Axios.create({
-    baseURL: 'https://db.ygoprodeck.com/api/v7/',
-    // https://yugioh-open-api.vercel.app/
-})
+import { axios, getURL } from 'utils/externalAPI'
 
 const cardTypes = ['Monster', 'Spell Card', 'Trap Card']
 const monsterTypes = ['Ritual', 'Fusion', 'Synchro', 'Link', 'XYZ', 'Toon', 'Spirit', 'Gemini', 'Union'] // TODO add flip
@@ -61,14 +57,11 @@ const Search =  () => {
     const request = async () => {
         setLoadingState(true)
         try{
-            console.log(queryBuilder())
-            let response: Root = (await axios.get(queryBuilder())).data
-            console.log(queryBuilder())
+            let response: Root = (await axios.get(queryBuilder(1))).data
             //let response: Root = sample;
-            console.log(response)
-            if(response.meta.pages_remaining !== 0){
+            if(response.next){
                 setHasMoreItemsToLoad(true)
-                setNextPageToLoad(response.meta.next_page)
+                setNextPageToLoad(queryBuilder(response.current_page + 1))
             }
             else {
                 setHasMoreItemsToLoad(false)
@@ -81,20 +74,22 @@ const Search =  () => {
             alert(`I-i'm sorry, something just gone wrong =(.\n Change the parameters and try again`)
             setLoadingState(false)
         }
-    }
-
-    /**
+    }    /**
      * Convert the filters from the form to valid query parameters to use in the API call
+     * @param page Number of the page to load
      * @returns {string} URL that includes selected filters
      */
-    const queryBuilder = () => {
+    const queryBuilder = (page: number) => {
+        // Prepare multiuple values for types
         var reg = new RegExp(`^${monsterType}${hasEffect}${isPendulum}${isTuner}${type}`)
         var types = monsterCardTypes.filter((cardType) => reg.test(cardType.toLowerCase()))
 
-        // TODO : Alert si pas de filtre pour tous ceux choisi
+        //Build query parameters
+        var queryParams = `${name}${race}${atk}${def}${types.length > 0 ?`&type=${types.join(',').toLowerCase()}`:type}${level}${attribute}`
 
-        return `cardinfo.php?num=30&offset=0`+name+race+atk+def+(types.length > 0 ?`&type=${types.join(',').toLowerCase()}`:type)+level+attribute
-        //+desc
+        // TODO : Alert si pas de filtre pour tous ceux choisi
+        //return `/card?limit=30&offset=0`+name+race+atk+def+(types.length > 0 ?`&type=${types.join(',').toLowerCase()}`:type)+level+attribute
+        return getURL(queryParams,page)
     }
 
     //*************GENERIC SELECTORS******************
@@ -249,7 +244,7 @@ const Search =  () => {
         className='row'
         label='Level / Rank'
         name='monster-level'
-        value={getSingleRegexMatch(REGEX.NUMBER, level)}
+        value={getSingleRegexMatchString(REGEX.NUMBER, level)}
         onChange={({target: {value}}) => handleNumericChange(value,13,setLevel,"level")}
     />
         
@@ -258,7 +253,7 @@ const Search =  () => {
         className='row'
         label='Pendulum Scale'
         name='pendulum-scale'
-        value={getSingleRegexMatch(REGEX.NUMBER, pendulumScale)}
+        value={getSingleRegexMatchString(REGEX.NUMBER, pendulumScale)}
         onChange={({target: {value}}) => handleNumericChange(value,13,setPendulumScale,"scale")}
     />
 
@@ -276,7 +271,7 @@ const Search =  () => {
     const getSymbol = (state: string) => {
         let sub;
         if (!state) sub = "="; // = is default
-        else sub = getSingleRegexMatch(REGEX.MATH_SYMBOL, state); // Extract the indicator (=, =lt or =gt)
+        else sub = getSingleRegexMatchString(REGEX.MATH_SYMBOL, state); // Extract the indicator (=, =lt or =gt)
         return symbolMap.get(sub); // Return the associated symbol
     }
 
@@ -288,9 +283,9 @@ const Search =  () => {
      */
     const changeSymbol = (state: string, setter: (val: string) => void) =>  {
         if (state) {
-            let sub = getSingleRegexMatch(REGEX.MATH_SYMBOL, state); // Extract the "=..."
+            let sub = getSingleRegexMatchString(REGEX.MATH_SYMBOL, state); // Extract the "=..."
             let nextIndex = (Array.from(symbolMap.keys()).indexOf(sub) + 1) % symbolMap.size; // Get the index in symbolMap
-            setter(`${getSingleRegexMatch(REGEX.QUERY_PARAM, state)}${Array.from(symbolMap.keys())[nextIndex]}${getSingleRegexMatch(REGEX.NUMBER, state)}`); // Change the state depending on new symbol
+            setter(`${getSingleRegexMatchString(REGEX.QUERY_PARAM, state)}${Array.from(symbolMap.keys())[nextIndex]}${getSingleRegexMatchString(REGEX.NUMBER, state)}`); // Change the state depending on new symbol
         }
     }
     
@@ -299,8 +294,8 @@ const Search =  () => {
         className='row'
         label='ATK'
         name='atk'
-        value={getSingleRegexMatch(REGEX.NUMBER, atk)}
-        onChange={({target: {value}}) => handleNumericChange(value,9999,setAtk,"atk")}
+        value={getSingleRegexMatchString(REGEX.NUMBER, atk)}
+        onChange={({target: {value}}) => handleNumericChange(value,9999,setAtk,"attack")}
         isButtonDisabled={!Boolean(atk)}
         onClick={() => changeSymbol(atk,setAtk)}
         displayName={getSymbol(atk)}
@@ -311,8 +306,8 @@ const Search =  () => {
         className='row'
         label='DEF'
         name='def'
-        value={getSingleRegexMatch(REGEX.NUMBER, def)}
-        onChange={({target: {value}}) => handleNumericChange(value,9999,setDef,"def")}
+        value={getSingleRegexMatchString(REGEX.NUMBER, def)}
+        onChange={({target: {value}}) => handleNumericChange(value,9999,setDef,"defense")}
         isButtonDisabled={!Boolean(def)}
         onClick={() => changeSymbol(def,setDef)}
         displayName={getSymbol(def)}
@@ -325,14 +320,9 @@ const Search =  () => {
                 <h3>Search</h3>
             </div>
             <div className='row'>
-                <input className='full-text-input' name='card-name' type="text" placeholder="Type card name"
-                    onChange={({target: {value}}) => setName(`&fname=${value}`)}
+                <input className='full-text-input' name='card-name' type="text" placeholder="Type card name or description"
+                    onChange={({target: {value}}) => setName(`&search=${value}`)}
                 />
-                {/*
-                <input type="text" placeholder="Type card description"
-                    onChange={({target: {value}}) => setDesc(`&description=${value}`)}
-                />
-                */}
             </div>
             {typeSelector}
 
@@ -341,17 +331,17 @@ const Search =  () => {
                     {monsterCardTypeSelector}
                     {monsterTypeSelector}
                     {levelSelector}
-                    {atkSelector}
-                    {defSelector}
+                    {/*atkSelector*/}
+                    {/*defSelector*/}
                     {attributeSelector}
                     {effectSelector}
                     {isTunerSelector}
                     {isPendulumSelector}
-                    {isPendulum === "(?=.*pendulum)" ?
+                    {/*isPendulum === "(?=.*pendulum)" ?
                         pendulumSelector
                         :
                         <></>
-                    }
+                    */}
                 </>
                 :
                 <></>

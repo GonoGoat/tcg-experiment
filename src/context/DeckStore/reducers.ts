@@ -1,5 +1,5 @@
 import { DeckState } from "types/context.types"
-import { genericCard } from "types/ygopro.types"
+import { genericCard } from "types/ygoOpenAPI.types"
 
 /**
  * 

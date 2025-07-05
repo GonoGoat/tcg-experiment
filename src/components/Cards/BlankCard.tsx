@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { blankCardInfo } from 'types/ygopro.types';
+import { blankCardInfo } from 'types/ygoOpenAPI.types';
 import 'assets/style/components/BlankCard.css'
 import placeholder from 'assets/pictures/placeholder.png'
 import useDeckStore from 'context/DeckStore/store'

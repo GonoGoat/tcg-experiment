@@ -4,7 +4,7 @@ export interface blankCardInfo {
 
 export type genericCard = cardInfo | blankCardInfo
 
-export interface Root {
+/*export interface Root {
   data: cardInfo[]
   meta: Meta
 }
@@ -58,9 +58,9 @@ export interface Meta {
     pages_remaining: number,
     next_page?: string,
     next_page_offset?: number
-}
+}*/
 
-/*
+
 export interface Root {
   total: number
   total_filtered: number
@@ -96,4 +96,3 @@ export interface cardInfo {
   rarity: string
   rarity_code: string
 }
-  */

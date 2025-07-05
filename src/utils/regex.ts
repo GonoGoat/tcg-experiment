@@ -1,5 +1,19 @@
-export function getSingleRegexMatch(regex: string, value: string): string;
-export function getSingleRegexMatch(regex: string, value: string, def:string): string;
+export function getSingleRegexMatchString(regex: string, value: string): string;
+export function getSingleRegexMatchString(regex: string, value: string, def: string): string;
+
+/**
+ * Give first Regex match in given string with supplied regex pattern
+ * @param regex Regex to use
+ * @param value Source to extract data from
+ * @param def Default value to put in case no value is matched
+ * @returns First substring in value that matches the Regex
+ */
+export function getSingleRegexMatchString(regex: string, value: string, def?: string) {
+    return (new RegExp(regex).exec(value) || [def || ""])[0];
+}
+
+export function getSingleRegexMatch(regex: string, value: string): RegExpExecArray;
+export function getSingleRegexMatch(regex: string, value: string, def: string): RegExpExecArray ;
 
 /**
  * Give first Regex match in given string with supplied regex pattern
@@ -9,7 +23,7 @@ export function getSingleRegexMatch(regex: string, value: string, def:string): s
  * @returns First substring in value that matches the Regex
  */
 export function getSingleRegexMatch(regex: string, value: string, def?: string) {
-    return (new RegExp(regex).exec(value) || [def || ""])[0];
+    return (new RegExp(regex).exec(value) || [def || ""]);
 }
 
 
