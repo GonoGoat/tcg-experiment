@@ -293,7 +293,7 @@ const Search =  () => {
         label='ATK'
         name='atk'
         value={getSingleRegexMatchString(REGEX.NUMBER, atk)}
-        onChange={({target: {value}}) => handleNumericChangeForInequalities(value,9999,setAtk,"attack")}
+        onChange={({target: {value}}) => handleNumericChangeForInequalities(value,9999,setAtk)}
         isButtonDisabled={!Boolean(atk)}
         onClick={() => changeSymbol(atk,setAtk)}
         displayName={getSymbol(atk)}
@@ -305,7 +305,7 @@ const Search =  () => {
         label='DEF'
         name='def'
         value={getSingleRegexMatchString(REGEX.NUMBER, def)}
-        onChange={({target: {value}}) => handleNumericChangeForInequalities(value,9999,setDef,"defense")}
+        onChange={({target: {value}}) => handleNumericChangeForInequalities(value,9999,setDef)}
         isButtonDisabled={!Boolean(def)}
         onClick={() => changeSymbol(def,setDef)}
         displayName={getSymbol(def)}
