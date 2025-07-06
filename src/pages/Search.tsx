@@ -3,7 +3,7 @@ import {default as Axios} from 'axios'
 
 import 'assets/style/pages/Search.css'
 import sample from "data/data.json"
-import { handleNumericChange } from 'utils/formHandlers'
+import { handleNumericChangeForInequalities, handleNumericChangeForQueryParam } from 'utils/formHandlers'
 import { getSingleRegexMatchString, getStringAmongStringsRegExp, getStringNotAmongStringsRegExp } from 'utils/regex'
 
 import useAppStore from "context/AppStore/store"
@@ -238,14 +238,13 @@ const Search =  () => {
         }
     />
 
-    // TODO add enum in regex
     // Monster level/rank
     const levelSelector = <NumberInput
         className='row'
         label='Level / Rank'
         name='monster-level'
         value={getSingleRegexMatchString(REGEX.NUMBER, level)}
-        onChange={({target: {value}}) => handleNumericChange(value,13,setLevel,"level")}
+        onChange={({target: {value}}) => handleNumericChangeForQueryParam(value,13,setLevel,"level")}
     />
         
     // Monster pendulum scale
@@ -254,28 +253,27 @@ const Search =  () => {
         label='Pendulum Scale'
         name='pendulum-scale'
         value={getSingleRegexMatchString(REGEX.NUMBER, pendulumScale)}
-        onChange={({target: {value}}) => handleNumericChange(value,13,setPendulumScale,"scale")}
+        onChange={({target: {value}}) => handleNumericChangeForQueryParam(value,13,setPendulumScale,"scale")}
     />
 
     // List of symbol for ATK/DEF search
     const symbolMap = new Map()
     symbolMap.set("=", '=')
-    symbolMap.set("=lt", "<")
-    symbolMap.set("=gt",">")
+    symbolMap.set("_margin_bottom=", "<")
+    symbolMap.set("_margin_top=",">")
 
     /**
      * Extract the mathematic indicator from the query parameter and transform it to its matching symbol (ie "lt" becomes "<")
-     * @param state Query parameter
+     * @param state Query parameter - <1800 | =700
      * @returns Mathematic symbol matching the query parameter
      */
     const getSymbol = (state: string) => {
         let sub;
-        if (!state) sub = "="; // = is default
-        else sub = getSingleRegexMatchString(REGEX.MATH_SYMBOL, state); // Extract the indicator (=, =lt or =gt)
+        if (!state) sub = "="; // '=' is default
+        else sub = state[0] //getSingleRegexMatchString(`${prefix}`, state); // Extract the indicator (=, =lt or =gt)
         return symbolMap.get(sub); // Return the associated symbol
     }
 
-    // TODO move regex evaluation to utils
     /**
      * Update the state with a new mathematic indicator without changing the value
      * @param state Original state
@@ -283,9 +281,9 @@ const Search =  () => {
      */
     const changeSymbol = (state: string, setter: (val: string) => void) =>  {
         if (state) {
-            let sub = getSingleRegexMatchString(REGEX.MATH_SYMBOL, state); // Extract the "=..."
+            let sub = state[0] // getSingleRegexMatchString(REGEX.MATH_SYMBOL, state); // Extract the "=..."
             let nextIndex = (Array.from(symbolMap.keys()).indexOf(sub) + 1) % symbolMap.size; // Get the index in symbolMap
-            setter(`${getSingleRegexMatchString(REGEX.QUERY_PARAM, state)}${Array.from(symbolMap.keys())[nextIndex]}${getSingleRegexMatchString(REGEX.NUMBER, state)}`); // Change the state depending on new symbol
+            setter(`${Array.from(symbolMap.keys())[nextIndex]}${getSingleRegexMatchString(REGEX.NUMBER, state)}`); // Change the state depending on new symbol
         }
     }
     
@@ -295,7 +293,7 @@ const Search =  () => {
         label='ATK'
         name='atk'
         value={getSingleRegexMatchString(REGEX.NUMBER, atk)}
-        onChange={({target: {value}}) => handleNumericChange(value,9999,setAtk,"attack")}
+        onChange={({target: {value}}) => handleNumericChangeForInequalities(value,9999,setAtk,"attack")}
         isButtonDisabled={!Boolean(atk)}
         onClick={() => changeSymbol(atk,setAtk)}
         displayName={getSymbol(atk)}
@@ -307,7 +305,7 @@ const Search =  () => {
         label='DEF'
         name='def'
         value={getSingleRegexMatchString(REGEX.NUMBER, def)}
-        onChange={({target: {value}}) => handleNumericChange(value,9999,setDef,"defense")}
+        onChange={({target: {value}}) => handleNumericChangeForInequalities(value,9999,setDef,"defense")}
         isButtonDisabled={!Boolean(def)}
         onClick={() => changeSymbol(def,setDef)}
         displayName={getSymbol(def)}

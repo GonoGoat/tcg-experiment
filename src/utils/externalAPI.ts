@@ -1,4 +1,5 @@
 import {default as Axios} from 'axios'
+import { REGEX } from "types/regex.enum"
 
 import { getSingleRegexMatchString } from './regex'
 
@@ -11,6 +12,6 @@ export function getURL(queryPrams: string, pageNumber: number) {
 }
 
 export function incrementPageNumberFromURL (url: string) {
-    let pageNumber = getSingleRegexMatchString("[0-9]+", url)
+    let pageNumber = getSingleRegexMatchString(REGEX.NUMBER, url)
     return url.replace(pageNumber, (parseInt(pageNumber) + 1).toString())
 }
