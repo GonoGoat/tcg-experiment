@@ -24,7 +24,7 @@ const trapRaces = ['Normal', 'Continuous', 'Counter']
 "Token"
 */
 const monsterCardTypes = [
-    "Effect Monster", "Flip Effect Monster", "Flip Tuner Effect Monster", "Gemini Monster", "Normal Monster", "Normal Tuner Monster", "Pendulum Effect Monster", "Pendulum Effect Ritual Monster", "Pendulum Flip Effect Monster", "Pendulum Normal Monster", "Pendulum Tuner Effect Monster", "Ritual Effect Monster", "Ritual Monster", "Spell Card", "Spirit Monster", "Toon Monster", "Trap Card", "Tuner Monster", "Union Effect Monster", "Fusion Monster", "Link Monster", "Pendulum Effect Fusion Monster", "Synchro Monster", "Synchro Pendulum Effect Monster", "Synchro Tuner Monster", "XYZ Monster", "XYZ Pendulum Effect Monster"
+    "Effect Monster", "Flip Effect Monster", "Flip Tuner Effect Monster", "Gemini Monster", "Normal Monster", "Normal Tuner Monster", "Pendulum Effect Monster", "Pendulum Effect Ritual Monster", "Pendulum Flip Effect Monster", "Pendulum Normal Monster", "Pendulum Tuner Effect Monster", "Ritual Effect Monster", "Ritual Monster", "Spirit Monster", "Toon Monster", "Tuner Monster", "Union Effect Monster", "Fusion Monster", "Link Monster", "Pendulum Effect Fusion Monster", "Synchro Monster", "Synchro Pendulum Effect Monster", "Synchro Tuner Monster", "XYZ Monster", "XYZ Pendulum Effect Monster"
 ]
 
 const Search =  () => {
@@ -37,7 +37,7 @@ const Search =  () => {
     const [attribute, setAttribute] = useState('')
     const [level, setLevel] = useState('')
     const [pendulumScale, setPendulumScale] = useState('')
-    const [type, setType] = useState('')
+    const [type, setType] = useState('') // TODO handle cleanup of other properties when changed
     const [atk, setAtk] = useState('')
     const [def, setDef] = useState('')
     
@@ -83,13 +83,21 @@ const Search =  () => {
         // Prepare multiuple values for types
         var reg = new RegExp(`^${monsterType}${hasEffect}${isPendulum}${isTuner}${type}`)
         var types = monsterCardTypes.filter((cardType) => reg.test(cardType.toLowerCase()))
+        var generalType = cardTypes.filter((cardType) => new RegExp(type).test(cardType.toLowerCase()))
+        console.log(generalType)
 
         //Build query parameters
-        var queryParams = `${name}${race}${atk}${def}${types.length > 0 ?`&type=${types.join(',').toLowerCase()}`:type}${level}${attribute}`
-
+        var queryParams = `${name}${race}${getAtkDefAsQueryParam(atk, "&attack")}${getAtkDefAsQueryParam(def, "&defense")}${!type ? "" : (types.length > 0 ?`&card_type=${types.join(',')}`: `&card_type=${generalType}`)}${level}${attribute}`
+        console.log(queryParams)
         // TODO : Alert si pas de filtre pour tous ceux choisi
         //return `/card?limit=30&offset=0`+name+race+atk+def+(types.length > 0 ?`&type=${types.join(',').toLowerCase()}`:type)+level+attribute
-        return getURL(queryParams,page)
+        console.log(getURL(queryParams, page))
+        return getURL(queryParams, page)
+    }
+
+    function getAtkDefAsQueryParam (state: string, prefix: string) {
+        if (state) return `${prefix}${symbolMap.get(state[0])}${getSingleRegexMatchString(REGEX.NUMBER, state)}`
+        else return ""
     }
 
     //*************GENERIC SELECTORS******************
@@ -259,8 +267,8 @@ const Search =  () => {
     // List of symbol for ATK/DEF search
     const symbolMap = new Map()
     symbolMap.set("=", '=')
-    symbolMap.set("_margin_bottom=", "<")
-    symbolMap.set("_margin_top=",">")
+    symbolMap.set("<", "_margin_top=")
+    symbolMap.set(">", "_margin_bottom=")
 
     /**
      * Extract the mathematic indicator from the query parameter and transform it to its matching symbol (ie "lt" becomes "<")
@@ -268,10 +276,11 @@ const Search =  () => {
      * @returns Mathematic symbol matching the query parameter
      */
     const getSymbol = (state: string) => {
-        let sub;
+        /*let sub;
         if (!state) sub = "="; // '=' is default
         else sub = state[0] //getSingleRegexMatchString(`${prefix}`, state); // Extract the indicator (=, =lt or =gt)
-        return symbolMap.get(sub); // Return the associated symbol
+        return sub //symbolMap.get(sub); // Return the associated symbol */
+        return state ? state[0] : "=" // '=' is default
     }
 
     /**
@@ -281,7 +290,7 @@ const Search =  () => {
      */
     const changeSymbol = (state: string, setter: (val: string) => void) =>  {
         if (state) {
-            let sub = state[0] // getSingleRegexMatchString(REGEX.MATH_SYMBOL, state); // Extract the "=..."
+            let sub = getSymbol(state) // getSingleRegexMatchString(REGEX.MATH_SYMBOL, state); // Extract the "=..."
             let nextIndex = (Array.from(symbolMap.keys()).indexOf(sub) + 1) % symbolMap.size; // Get the index in symbolMap
             setter(`${Array.from(symbolMap.keys())[nextIndex]}${getSingleRegexMatchString(REGEX.NUMBER, state)}`); // Change the state depending on new symbol
         }
@@ -293,7 +302,7 @@ const Search =  () => {
         label='ATK'
         name='atk'
         value={getSingleRegexMatchString(REGEX.NUMBER, atk)}
-        onChange={({target: {value}}) => handleNumericChangeForInequalities(value,9999,setAtk)}
+        onChange={({target: {value}}) => handleNumericChangeForInequalities(value,9999,setAtk, getSymbol(atk))}
         isButtonDisabled={!Boolean(atk)}
         onClick={() => changeSymbol(atk,setAtk)}
         displayName={getSymbol(atk)}
@@ -305,7 +314,7 @@ const Search =  () => {
         label='DEF'
         name='def'
         value={getSingleRegexMatchString(REGEX.NUMBER, def)}
-        onChange={({target: {value}}) => handleNumericChangeForInequalities(value,9999,setDef)}
+        onChange={({target: {value}}) => handleNumericChangeForInequalities(value,9999,setDef, getSymbol(def))}
         isButtonDisabled={!Boolean(def)}
         onClick={() => changeSymbol(def,setDef)}
         displayName={getSymbol(def)}
@@ -329,8 +338,8 @@ const Search =  () => {
                     {monsterCardTypeSelector}
                     {monsterTypeSelector}
                     {levelSelector}
-                    {/*atkSelector*/}
-                    {/*defSelector*/}
+                    {atkSelector}
+                    {defSelector}
                     {attributeSelector}
                     {effectSelector}
                     {isTunerSelector}
