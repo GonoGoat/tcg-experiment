@@ -1,5 +1,6 @@
 import 'assets/style/pages/Statistics.css'
 import { genericCardWithCount } from 'types/ygopro.types'
+import { capitalizeFirstLetter } from 'utils/beautifiers'
 import { MARKERS } from 'types/global.enum'
 import useDeckStore from "context/DeckStore/store"
 import useStatStore from 'context/StatStore/store'
@@ -11,21 +12,24 @@ const Statistics =  () => {
     const side = useDeckStore((state) => state.side)
 
     const activeMarker = useStatStore((state) => state.activeMarker)
+    const markers = useStatStore((state) => state.markers)
 
     const enableMarking = useStatStore((state) => state.enableMarking)
     const disableMarking = useStatStore((state) => state.disableMarking)
     const resetMarkings = useStatStore((state) => state.resetMarkings)
 
-    function countCardsInCollection (collection: Record<string, genericCardWithCount>) {
-        return Object.values(collection).reduce(
+    function countCardsInCollection (collection: genericCardWithCount[]) {
+        return collection.reduce(
             (accumulator, currentValue) => accumulator + currentValue.count, 0,
         );
     }
 
-    function countMarkedCardsInCollection (collection: Record<string, genericCardWithCount>) {
-        return Object.values(collection).reduce(
-            (accumulator, currentValue) =>  accumulator + currentValue.count, 0,
-        );
+    function countCardsInCollectionPerCardType (collection: genericCardWithCount[], cardType: string) {
+        return countCardsInCollection(collection.filter( (card) => new RegExp(cardType).test(card.card.type.toLowerCase())))
+    }
+
+    function countCardsInCollectionPerMarking (collection: genericCardWithCount[], marker: MARKERS) {
+        return countCardsInCollection(collection.filter( (card) => (markers[card.card.id] || []).includes(marker) ))
     }
 
     return (
@@ -48,17 +52,24 @@ const Statistics =  () => {
                     <h3>Statistics</h3>
                 </div>
                 <div>
-                    <span><strong>Main size:</strong> {countCardsInCollection(main)}</span><br/>
-                    <span><strong>Extra size:</strong> {countCardsInCollection(extra)}</span><br/>
-                    <span><strong>Side size:</strong> {countCardsInCollection(side)}</span><br/>
+                    <span><strong>Main size:</strong> {countCardsInCollection(Object.values(main))}</span><br/>
+                    <span><strong>Extra size:</strong> {countCardsInCollection(Object.values(extra))}</span><br/>
+                    <span><strong>Side size:</strong> {countCardsInCollection(Object.values(side))}</span><br/>
                 </div>
                 <br/>
-                {/*
                 <div>
-                    <span><strong>Monster cards count:</strong> {main.filter( (card) => new RegExp("monster").test(card.type.toLowerCase()))}</span><br/>
-                    <span><strong>Spell cards count:</strong> {main.filter( (card) => new RegExp("spell").test(card.type.toLowerCase())).length}</span><br/>
-                    <span><strong>Trap cards count:</strong> {main.filter( (card) => new RegExp("trap").test(card.type.toLowerCase())).length}</span><br/>
-                </div>*/}
+                    <span><strong>Monster cards count:</strong> {countCardsInCollectionPerCardType(Object.values(main), "monster")}</span><br/>
+                    <span><strong>Spell cards count:</strong> {countCardsInCollectionPerCardType(Object.values(main), "spell")}</span><br/>
+                    <span><strong>Trap cards count:</strong> {countCardsInCollectionPerCardType(Object.values(main), "trap")}</span><br/>
+                </div>
+                <br/>
+                <div>
+                    {Object.values(MARKERS).map( (marker) =>
+                        <> 
+                            <span><strong>{capitalizeFirstLetter(marker)} count: </strong>{countCardsInCollectionPerMarking(Object.values(main), marker)}</span><br/>
+                        </>
+                    )}
+                </div>
             </div>
         </div>
     )
