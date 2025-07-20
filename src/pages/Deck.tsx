@@ -82,11 +82,11 @@ const Deck = () => {
                         defaultMenu={markingMode === MARKING_MODE.ACTIVE}
                         menuToggleMode={markingMode !== MARKING_MODE.ACTIVE}
                     >
-                            {markingMode !== MARKING_MODE.INACTIVE? 
-                            <>{displayMenu}<div>{index}</div></>   
+                        {markingMode !== MARKING_MODE.INACTIVE? 
+                            displayMenu   
                             :
-                            <>{actionMenu}<div>{index}</div></>  
-                            }
+                            actionMenu
+                        }
                     </BlankCard>
                 )
             }
@@ -104,9 +104,9 @@ const Deck = () => {
                             menuToggleMode={markingMode !== MARKING_MODE.ACTIVE}
                         >
                             {markingMode !== MARKING_MODE.INACTIVE? 
-                            displayMenu   
-                            :
-                            actionMenu
+                                displayMenu   
+                                :
+                                actionMenu
                             }
                         </Card>
                     )
