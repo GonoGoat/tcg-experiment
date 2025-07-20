@@ -66,7 +66,7 @@ const Statistics =  () => {
                 <div>
                     {Object.values(MARKERS).filter(value => value !== MARKERS.DEFAULT).map( (marker) =>
                         <> 
-                            <span><strong>{capitalizeFirstLetter(marker)} count: </strong>{countCardsInCollectionPerMarking(Object.values(main), marker)} {countCardsInCollectionPerMarking(Object.values(side), marker) > 0 ? `(+${countCardsInCollectionPerMarking(Object.values(side), marker)})` : ""}</span><br/>
+                            <span><strong>{capitalizeFirstLetter(marker)} count: </strong>{countCardsInCollectionPerMarking(Object.values(main), marker)} {countCardsInCollectionPerMarking(Object.values(side), marker) > 0 ? `(+${countCardsInCollectionPerMarking(Object.values(side), marker)} in side)` : ""}</span><br/>
                         </>
                     )}
                 </div>
