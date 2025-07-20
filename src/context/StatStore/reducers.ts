@@ -82,3 +82,10 @@ export function resetMarkings (state: StatState) {
         markers: {}
     }
 }
+
+export function removeCardFromMarkings(state: StatState, id: string) {
+    return {
+        ...state,
+        markers: removeStringKeyFromObject(state.markers, id)
+    }
+}

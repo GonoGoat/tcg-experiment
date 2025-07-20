@@ -13,7 +13,8 @@ const useStatStore =  create<StatState>((set) => ({
     disableMarking: () => set((state) => reducer.disableMarking(state)),
     handleMarking: (id) => set((state) => reducer.handleMarking(state, id)),
     setMarkingMode: (payload) => set((state) => reducer.setMarkingMode(state, payload)),
-    resetMarkings: () => set((state) => reducer.resetMarkings(state))
+    resetMarkings: () => set((state) => reducer.resetMarkings(state)),
+    removeCardFromMarkings: (id) => set((state) => reducer.removeCardFromMarkings(state, id)),
 }))
 
 export default useStatStore

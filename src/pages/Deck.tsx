@@ -23,6 +23,7 @@ const Deck = () => {
     const markingMode = useStatStore(state => state.markingMode)
 
     const handleMarking = useStatStore(state => state.handleMarking)
+    const removeCardFromMarkings = useStatStore(state => state.removeCardFromMarkings)
 
     const blankCardActions = (cardId: string, dest: CARD_ZONES) => 
     [
@@ -71,7 +72,14 @@ const Deck = () => {
         let index = -1; // started at -1 to be at 0 on first card
         return Object.keys(cards).sort( (a,b) => cards[a].addedDate.getTime() - cards[b].addedDate.getTime())
         .map( (cardId) => {
-            const displayMenu = <DisplayMenu display={markers[cardId] ? markers[cardId] : [cardId]} onClickHandler={() => handleMarking(cardId)}/>
+            const displayMenu = <>
+                <DisplayMenu display={markers[cardId] ? markers[cardId] : [cardId]} onClickHandler={() => handleMarking(cardId)}/>
+                {cardId in markers ?
+                    <button className="row" style={{zIndex: 10, position: "absolute"}} onClick={() => removeCardFromMarkings(cardId.toString())}>Remove all above markings</button>
+                    :
+                    <></>
+                }
+            </>
             if (cards[cardId].card.type === blankCardPayload.type) {
                 const actionMenu = <ActionMenu actions={blankCardActions(cardId, dest)}/>
                 index += 1;
