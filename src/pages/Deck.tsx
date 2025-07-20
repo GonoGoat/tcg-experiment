@@ -104,9 +104,9 @@ const Deck = () => {
                             menuToggleMode={markingMode !== MARKING_MODE.ACTIVE}
                         >
                             {markingMode !== MARKING_MODE.INACTIVE? 
-                            <>{displayMenu}<div>{index}</div></>   
+                            displayMenu   
                             :
-                            <>{actionMenu}<div>{index}</div></>  
+                            actionMenu
                             }
                         </Card>
                     )
