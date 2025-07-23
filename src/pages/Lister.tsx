@@ -4,18 +4,20 @@ import {default as Axios} from 'axios'
 import CircularProgress from '@mui/material/CircularProgress'
 
 import 'assets/style/pages/Lister.css'
-import { cardInfo, Root, genericCard } from 'types/ygopro.types'
+import { cardInfo, Root, genericCard } from 'types/ygoOpenAPI.types'
 import { CARD_ZONES } from 'types/global.enum'
 import { capitalizeFirstLetter } from 'utils/beautifiers'
 import { blankCardPayload } from 'utils/global.const'
+import { incrementPageNumberFromURL } from 'utils/externalAPI'
 import useAppStore from "context/AppStore/store"
 import useListerStore from 'context/ListerStore/store'
 import useDeckStore from 'context/DeckStore/store'
 
-import {Card, BlankCard, ActionMenu} from 'components'
+import {Card, BlankCard} from 'components/Cards'
+import ActionMenu from 'components/ActionMenu'
 
 var axios = Axios.create({
-    baseURL: 'https://db.ygoprodeck.com/api/v7/',
+    baseURL: 'https://yugioh-open-api.fauzancodes.com/v1'
 })
 
 const Lister = () => {
@@ -39,10 +41,9 @@ const Lister = () => {
         setLoadingMoreItems(true)
         try{
             let response: Root = (await axios.get(nextPageToLoad)).data
-            console.log(response)
-            if(response.meta.pages_remaining !== 0){
+            if(response.next) {
                 setHasMoreItemsToLoad(true)
-                setNextPageToLoad(response.meta.next_page || '')
+                setNextPageToLoad(incrementPageNumberFromURL(nextPageToLoad))
             }
             else {
                 setHasMoreItemsToLoad(false)

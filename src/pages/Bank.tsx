@@ -3,12 +3,13 @@ import shortid from 'shortid'
 import {default as Axios} from 'axios'
 
 import 'assets/style/pages/Bank.css'
-import { cardInfo, Root, genericCard } from 'types/ygopro.types'
+import { cardInfo, Root, genericCard } from 'types/ygoOpenAPI.types'
 import { CARD_ZONES } from 'types/global.enum'
 import { capitalizeFirstLetter } from 'utils/beautifiers'
 import useDeckStore from 'context/DeckStore/store'
 
-import {Card, ActionMenu} from 'components'
+import {Card} from 'components/Cards'
+import ActionMenu from 'components/ActionMenu'
 
 const Bank = () => {
 

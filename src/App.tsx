@@ -8,7 +8,6 @@ const App = () => {
       <Search/>
       <Lister/>
       <Deck/>
-      <Bank/>
     </div>
   );
   /*return (

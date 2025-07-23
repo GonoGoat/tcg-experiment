@@ -1,5 +1,5 @@
 import { ListerState } from "types/context.types"
-import { cardInfo } from "types/ygopro.types"
+import { cardInfo } from "types/ygoOpenAPI.types"
 
 export function setListerItems(state: ListerState, payload: cardInfo[]) {
     return {

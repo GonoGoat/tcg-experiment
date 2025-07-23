@@ -1,8 +1,9 @@
 import shortid from 'shortid'
 
-import {Card, BlankCard, ActionMenu} from 'components'
+import {Card, BlankCard} from 'components/Cards'
+import ActionMenu from 'components/ActionMenu'
 
-import { genericCard, cardInfo } from 'types/ygopro.types'
+import { genericCard, cardInfo } from 'types/ygoOpenAPI.types'
 import { CARD_ZONES } from 'types/global.enum'
 import { capitalizeFirstLetter } from 'utils/beautifiers'
 import { blankCardPayload } from 'utils/global.const'

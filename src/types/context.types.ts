@@ -1,4 +1,4 @@
-import { genericCard, cardInfo } from "./ygopro.types"
+import { genericCard, cardInfo } from "./ygoOpenAPI.types"
 import { CARD_ZONES } from "./global.enum"
 
 export interface AppState {
