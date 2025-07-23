@@ -1,0 +1,27 @@
+.bank {
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    border-top: 1px solid #FFFFFF;
+    scrollbar-base-color: transparent;
+    scrollbar-color: green;
+    grid-area: bank;
+    min-height: 50vh;
+    width: initial;
+    scrollbar-width: 100px;
+    scrollbar-color: green;
+}
+
+.bank::-webkit-scrollbar-track-piece {
+    background-color: tomato;
+    color: yellow;
+}
+
+.bank .card {
+    margin: 10px;
+}

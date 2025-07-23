@@ -56,10 +56,11 @@ const Lister = () => {
         setLoadingMoreItems(false)
     }
 
-    const blankCardActions = Object.keys(CARD_ZONES).map( (key) => {
+    // Blank card can be added to anywhere EXPECT the Card Bank
+    const blankCardActions = Object.values(CARD_ZONES).filter( (value) => value !== CARD_ZONES.BANK).map( (value) => {
         return {
-            label: capitalizeFirstLetter(CARD_ZONES[key as keyof typeof CARD_ZONES]),
-            onClick: () => addCard(blankCardPayload, CARD_ZONES[key as keyof typeof CARD_ZONES])
+            label: capitalizeFirstLetter(value),
+            onClick: () => addCard(blankCardPayload, value)
         }
     })
 
@@ -72,6 +73,10 @@ const Lister = () => {
         {
             label: "Side",
             onClick: () => addCard(card, CARD_ZONES.SIDE)
+        },
+        {
+            label: "Card Bank",
+            onClick: () => addCard(card, CARD_ZONES.BANK)
         }
     ]
 

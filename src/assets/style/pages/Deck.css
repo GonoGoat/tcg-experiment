@@ -1,5 +1,5 @@
 .deck {
-    overflow-y: auto;
+    /*overflow-y: auto;*/
 
     display: flex;
     flex-wrap: wrap;

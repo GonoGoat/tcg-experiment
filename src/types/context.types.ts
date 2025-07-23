@@ -10,6 +10,7 @@ export interface DeckState {
     main: genericCard[],
     extra: genericCard[],
     side: genericCard[],
+    bank: cardInfo[],
 
     dispatchCard: (payload: genericCard) => void
     addCard: (payload: genericCard, dest: CARD_ZONES) => void,

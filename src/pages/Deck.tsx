@@ -20,10 +20,10 @@ const Deck = () => {
 
     const blankCardActions = (index: number, dest: CARD_ZONES) => 
     [
-        ...(Object.keys(CARD_ZONES).map( (key) => {
+        ...( Object.values(CARD_ZONES).filter( (value) => value !== CARD_ZONES.BANK).map( (value) => {
             return {
-                label: capitalizeFirstLetter(CARD_ZONES[key as keyof typeof CARD_ZONES]),
-                onClick: () => addCard(blankCardPayload, CARD_ZONES[key as keyof typeof CARD_ZONES])
+                label: capitalizeFirstLetter(value),
+                onClick: () => addCard(blankCardPayload, value)
             }
         })),
         {
@@ -46,6 +46,23 @@ const Deck = () => {
                     {
                         label: "Main/Extra",
                         onClick: () => dispatchCard(card)
+                    },
+                    {
+                        label: "Card Bank",
+                        onClick: () => addCard(card, CARD_ZONES.BANK)
+                    }
+                ]
+                break;
+            case (CARD_ZONES.BANK):
+                res = [
+                    ...res,
+                    {
+                        label: "Main/Extra",
+                        onClick: () => dispatchCard(card)
+                    },
+                    {
+                        label: "Side",
+                        onClick: () => addCard(card, CARD_ZONES.SIDE)
                     }
                 ]
                 break;
@@ -55,6 +72,10 @@ const Deck = () => {
                     {
                         label: "Side",
                         onClick: () => addCard(card, CARD_ZONES.SIDE)
+                    },
+                    {
+                        label: "Card Bank",
+                        onClick: () => addCard(card, CARD_ZONES.BANK)
                     }
                 ]
         }
