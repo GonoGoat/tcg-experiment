@@ -14,7 +14,7 @@ import useListerStore from 'context/ListerStore/store'
 import useDeckStore from 'context/DeckStore/store'
 
 import {Card, BlankCard} from 'components/Cards'
-import ActionMenu from 'components/ActionMenu'
+import {ActionMenu} from 'components'
 
 var axios = Axios.create({
     baseURL: 'https://yugioh-open-api.fauzancodes.com/v1'
@@ -61,7 +61,7 @@ const Lister = () => {
     const blankCardActions = Object.values(CARD_ZONES).filter( (value) => value !== CARD_ZONES.BANK).map( (value) => {
         return {
             label: capitalizeFirstLetter(value),
-            onClick: () => addCard(blankCardPayload, value)
+            onClick: () => addCard({...blankCardPayload, id: shortid.generate()}, value)
         }
     })
 
@@ -99,7 +99,6 @@ const Lister = () => {
                         <Card 
                             cardInfo={card}  
                             key={card.id} 
-                            index={index+1}
                         >
                             <ActionMenu actions={cardActions(card)}/>
                         </Card>

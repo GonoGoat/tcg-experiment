@@ -19,7 +19,7 @@ const Bank = () => {
     const dispatchCard = useDeckStore(state => state.dispatchCard)
     const removeCard = useDeckStore(state => state.removeCard)
 
-    const cardActions = (card: genericCard, index: number) => 
+    const cardActions = (card: genericCard) => 
     [
         {
             label: "Main/Extra",
@@ -31,7 +31,7 @@ const Bank = () => {
         },
         {
             label: "Remove",
-            onClick: () => removeCard(index, CARD_ZONES.BANK)
+            onClick: () => removeCard(card.id.toString(), CARD_ZONES.BANK) 
         }
     ]
 
@@ -41,14 +41,15 @@ const Bank = () => {
                 <h3>Card Bank</h3>
             </div>
             {
-                bank.map( (card: cardInfo, index: number) =>
+                Object.keys(bank).sort( (a,b) => bank[a].addedDate.getTime() - bank[b].addedDate.getTime())
+        .map( (cardId) =>
                     <Card 
-                        cardInfo={card}  
-                        key={card.id} 
-                        index={index}
+                        cardInfo={bank[cardId].card as cardInfo}  
+                        key={cardId} 
                     >
-                        <ActionMenu actions={cardActions(card, index)}/>
+                        <ActionMenu actions={cardActions(bank[cardId].card)}/>
                     </Card>
+                    
                 )
             }
         </div>

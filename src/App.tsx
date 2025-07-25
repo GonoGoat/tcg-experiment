@@ -1,5 +1,5 @@
 import 'assets/style/App.css';
-import { Deck, Search, Lister, Bank} from 'pages'
+import { Deck, Search, Lister, Bank, Statistics} from 'pages'
 //import Options from './Components/Options'
 
 const App = () => {

@@ -2,13 +2,15 @@ import shortid from 'shortid'
 
 import {Card, BlankCard} from 'components/Cards'
 import ActionMenu from 'components/ActionMenu'
+import DisplayMenu from 'components/DisplayMenu'
 
-import { genericCard, cardInfo } from 'types/ygoOpenAPI.types'
-import { CARD_ZONES } from 'types/global.enum'
+import { genericCard, cardInfo, genericCardWithCount } from 'types//ygoOpenAPI.types'
+import { CARD_ZONES, MARKING_MODE } from 'types/global.enum'
 import { capitalizeFirstLetter } from 'utils/beautifiers'
 import { blankCardPayload } from 'utils/global.const'
 import 'assets/style/pages/Deck.css'
 import useDeckStore from 'context/DeckStore/store'
+import useStatStore from 'context/StatStore/store'
 
 const Deck = () => {
     const main = useDeckStore(state => state.main)
@@ -19,25 +21,31 @@ const Deck = () => {
     const dispatchCard = useDeckStore(state => state.dispatchCard)
     const removeCard = useDeckStore(state => state.removeCard)
 
-    const blankCardActions = (index: number, dest: CARD_ZONES) => 
+    const markers = useStatStore(state => state.markers)
+    const markingMode = useStatStore(state => state.markingMode)
+
+    const handleMarking = useStatStore(state => state.handleMarking)
+    const removeCardFromMarkings = useStatStore(state => state.removeCardFromMarkings)
+
+    const blankCardActions = (cardId: string, dest: CARD_ZONES) => 
     [
         ...( Object.values(CARD_ZONES).filter( (value) => value !== CARD_ZONES.BANK).map( (value) => {
             return {
                 label: capitalizeFirstLetter(value),
-                onClick: () => addCard(blankCardPayload, value)
+                onClick: () => addCard({...blankCardPayload, id: shortid.generate()}, value)
             }
         })),
         {
             label: "Remove",
-            onClick: () => removeCard(index, dest)
+            onClick: () => removeCard(cardId, dest)
         }
     ]
 
-    const cardActions = (card: genericCard, index: number, dest: CARD_ZONES) => {
+    const cardActions = (card: genericCard, dest: CARD_ZONES) => {
         let res = [
             {
                 label: "Remove",
-                onClick: () => removeCard(index, dest) 
+                onClick: () => removeCard(card.id.toString(), dest) 
             }
         ];
         switch(dest) {
@@ -83,27 +91,59 @@ const Deck = () => {
         return res;
     }
 
-    const getCards = (map: genericCard[], dest: CARD_ZONES) => {
-        return map.map( (card, index) => {
-            if (card.type === "blank") {
+    const getCards = (cards: Record<string, genericCardWithCount>, dest: CARD_ZONES) => {
+        let index = -1; // started at -1 to be at 0 on first card
+        return Object.keys(cards).sort( (a,b) => cards[a].addedDate.getTime() - cards[b].addedDate.getTime())
+        .map( (cardId) => {
+            const displayMenu = <>
+                <DisplayMenu display={markers[cardId] ? markers[cardId] : [cardId]} onClickHandler={() => handleMarking(cardId)}/>
+                {cardId in markers ?
+                    <button className="row" style={{zIndex: 10, position: "absolute"}} onClick={() => removeCardFromMarkings(cardId.toString())}>Remove all above markings</button>
+                    :
+                    <></>
+                }
+            </>
+            if (cards[cardId].card.type === blankCardPayload.type) {
+                const actionMenu = <ActionMenu actions={blankCardActions(cardId, dest)}/>
+                index += 1;
                 return (
-                    <BlankCard index={index} key={shortid.generate()}>
-                        <ActionMenu actions={blankCardActions(index, dest)}/>
+                    <BlankCard
+                        index={index}
+                        key={cardId}
+                        defaultMenu={markingMode === MARKING_MODE.ACTIVE}
+                        menuToggleMode={markingMode !== MARKING_MODE.ACTIVE}
+                    >
+                        {markingMode !== MARKING_MODE.INACTIVE? 
+                            displayMenu   
+                            :
+                            actionMenu
+                        }
                     </BlankCard>
                 )
             }
             else {
-                return (
-                    <Card
-                        cardInfo={card as cardInfo}
-                        key={shortid.generate()} 
-                        index={index}
-                    >
-                        <ActionMenu actions={cardActions(card, index, dest)}/>
-                    </Card>
-                )
+                const actionMenu = <ActionMenu actions={cardActions(cards[cardId].card, dest)}/>
+                let res = [];
+                for (let i = 0; i < cards[cardId].count; i++) {
+                    index += 1;
+                    res.push(                    
+                        <Card
+                            cardInfo={cards[cardId].card as cardInfo}
+                            key={shortid.generate()} 
+                            defaultMenu={markingMode === MARKING_MODE.ACTIVE}
+                            menuToggleMode={markingMode !== MARKING_MODE.ACTIVE}
+                        >
+                            {markingMode !== MARKING_MODE.INACTIVE? 
+                                displayMenu   
+                                :
+                                actionMenu
+                            }
+                        </Card>
+                    )
+                }
+                return res
             }
-        })
+        }).flat()
     }
     
     return (

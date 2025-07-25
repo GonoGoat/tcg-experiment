@@ -1,5 +1,15 @@
-export interface blankCardInfo {
-    type: "blank"
+export interface blankCardTypePayload {
+  type: "blank"
+}
+
+export interface blankCardInfo extends blankCardTypePayload {
+  id: string
+}
+
+export interface genericCardWithCount {
+    card: genericCard
+    count: number
+    addedDate: Date
 }
 
 export type genericCard = cardInfo | blankCardInfo

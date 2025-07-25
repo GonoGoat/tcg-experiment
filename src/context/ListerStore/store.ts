@@ -2,9 +2,10 @@ import { create } from 'zustand'
 import * as reducer from "./reducers"
 
 import { ListerState } from 'types/context.types'
+import data from "data/dataNew.json"
 
 const useListerStore =  create<ListerState>((set) => ({
-    lister: [],
+    lister: [],//data.data.data,
     hasMoreItemsToLoad: false,
     nextPageToLoad: '',
 

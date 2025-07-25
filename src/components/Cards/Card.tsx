@@ -1,6 +1,7 @@
 import {useState, FC, MouseEvent, KeyboardEvent} from 'react'
 import Tooltip from '@mui/material/Tooltip'
-import Dialog from '@mui/material/Dialog'
+
+import { CardDialog, CardPlaceholder } from "components/Cards"
 
 import 'assets/style/components/Card.css'
 import {cardInfo as cardType} from 'types/ygoOpenAPI.types'
@@ -8,17 +9,18 @@ import placeholder from 'assets/pictures/placeholder.png'
 
 interface CardProps {
     cardInfo: cardType,
-    index: number,
-    children?: React.ReactNode
+    children?: React.ReactNode,
+    defaultMenu?: boolean,
+    menuToggleMode?: boolean,
+    extraClickHandler?: () => void
 }
 
-const Card: FC<CardProps> = ({cardInfo, index, children}) => {
+const Card: FC<CardProps> = ({cardInfo, children, defaultMenu = false, menuToggleMode = true, extraClickHandler = () => null}) => {
     const [isHovering, setHovering] = useState<boolean>(false)
     const [open, setOpen] = useState<boolean>(false);
     const [menu, setMenu] = useState(false);
     const img_url: string = cardInfo.image_url
 
-    const handleClickOpen = () => setOpen(true)
     const handleKeyPress = (event: KeyboardEvent) => {
         setOpen(false);
         if (event.key !== "escapeKeyDown") {
@@ -28,13 +30,13 @@ const Card: FC<CardProps> = ({cardInfo, index, children}) => {
     const handleClick = (event: MouseEvent) => {
         setHovering(false) //disables tooltip
         if(event.buttons === 2){ //if right click opens modal
-            handleClickOpen()
+            setOpen(true)
             event.preventDefault()
-            return false
         }
         else { // Middle and left click
             if (!open) {
-                setMenu(!menu)
+                extraClickHandler()
+                setMenu(menuToggleMode ? !menu : menu)
             }
         }
     }
@@ -85,21 +87,9 @@ const Card: FC<CardProps> = ({cardInfo, index, children}) => {
                     //    removeCard(cardInfo,index)
                 }*/
             >
-                <img
-                    src={img_url}
-                    width="90px" 
-                    height="120px" 
-                    alt={cardInfo.name}
-                    onMouseDown={e=>handleClick(e)}
-                />
+                <CardPlaceholder img={img_url} name={cardInfo.name} clickHandler={(e: MouseEvent)=>handleClick(e)}/>
                 {menu ? children : <></>}
-                <Dialog 
-                    open={open} 
-                    onKeyDown={handleKeyPress}
-                    maxWidth="md"
-                >
-                    {DialogDisplay}
-                </Dialog>
+                <CardDialog open={open} KeyPressHandler={handleKeyPress} cardInfo={cardInfo}/>
             </div>
         </Tooltip>
     )
