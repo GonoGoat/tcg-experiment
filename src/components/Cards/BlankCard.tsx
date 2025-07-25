@@ -13,7 +13,7 @@ interface BlankCardProps {
     extraClickHandler?: () => void
 }
 
-const BlankCard: FC<BlankCardProps> = ({index, children = <></>, defaultMenu = false, menuToggleMode = true, extraClickHandler = () => null}) => {
+const BlankCard: FC<BlankCardProps> = ({children = <></>, defaultMenu = false, menuToggleMode = true, extraClickHandler = () => null}) => {
     const [menu, setMenu] = useState<boolean>(defaultMenu);
 
     // TODO remove blinking effect
