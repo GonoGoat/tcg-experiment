@@ -1,9 +1,11 @@
 import 'assets/style/pages/Statistics.css'
 import { genericCardWithCount } from 'types/ygoOpenAPI.types'
 import { capitalizeFirstLetter } from 'utils/beautifiers'
-import { MARKERS } from 'types/global.enum'
+import { getClassName } from 'utils/utils'
+import { MARKERS, ACTIVE_TABS } from 'types/global.enum'
 import useDeckStore from "context/DeckStore/store"
 import useStatStore from 'context/StatStore/store'
+import useAppStore from 'context/AppStore/store'
 
 const Statistics =  () => {
 
@@ -17,6 +19,8 @@ const Statistics =  () => {
     const enableMarking = useStatStore((state) => state.enableMarking)
     const disableMarking = useStatStore((state) => state.disableMarking)
     const resetMarkings = useStatStore((state) => state.resetMarkings)
+
+    const activeTab = useAppStore(state => state.activeTab)
 
     function countCardsInCollection (collection: genericCardWithCount[]) {
         return collection.reduce(
@@ -33,12 +37,12 @@ const Statistics =  () => {
     }
 
     return (
-        <div className="statistics">
+        <div className={getClassName(activeTab, ACTIVE_TABS.STATS)}>
             <button onClick={() => resetMarkings()}>Reset all markings</button>
             <div className='markers'>
                 {Object.values(MARKERS).filter(value => value !== MARKERS.DEFAULT).map( (value, index) =>
                     <div
-                        className={value === activeMarker ?"selected":""}
+                        className={value === activeMarker ? "selected":""}
                         key={index} 
                         onMouseDown={value === activeMarker ? (() => disableMarking()) : (() => enableMarking(value))}
                     >

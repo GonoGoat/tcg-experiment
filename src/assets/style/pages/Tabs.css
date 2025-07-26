@@ -1,0 +1,70 @@
+.tabs {
+  grid-area: tabs;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/*font-family: 'Times New Roman', Times, serif;*/
+/*.tabs button{
+    border: none;
+    border-radius: 10px;
+    padding: 1px;
+    width: 85px;
+    height: 40px;
+    align-self: center;
+    font-weight: bolder;
+    color: white;
+    
+    box-shadow: 5px 5px 10px black;
+    font-size: 1vw;
+    transition: 0.5s;
+    outline: none;
+    background: linear-gradient(311deg, rgba(0,98,157,1) 25%, rgba(18,124,67,1) 77%);
+}
+
+.tabs button:hover{
+    cursor: pointer;
+    box-shadow: 0px 0px 0px;
+    border: 0;
+    opacity: 0.9;
+}*/
+
+/* Style the tab */
+.links {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.links button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.links button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.links button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+/*.tabcontent {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}*/
+
+.inactive {
+  display : none
+}

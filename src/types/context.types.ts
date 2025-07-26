@@ -1,9 +1,12 @@
 import { genericCard, cardInfo, genericCardWithCount } from  "./ygoOpenAPI.types"
-import { CARD_ZONES, MARKERS, MARKING_MODE } from "./global.enum"
+import { CARD_ZONES, MARKERS, MARKING_MODE, ACTIVE_TABS } from "./global.enum"
 
 export interface AppState {
     isLoading: boolean,
+    activeTab: ACTIVE_TABS
+
     setLoadingState: (payload: boolean) => void
+    setActiveTab: (payload: ACTIVE_TABS) => void
 }
 
 export interface DeckState {

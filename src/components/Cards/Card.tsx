@@ -18,7 +18,7 @@ interface CardProps {
 const Card: FC<CardProps> = ({cardInfo, children, defaultMenu = false, menuToggleMode = true, extraClickHandler = () => null}) => {
     const [isHovering, setHovering] = useState<boolean>(false)
     const [open, setOpen] = useState<boolean>(false);
-    const [menu, setMenu] = useState(false);
+    const [menu, setMenu] = useState(defaultMenu);
     const img_url: string = cardInfo.image_url
 
     const handleKeyPress = (event: KeyboardEvent) => {

@@ -6,7 +6,7 @@
     height: 100vh;
     flex-wrap: wrap;
     align-items: flex-start;
-    justify-content: center;
+    /*justify-content: center;*/
     border-top: 1px solid #FFFFFF;
     scrollbar-base-color: transparent;
     scrollbar-color: green;

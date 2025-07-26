@@ -95,6 +95,7 @@ const Deck = () => {
         let index = -1; // started at -1 to be at 0 on first card
         return Object.keys(cards).sort( (a,b) => cards[a].addedDate.getTime() - cards[b].addedDate.getTime())
         .map( (cardId) => {
+            console.log(cardId)
             const displayMenu = <>
                 <DisplayMenu display={markers[cardId] ? markers[cardId] : [cardId]} onClickHandler={() => handleMarking(cardId)}/>
                 {cardId in markers ?

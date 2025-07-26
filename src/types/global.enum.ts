@@ -28,3 +28,9 @@ export enum MARKING_MODE {
     INACTIVE = "inactive",
     ACTIVE = "active",
 }
+
+export enum ACTIVE_TABS {
+    STATS = "statistics",
+    BANK = "bank",
+    //SEARCH = "search"
+}
