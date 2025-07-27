@@ -11,7 +11,7 @@ import { incrementPageNumberFromURL } from 'utils/externalAPI'
 import useAppStore from "context/AppStore/store"
 import useListerStore from 'context/ListerStore/store'
 import useDeckStore from 'context/DeckStore/store'
-import { axios, getURL } from 'utils/externalAPI'
+import { axios } from 'utils/externalAPI'
 
 import {Card, BlankCard} from 'components/Cards'
 import {ActionMenu} from 'components'

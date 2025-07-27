@@ -2,7 +2,6 @@ import { FC, useState, useEffect } from 'react';
 
 import { CardPlaceholder } from "components/Cards"
 
-import { blankCardInfo } from 'types/ygoOpenAPI.types';
 import 'assets/style/components/BlankCard.css'
 
 interface BlankCardProps {
