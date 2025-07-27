@@ -1,7 +1,7 @@
 import {default as Axios} from 'axios'
 import { REGEX } from "types/regex.enum"
 
-import { getSingleRegexMatchString } from './regex'
+import { getSingleRegexMatchString } from '../../regex'
 
 export var axios = Axios.create({
     baseURL: 'https://yugioh-open-api.fauzancodes.com/v1'

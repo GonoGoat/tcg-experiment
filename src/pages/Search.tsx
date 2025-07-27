@@ -10,7 +10,7 @@ import useListerStore from 'context/ListerStore/store'
 import {ToggleSwitch, Select, NumberInput, NumberInputWithButton} from 'components/Forms'
 import { Root } from 'types/ygoOpenAPI.types'
 import { REGEX } from "types/regex.enum"
-import { axios, getURL } from 'utils/externalAPI'
+import { axios, getURL } from 'utils/modules/axios/ygoOpenAPI.axios'
 
 // TODO to replace with useEffect?
 const cardTypes = ['Monster', 'Spell Card', 'Trap Card']
@@ -79,13 +79,10 @@ const Search =  () => {
         var reg = new RegExp(`^${monsterType}${hasEffect}${isPendulum}${isTuner}${type}`)
         var types = monsterCardTypes.filter((cardType) => reg.test(cardType.toLowerCase()))
         var generalType = cardTypes.filter((cardType) => new RegExp(type).test(cardType.toLowerCase()))
-        console.log(generalType)
 
         //Build query parameters
         var queryParams = `${name}${race}${getAtkDefAsQueryParam(atk, "&attack")}${getAtkDefAsQueryParam(def, "&defense")}${!type ? "" : (types.length > 0 ?`&card_type=${types.join(',')}`: `&card_type=${generalType}`)}${level}${attribute}`
-        console.log(queryParams)
         // TODO : Alert si pas de filtre pour tous ceux choisi
-        console.log(getURL(queryParams, page))
         return getURL(queryParams, page)
     }
 

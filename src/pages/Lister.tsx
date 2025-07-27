@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import shortid from 'shortid'
+import { nanoid } from "utils/modules/nanoid/nanoid"
 import CircularProgress from '@mui/material/CircularProgress'
 
 import 'assets/style/pages/Lister.css'
@@ -7,11 +7,11 @@ import { cardInfo, Root, genericCard } from 'types/ygoOpenAPI.types'
 import { CARD_ZONES } from 'types/global.enum'
 import { capitalizeFirstLetter } from 'utils/beautifiers'
 import { blankCardPayload } from 'utils/global.const'
-import { incrementPageNumberFromURL } from 'utils/externalAPI'
+import { incrementPageNumberFromURL } from 'utils/modules/axios/ygoOpenAPI.axios'
 import useAppStore from "context/AppStore/store"
 import useListerStore from 'context/ListerStore/store'
 import useDeckStore from 'context/DeckStore/store'
-import { axios } from 'utils/externalAPI'
+import { axios } from 'utils/modules/axios/ygoOpenAPI.axios'
 
 import {Card, BlankCard} from 'components/Cards'
 import {ActionMenu} from 'components'
@@ -57,7 +57,7 @@ const Lister = () => {
     const blankCardActions = Object.values(CARD_ZONES).filter( (value) => value !== CARD_ZONES.BANK).map( (value) => {
         return {
             label: capitalizeFirstLetter(value),
-            onClick: () => addCard({...blankCardPayload, id: shortid.generate()}, value)
+            onClick: () => addCard({...blankCardPayload, id: nanoid()}, value)
         }
     })
 

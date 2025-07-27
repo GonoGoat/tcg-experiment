@@ -1,4 +1,4 @@
-import shortid from 'shortid'
+import { nanoid } from "utils/modules/nanoid/nanoid"
 
 import {Card, BlankCard} from 'components/Cards'
 import ActionMenu from 'components/ActionMenu'
@@ -32,7 +32,7 @@ const Deck = () => {
         ...( Object.values(CARD_ZONES).filter( (value) => value !== CARD_ZONES.BANK).map( (value) => {
             return {
                 label: capitalizeFirstLetter(value),
-                onClick: () => addCard({...blankCardPayload, id: shortid.generate()}, value)
+                onClick: () => addCard({...blankCardPayload, id: nanoid()}, value)
             }
         })),
         {
@@ -95,7 +95,6 @@ const Deck = () => {
         let index = -1; // started at -1 to be at 0 on first card
         return Object.keys(cards).sort( (a,b) => cards[a].addedDate.getTime() - cards[b].addedDate.getTime())
         .map( (cardId) => {
-            console.log(cardId)
             const displayMenu = <>
                 <DisplayMenu display={markers[cardId] ? markers[cardId] : [cardId]} onClickHandler={() => handleMarking(cardId)}/>
                 {cardId in markers ?
@@ -130,7 +129,7 @@ const Deck = () => {
                     res.push(                    
                         <Card
                             cardInfo={cards[cardId].card as cardInfo}
-                            key={shortid.generate()} 
+                            key={nanoid()} 
                             defaultMenu={markingMode === MARKING_MODE.ACTIVE}
                             menuToggleMode={markingMode !== MARKING_MODE.ACTIVE}
                         >
