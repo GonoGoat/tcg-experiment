@@ -1,11 +1,6 @@
-import React, {useState} from 'react'
-import shortid from 'shortid'
-import {default as Axios} from 'axios'
-
 import 'assets/style/pages/Bank.css'
-import { cardInfo, Root, genericCard } from 'types/ygoOpenAPI.types'
+import { cardInfo, genericCard } from 'types/ygoOpenAPI.types'
 import { CARD_ZONES, ACTIVE_TABS } from 'types/global.enum'
-import { capitalizeFirstLetter } from 'utils/beautifiers'
 import useDeckStore from 'context/DeckStore/store'
 import useAppStore from 'context/AppStore/store'
 import { getClassName } from 'utils/utils'

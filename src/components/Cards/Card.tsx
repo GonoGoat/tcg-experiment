@@ -5,7 +5,6 @@ import { CardDialog, CardPlaceholder } from "components/Cards"
 
 import 'assets/style/components/Card.css'
 import {cardInfo as cardType} from 'types/ygoOpenAPI.types'
-import placeholder from 'assets/pictures/placeholder.png'
 
 interface CardProps {
     cardInfo: cardType,
@@ -27,6 +26,7 @@ const Card: FC<CardProps> = ({cardInfo, children, defaultMenu = false, menuToggl
             setHovering(false)
         }
     }
+
     const handleClick = (event: MouseEvent) => {
         setHovering(false) //disables tooltip
         if(event.buttons === 2){ //if right click opens modal
@@ -50,22 +50,7 @@ const Card: FC<CardProps> = ({cardInfo, children, defaultMenu = false, menuToggl
         {cardInfo.attack?<span>ATK: {cardInfo.attack}<br/></span>:<></>}
         {cardInfo.defense?<span>DEF: {cardInfo.defense}<br/></span>:<></>}
         {cardInfo.description?<span>Description: {cardInfo.description}<br/></span>:<></>} 
-    </div>
-
-    const DialogDisplay = <div className="card-modal">
-        <img src={img_url ? img_url : placeholder} alt={cardInfo.name}/>
-        <div>
-            {cardInfo.name?<h6>{cardInfo.name}<br/></h6>:<></>}
-            {cardInfo.level?<span>LV: {cardInfo.level}<br/></span>:<></>}
-            {cardInfo.type?<span>Type: {cardInfo.type}<br/></span>:<></>}
-            {cardInfo.race?<span>Race: {cardInfo.race}<br/></span>:<></>}
-            {cardInfo.attribute?<span>Attribute: {cardInfo.attribute}<br/></span>:<></>}
-            {cardInfo.attack?<span>ATK: {cardInfo.attack}<br/></span>:<></>}
-            {cardInfo.defense?<span>DEF: {cardInfo.defense}<br/></span>:<></>}
-            {cardInfo.description?<span>Description: {cardInfo.description}<br/></span>:<></>} 
-        </div>
-    </div>
-    
+    </div>    
     
     return (
         <Tooltip 
@@ -78,14 +63,6 @@ const Card: FC<CardProps> = ({cardInfo, children, defaultMenu = false, menuToggl
                 className="card"
                 onMouseOver={()=>setHovering(true)}
                 onMouseOut={()=>setHovering(false)} 
-                /*onClick={()=>isDraggable?
-                    addCardToDeck(cardInfo)
-                    :
-                    //open?
-                        null // no action if the dialog is up
-                    //    :
-                    //    removeCard(cardInfo,index)
-                }*/
             >
                 <CardPlaceholder img={img_url} name={cardInfo.name} clickHandler={(e: MouseEvent)=>handleClick(e)}/>
                 {menu ? children : <></>}

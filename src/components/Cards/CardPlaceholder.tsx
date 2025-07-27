@@ -15,8 +15,6 @@ const CardPlaceholder: FC<CardPlaceholderProps> = (props) => {
         <div className="card-placeholder">
             <img
                 src={props.img ? props.img : placeholder}
-                width="90px" 
-                height="120px" 
                 alt={props.name}
                 onMouseDown={e => props.clickHandler(e)}
             />

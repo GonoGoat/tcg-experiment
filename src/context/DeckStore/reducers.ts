@@ -4,7 +4,7 @@ import { CARD_ZONES, ED_MONSTER_TYPES } from "types/global.enum"
 import { removeStringKeyFromObject } from "utils/utils"
 
 /**
- * @param {string} type Card type
+ * @param type Card type
  * @returns true/false if this card type belongs to the extra deck
  */
 function belongsToExtraDeck (type: string) {

@@ -26,7 +26,6 @@ const BlankCard: FC<BlankCardProps> = ({children = <></>, defaultMenu = false, m
         setMenu(menuToggleMode ? !menu : menu)
     }
     
-    
     // TODO different handlers on right/left click?
     return (
         <div className="blank-card">

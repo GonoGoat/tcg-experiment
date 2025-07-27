@@ -1,6 +1,5 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import shortid from 'shortid'
-import {default as Axios} from 'axios'
 import CircularProgress from '@mui/material/CircularProgress'
 
 import 'assets/style/pages/Lister.css'
@@ -12,13 +11,10 @@ import { incrementPageNumberFromURL } from 'utils/externalAPI'
 import useAppStore from "context/AppStore/store"
 import useListerStore from 'context/ListerStore/store'
 import useDeckStore from 'context/DeckStore/store'
+import { axios, getURL } from 'utils/externalAPI'
 
 import {Card, BlankCard} from 'components/Cards'
 import {ActionMenu} from 'components'
-
-var axios = Axios.create({
-    baseURL: 'https://yugioh-open-api.fauzancodes.com/v1'
-})
 
 const Lister = () => {
     const [isLoadingMoreItems, setLoadingMoreItems] = useState<boolean>(false)

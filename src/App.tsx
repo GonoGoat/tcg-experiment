@@ -11,14 +11,6 @@ const App = () => {
       <Tabs/>
     </div>
   );
-  /*return (
-    <div className="Home">
-      <Search/>
-      <Lister/>
-      <Deck/>
-      <Options/>
-    </div>
-  );*/
 }
 
 export default App;

@@ -1,5 +1,4 @@
 import {useState} from 'react'
-import {default as Axios} from 'axios'
 
 import 'assets/style/pages/Search.css'
 import sample from "data/data.json"
@@ -13,16 +12,13 @@ import { Root } from 'types/ygoOpenAPI.types'
 import { REGEX } from "types/regex.enum"
 import { axios, getURL } from 'utils/externalAPI'
 
+// TODO to replace with useEffect?
 const cardTypes = ['Monster', 'Spell Card', 'Trap Card']
 const monsterTypes = ['Ritual', 'Fusion', 'Synchro', 'Link', 'XYZ', 'Toon', 'Spirit', 'Gemini', 'Union'] // TODO add flip
 const monsterAttributes = ['Earth', 'Wind', 'Fire', 'Water', 'Light', 'Dark', 'Divine']
 const monsterRaces = ['Aqua', 'Beast', 'Beast-Warrior', 'Cyberse', 'Dinosaur', 'Divine-Beast', 'Dragon', 'Fairy', 'Fiend', 'Fish', 'Insect', 'Illusion', 'Machine', 'Plant', 'Psychic', 'Pyro', 'Reptile', 'Rock', 'Sea Serpent', 'Spellcaster', 'Thunder', 'Warrior', 'Winged Beast', 'Wyrm', 'Zombie']
 const spellRaces = ['Normal', 'Field', 'Equip', 'Continuous', 'Quick-Play', 'Ritual']
 const trapRaces = ['Normal', 'Continuous', 'Counter']
-/*
-"Skill Card"
-"Token"
-*/
 const monsterCardTypes = [
     "Effect Monster", "Flip Effect Monster", "Flip Tuner Effect Monster", "Gemini Monster", "Normal Monster", "Normal Tuner Monster", "Pendulum Effect Monster", "Pendulum Effect Ritual Monster", "Pendulum Flip Effect Monster", "Pendulum Normal Monster", "Pendulum Tuner Effect Monster", "Ritual Effect Monster", "Ritual Monster", "Spirit Monster", "Toon Monster", "Tuner Monster", "Union Effect Monster", "Fusion Monster", "Link Monster", "Pendulum Effect Fusion Monster", "Synchro Monster", "Synchro Pendulum Effect Monster", "Synchro Tuner Monster", "XYZ Monster", "XYZ Pendulum Effect Monster"
 ]
@@ -48,7 +44,6 @@ const Search =  () => {
     const [isTuner, setTuner] = useState('')
 
     const setLoadingState = useAppStore((state) => state.setLoadingState)
-    //const activeTab = useAppStore((state) => state.activeTab)
 
     const setNextPageToLoad = useListerStore((state) => state.setNextPageToLoad)
     const setHasMoreItemsToLoad = useListerStore((state) => state.setHasMoreItemsToLoad)
@@ -90,7 +85,6 @@ const Search =  () => {
         var queryParams = `${name}${race}${getAtkDefAsQueryParam(atk, "&attack")}${getAtkDefAsQueryParam(def, "&defense")}${!type ? "" : (types.length > 0 ?`&card_type=${types.join(',')}`: `&card_type=${generalType}`)}${level}${attribute}`
         console.log(queryParams)
         // TODO : Alert si pas de filtre pour tous ceux choisi
-        //return `/card?limit=30&offset=0`+name+race+atk+def+(types.length > 0 ?`&type=${types.join(',').toLowerCase()}`:type)+level+attribute
         console.log(getURL(queryParams, page))
         return getURL(queryParams, page)
     }
@@ -321,7 +315,6 @@ const Search =  () => {
     />
 
     return (
-        //<div className={getClassName(activeTab,className)}>
         <div className='search'>
             <div>
                 <h3>Search</h3>
@@ -366,9 +359,6 @@ const Search =  () => {
                 </>
                 :
                 <></>
-            }
-            {
-                //<button className="search-button" onClick={() => setLoadingState(true)}>Search</button>
             }
             <button className="search-button" onClick={() => {request()}}>Search</button>
         </div>
