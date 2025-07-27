@@ -19,7 +19,7 @@
     float: left;
 }
 
-.main {
+.deck .main {
     overflow-y: auto;
     min-height: 20vh;
     height: 70vh;
@@ -27,14 +27,14 @@
     background-color: #ff0000;
 }
 
-.extra {
+.deck .extra {
     min-height: 5vh;
     height: 15vh;
     width: 100vw;
     background-color: #0000FF;
 }
 
-.side {
+.deck .side {
     min-height: 5vh;
     height: 15vh;
     width: 100vw;
