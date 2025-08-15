@@ -1,12 +1,12 @@
 import { genericCard, cardInfo, genericCardWithCount } from  "./ygoOpenAPI.types"
-import { CARD_ZONES, MARKERS, MARKING_MODE, ACTIVE_TABS } from "./global.enum"
+import { CARD_ZONE, MARKER, MARKING_MODE, ACTIVE_TAB } from "./global.enum"
 
 export interface AppState {
     isLoading: boolean,
-    activeTab: ACTIVE_TABS
+    activeTab: ACTIVE_TAB
 
     setLoadingState: (payload: boolean) => void
-    setActiveTab: (payload: ACTIVE_TABS) => void
+    setActiveTab: (payload: ACTIVE_TAB) => void
 }
 
 export interface DeckState {
@@ -16,8 +16,8 @@ export interface DeckState {
     bank: Record<string, genericCardWithCount>,
 
     dispatchCard: (payload: genericCard) => void
-    addCard: (payload: genericCard, dest: CARD_ZONES) => void,
-    removeCard: (cardId: string, source: CARD_ZONES) => void,
+    addCard: (payload: genericCard, dest: CARD_ZONE) => void,
+    removeCard: (cardId: string, source: CARD_ZONE) => void,
     eraseDeck: () => void
 }
 
@@ -33,11 +33,11 @@ export interface ListerState {
 }
 
 export interface StatState {
-    markers: Record<string, MARKERS[]>,
-    activeMarker: MARKERS,
+    markers: Record<string, MARKER[]>,
+    activeMarker: MARKER,
     markingMode: MARKING_MODE,
 
-    enableMarking: (payload: MARKERS) => void,
+    enableMarking: (payload: MARKER) => void,
     disableMarking: () => void,
     handleMarking: (id: string) => void
     setMarkingMode: (payload: MARKING_MODE) => void

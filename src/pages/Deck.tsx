@@ -5,7 +5,7 @@ import ActionMenu from 'components/ActionMenu'
 import DisplayMenu from 'components/DisplayMenu'
 
 import { genericCard, cardInfo, genericCardWithCount } from 'types//ygoOpenAPI.types'
-import { CARD_ZONES, MARKING_MODE } from 'types/global.enum'
+import { CARD_ZONE, MARKING_MODE } from 'types/global.enum'
 import { capitalizeFirstLetter } from 'utils/beautifiers'
 import { blankCardPayload } from 'utils/global.const'
 import 'assets/style/pages/Deck.css'
@@ -27,9 +27,9 @@ const Deck = () => {
     const handleMarking = useStatStore(state => state.handleMarking)
     const removeCardFromMarkings = useStatStore(state => state.removeCardFromMarkings)
 
-    const blankCardActions = (cardId: string, dest: CARD_ZONES) => 
+    const blankCardActions = (cardId: string, dest: CARD_ZONE) => 
     [
-        ...( Object.values(CARD_ZONES).filter( (value) => value !== CARD_ZONES.BANK).map( (value) => {
+        ...( Object.values(CARD_ZONE).filter( (value) => value !== CARD_ZONE.BANK).map( (value) => {
             return {
                 label: capitalizeFirstLetter(value),
                 onClick: () => addCard({...blankCardPayload, id: nanoid()}, value)
@@ -41,7 +41,7 @@ const Deck = () => {
         }
     ]
 
-    const cardActions = (card: genericCard, dest: CARD_ZONES) => {
+    const cardActions = (card: genericCard, dest: CARD_ZONE) => {
         let res = [
             {
                 label: "Remove",
@@ -49,7 +49,7 @@ const Deck = () => {
             }
         ];
         switch(dest) {
-            case (CARD_ZONES.SIDE):
+            case (CARD_ZONE.SIDE):
                 res = [
                     ...res,
                     {
@@ -58,11 +58,11 @@ const Deck = () => {
                     },
                     {
                         label: "Card Bank",
-                        onClick: () => addCard(card, CARD_ZONES.BANK)
+                        onClick: () => addCard(card, CARD_ZONE.BANK)
                     }
                 ]
                 break;
-            case (CARD_ZONES.BANK):
+            case (CARD_ZONE.BANK):
                 res = [
                     ...res,
                     {
@@ -71,7 +71,7 @@ const Deck = () => {
                     },
                     {
                         label: "Side",
-                        onClick: () => addCard(card, CARD_ZONES.SIDE)
+                        onClick: () => addCard(card, CARD_ZONE.SIDE)
                     }
                 ]
                 break;
@@ -80,18 +80,18 @@ const Deck = () => {
                     ...res,
                     {
                         label: "Side",
-                        onClick: () => addCard(card, CARD_ZONES.SIDE)
+                        onClick: () => addCard(card, CARD_ZONE.SIDE)
                     },
                     {
                         label: "Card Bank",
-                        onClick: () => addCard(card, CARD_ZONES.BANK)
+                        onClick: () => addCard(card, CARD_ZONE.BANK)
                     }
                 ]
         }
         return res;
     }
 
-    const getCards = (cards: Record<string, genericCardWithCount>, dest: CARD_ZONES) => {
+    const getCards = (cards: Record<string, genericCardWithCount>, dest: CARD_ZONE) => {
         let index = -1; // started at -1 to be at 0 on first card
         return Object.keys(cards).sort( (a,b) => cards[a].addedDate.getTime() - cards[b].addedDate.getTime())
         .map( (cardId) => {
@@ -149,13 +149,13 @@ const Deck = () => {
     return (
         <div className="deck">
             <div className="main" tabIndex={0}>
-                {getCards(main, CARD_ZONES.MAIN)}
+                {getCards(main, CARD_ZONE.MAIN)}
             </div>
             <div className="extra" tabIndex={0}>
-                {getCards(extra, CARD_ZONES.EXTRA)}
+                {getCards(extra, CARD_ZONE.EXTRA)}
             </div>
             <div className="side" tabIndex={0}>
-                {getCards(side, CARD_ZONES.SIDE)}
+                {getCards(side, CARD_ZONE.SIDE)}
             </div>
         </div>
     )

@@ -4,7 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress'
 
 import 'assets/style/pages/Lister.css'
 import { cardInfo, Root, genericCard } from 'types/ygoOpenAPI.types'
-import { CARD_ZONES } from 'types/global.enum'
+import { CARD_ZONE } from 'types/global.enum'
 import { capitalizeFirstLetter } from 'utils/beautifiers'
 import { blankCardPayload } from 'utils/global.const'
 import { incrementPageNumberFromURL } from 'utils/modules/axios/ygoOpenAPI.axios'
@@ -54,7 +54,7 @@ const Lister = () => {
     }
 
     // Blank card can be added to anywhere EXPECT the Card Bank
-    const blankCardActions = Object.values(CARD_ZONES).filter( (value) => value !== CARD_ZONES.BANK).map( (value) => {
+    const blankCardActions = Object.values(CARD_ZONE).filter( (value) => value !== CARD_ZONE.BANK).map( (value) => {
         return {
             label: capitalizeFirstLetter(value),
             onClick: () => addCard({...blankCardPayload, id: nanoid()}, value)
@@ -69,11 +69,11 @@ const Lister = () => {
         },
         {
             label: "Side",
-            onClick: () => addCard(card, CARD_ZONES.SIDE)
+            onClick: () => addCard(card, CARD_ZONE.SIDE)
         },
         {
             label: "Card Bank",
-            onClick: () => addCard(card, CARD_ZONES.BANK)
+            onClick: () => addCard(card, CARD_ZONE.BANK)
         }
     ]
 

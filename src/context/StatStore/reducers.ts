@@ -1,16 +1,16 @@
 import { StatState } from 'types/context.types'
-import { MARKERS, MARKING_MODE } from 'types/global.enum'
+import { MARKER, MARKING_MODE } from 'types/global.enum'
 import { removeStringKeyFromObject } from 'utils/utils'
 
 export function disableMarking(state: StatState) {
     let updatedState = setMarkingMode(state, MARKING_MODE.INACTIVE)
     return ({
         ...updatedState,
-        activeMarker: MARKERS.DEFAULT,
+        activeMarker: MARKER.DEFAULT,
     })
 }
 
-export function enableMarking(state: StatState, payload: MARKERS) {
+export function enableMarking(state: StatState, payload: MARKER) {
     let updatedState = setMarkingMode(state, MARKING_MODE.ACTIVE)
     return ({
         ...updatedState,
@@ -49,7 +49,7 @@ export function handleMarking(state: StatState, id: string) {
 }
 
 // Add the selected marker to the others
-function addMarker (markers: Record<string, MARKERS[]>, id: string, activeMarker: MARKERS) {
+function addMarker (markers: Record<string, MARKER[]>, id: string, activeMarker: MARKER) {
     return {
         ...markers,
         [id]: [...(markers[id]), activeMarker]
@@ -57,7 +57,7 @@ function addMarker (markers: Record<string, MARKERS[]>, id: string, activeMarker
 }
 
 // Add the first marker to the card
-function addNewMarker (markers: Record<string, MARKERS[]>, id: string, activeMarker: MARKERS) {
+function addNewMarker (markers: Record<string, MARKER[]>, id: string, activeMarker: MARKER) {
     return {
         ...markers,
         [id]: [activeMarker]
@@ -65,7 +65,7 @@ function addNewMarker (markers: Record<string, MARKERS[]>, id: string, activeMar
 }
 
 // Remove the marker among the others
-function removeMarker (markers: Record<string, MARKERS[]>, id: string, activeMarker: MARKERS) {           
+function removeMarker (markers: Record<string, MARKER[]>, id: string, activeMarker: MARKER) {           
     if (markers[id].length === 1) { // If the selected marker is the last one of the card
         return removeStringKeyFromObject(markers, id) // Remove the id of the card from marker collection
     }

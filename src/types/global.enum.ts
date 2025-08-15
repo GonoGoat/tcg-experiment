@@ -1,18 +1,18 @@
-export enum CARD_ZONES {
+export enum CARD_ZONE {
     MAIN = "main",
     EXTRA = "extra",
     SIDE = "side",
     BANK = "bank"
 }
 
-export enum ED_MONSTER_TYPES {
+export enum ED_MONSTER_TYPE {
     FUSION = "fusion",
     SYNCHRO = "synchro",
     XYZ = "xyz",
     LINK = "link"
 }
 
-export enum MARKERS {
+export enum MARKER {
     // Engine : Starter - Extender - (Brick)
     // Non-Engine : Board Breaker - Hand Trap - (Defensive) - Consistency/Power card
     DEFAULT = "default",
@@ -29,7 +29,7 @@ export enum MARKING_MODE {
     ACTIVE = "active",
 }
 
-export enum ACTIVE_TABS {
+export enum ACTIVE_TAB {
     STATS = "statistics",
     BANK = "bank",
     //SEARCH = "search"

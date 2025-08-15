@@ -1,6 +1,6 @@
 import { DeckState } from "types/context.types"
 import { genericCard, genericCardWithCount } from "types/ygoOpenAPI.types"
-import { CARD_ZONES, ED_MONSTER_TYPES } from "types/global.enum"
+import { CARD_ZONE, ED_MONSTER_TYPE } from "types/global.enum"
 import { removeStringKeyFromObject } from "utils/utils"
 
 /**
@@ -8,7 +8,7 @@ import { removeStringKeyFromObject } from "utils/utils"
  * @returns true/false if this card type belongs to the extra deck
  */
 function belongsToExtraDeck (type: string) {
-    return(new RegExp(Object.values(ED_MONSTER_TYPES).map(type => `(${type})`).join('|')).test(type.toLowerCase()))
+    return(new RegExp(Object.values(ED_MONSTER_TYPE).map(type => `(${type})`).join('|')).test(type.toLowerCase()))
 }
 
 function deckStateParser (card: genericCard, index: number) {
@@ -46,7 +46,7 @@ function addCardToCollection (collection: Record<string,genericCardWithCount>, c
  * @param dest Where to send the card
  * @returns State with a new card in the destination collection
  */
-export function addCard (state: DeckState, payload: genericCard, dest: CARD_ZONES) {
+export function addCard (state: DeckState, payload: genericCard, dest: CARD_ZONE) {
     return {
         ...state,
         [dest]: addCardToCollection(state[dest], payload)
@@ -60,7 +60,7 @@ export function addCard (state: DeckState, payload: genericCard, dest: CARD_ZONE
  * @returns State with a new card in either main deck or extra deck
  */
 export function dispatchCard (state: DeckState, payload: genericCard) {
-    let dest: CARD_ZONES = belongsToExtraDeck(payload.type) ? CARD_ZONES.EXTRA : CARD_ZONES.MAIN
+    let dest: CARD_ZONE = belongsToExtraDeck(payload.type) ? CARD_ZONE.EXTRA : CARD_ZONE.MAIN
     return {
         ...state,
         [dest]: addCardToCollection(state[dest], payload)
@@ -74,7 +74,7 @@ export function dispatchCard (state: DeckState, payload: genericCard) {
  * @param source Where to remove the card
  * @returns State with a card removed from the source collection
  */
-export function removeCard (state: DeckState, cardId: string, source: CARD_ZONES) {
+export function removeCard (state: DeckState, cardId: string, source: CARD_ZONE) {
     let card = state[source][cardId]
     if (card.count === 1) {
         return {

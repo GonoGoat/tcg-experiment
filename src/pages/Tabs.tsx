@@ -1,5 +1,5 @@
 import 'assets/style/pages/Tabs.css'
-import { ACTIVE_TABS } from 'types/global.enum'
+import { ACTIVE_TAB } from 'types/global.enum'
 import { capitalizeFirstLetter } from 'utils/beautifiers'
 import useAppStore from 'context/AppStore/store'
 
@@ -13,7 +13,7 @@ const Tabs = () => {
         <div className='tabs'>
             <div className="links">
                 {
-                    Object.values(ACTIVE_TABS).map(tab => 
+                    Object.values(ACTIVE_TAB).map(tab => 
                         <button key={tab} className='tablinks' value={tab} onClick={() => setActiveTab(tab)}>
                             {capitalizeFirstLetter(tab)}
                         </button>

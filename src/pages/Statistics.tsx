@@ -2,7 +2,7 @@ import 'assets/style/pages/Statistics.css'
 import { genericCardWithCount } from 'types/ygoOpenAPI.types'
 import { capitalizeFirstLetter } from 'utils/beautifiers'
 import { getClassName } from 'utils/utils'
-import { MARKERS, ACTIVE_TABS } from 'types/global.enum'
+import { MARKER, ACTIVE_TAB } from 'types/global.enum'
 import useDeckStore from "context/DeckStore/store"
 import useStatStore from 'context/StatStore/store'
 import useAppStore from 'context/AppStore/store'
@@ -32,15 +32,15 @@ const Statistics =  () => {
         return countCardsInCollection(collection.filter( (card) => new RegExp(cardType).test(card.card.type.toLowerCase())))
     }
 
-    function countCardsInCollectionPerMarking (collection: genericCardWithCount[], marker: MARKERS) {
+    function countCardsInCollectionPerMarking (collection: genericCardWithCount[], marker: MARKER) {
         return countCardsInCollection(collection.filter( (card) => (markers[card.card.id] || []).includes(marker) ))
     }
 
     return (
-        <div className={getClassName(activeTab, ACTIVE_TABS.STATS)}>
+        <div className={getClassName(activeTab, ACTIVE_TAB.STATS)}>
             <button onClick={() => resetMarkings()}>Reset all markings</button>
             <div className='markers'>
-                {Object.values(MARKERS).filter(value => value !== MARKERS.DEFAULT).map( (value, index) =>
+                {Object.values(MARKER).filter(value => value !== MARKER.DEFAULT).map( (value, index) =>
                     <div
                         className={value === activeMarker ? "selected":""}
                         key={index} 
@@ -68,7 +68,7 @@ const Statistics =  () => {
                 </div>
                 <br/>
                 <div>
-                    {Object.values(MARKERS).filter(value => value !== MARKERS.DEFAULT).map( (marker) =>
+                    {Object.values(MARKER).filter(value => value !== MARKER.DEFAULT).map( (marker) =>
                         <> 
                             <span><strong>{capitalizeFirstLetter(marker)} count: </strong>{countCardsInCollectionPerMarking(Object.values(main), marker)} {countCardsInCollectionPerMarking(Object.values(side), marker) > 0 ? `(+${countCardsInCollectionPerMarking(Object.values(side), marker)} in side)` : ""}</span><br/>
                         </>

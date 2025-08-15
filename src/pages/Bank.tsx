@@ -1,6 +1,6 @@
 import 'assets/style/pages/Bank.css'
 import { cardInfo, genericCard } from 'types/ygoOpenAPI.types'
-import { CARD_ZONES, ACTIVE_TABS } from 'types/global.enum'
+import { CARD_ZONE, ACTIVE_TAB } from 'types/global.enum'
 import useDeckStore from 'context/DeckStore/store'
 import useAppStore from 'context/AppStore/store'
 import { getClassName } from 'utils/utils'
@@ -26,16 +26,16 @@ const Bank = () => {
         },
         {
             label: "Side",
-            onClick: () => addCard(card, CARD_ZONES.SIDE)
+            onClick: () => addCard(card, CARD_ZONE.SIDE)
         },
         {
             label: "Remove",
-            onClick: () => removeCard(card.id.toString(), CARD_ZONES.BANK) 
+            onClick: () => removeCard(card.id.toString(), CARD_ZONE.BANK) 
         }
     ]
 
     return (
-        <div className={getClassName(activeTab, ACTIVE_TABS.BANK)}>
+        <div className={getClassName(activeTab, ACTIVE_TAB.BANK)}>
             <div>
                 <h3>Card Bank</h3>
             </div>
