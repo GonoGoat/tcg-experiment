@@ -3,6 +3,7 @@ import { nanoid } from "utils/modules/nanoid/nanoid"
 import {Card, BlankCard} from 'components/Cards'
 import ActionMenu from 'components/ActionMenu'
 import DisplayMenu from 'components/DisplayMenu'
+import { Button } from "components/Forms"
 
 import { genericCard, cardInfo, genericCardWithCount } from 'types//ygoOpenAPI.types'
 import { CARD_ZONE, MARKING_MODE } from 'types/global.enum'
@@ -98,7 +99,7 @@ const Deck = () => {
             const displayMenu = <>
                 <DisplayMenu display={markers[cardId] ? markers[cardId] : [cardId]} onClickHandler={() => handleMarking(cardId)}/>
                 {cardId in markers ?
-                    <button className="row" style={{zIndex: 10, position: "absolute"}} onClick={() => removeCardFromMarkings(cardId.toString())}>Remove all above markings</button>
+                    <Button className="row" onClick={() => removeCardFromMarkings(cardId.toString())} label="Remove all above markings"/>
                     :
                     <></>
                 }

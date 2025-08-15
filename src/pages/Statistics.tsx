@@ -7,6 +7,8 @@ import useDeckStore from "context/DeckStore/store"
 import useStatStore from 'context/StatStore/store'
 import useAppStore from 'context/AppStore/store'
 
+import { Button } from 'components/Forms'
+
 const Statistics =  () => {
 
     const main = useDeckStore((state) => state.main)
@@ -38,7 +40,7 @@ const Statistics =  () => {
 
     return (
         <div className={getClassName(activeTab, ACTIVE_TAB.STATS)}>
-            <button onClick={() => resetMarkings()}>Reset all markings</button>
+            <Button onClick={() => resetMarkings()} label="Reset all markings"/>
             <div className='markers'>
                 {Object.values(MARKER).filter(value => value !== MARKER.DEFAULT).map( (value, index) =>
                     <div

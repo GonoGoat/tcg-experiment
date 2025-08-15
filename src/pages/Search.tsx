@@ -8,6 +8,8 @@ import { getSingleRegexMatchString, getStringAmongStringsRegExp, getStringNotAmo
 import useAppStore from "context/AppStore/store"
 import useListerStore from 'context/ListerStore/store'
 import {ToggleSwitch, Select, NumberInput, NumberInputWithButton} from 'components/Forms'
+import {Button} from 'components/Forms'
+
 import { Root } from 'types/ygoOpenAPI.types'
 import { REGEX } from "types/regex.enum"
 import { axios, getURL } from 'utils/modules/axios/ygoOpenAPI.axios'
@@ -357,7 +359,7 @@ const Search =  () => {
                 :
                 <></>
             }
-            <button className="search-button" onClick={() => {request()}}>Search</button>
+            <Button className="search-button" onClick={() => {request()}} label="Search"/>
         </div>
     )
 }

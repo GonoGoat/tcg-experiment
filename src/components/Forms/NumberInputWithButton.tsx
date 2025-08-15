@@ -1,5 +1,7 @@
 import { FC, ChangeEvent } from 'react';
 
+import Button from './Button';
+
 interface NumberInputWithButtonProps {
     // Number input props
     className: string,
@@ -21,7 +23,7 @@ const NumberInputWithButton: FC<NumberInputWithButtonProps> = ({className, label
                 <label htmlFor={name}>{label}</label>
             </div>
             <div className="col-75">
-                <button className={name} disabled={isButtonDisabled} onClick={onClick}>{displayName}</button>
+                <Button className={name} isButtonDisabled={isButtonDisabled} onClick={onClick} label={displayName}/>
                 <input className="number-input" name={name} type="text" inputMode='decimal' value={value} onChange={onChange}/>
             </div>
         </div>

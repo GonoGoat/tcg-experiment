@@ -40,3 +40,8 @@
     width: 100vw;
     background-color: #00FF00;
 }
+
+.deck button {
+    z-index: 10;
+    position: "absolute";
+}

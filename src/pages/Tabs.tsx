@@ -3,6 +3,8 @@ import { ACTIVE_TAB } from 'types/global.enum'
 import { capitalizeFirstLetter } from 'utils/beautifiers'
 import useAppStore from 'context/AppStore/store'
 
+import { Button } from 'components/Forms'
+
 import {Bank, Statistics} from '.'
 
 const Tabs = () => {        
@@ -14,9 +16,8 @@ const Tabs = () => {
             <div className="links">
                 {
                     Object.values(ACTIVE_TAB).map(tab => 
-                        <button key={tab} className='tablinks' value={tab} onClick={() => setActiveTab(tab)}>
-                            {capitalizeFirstLetter(tab)}
-                        </button>
+                        <Button key={tab} className='tablinks' value={tab} onClick={() => setActiveTab(tab)} label={capitalizeFirstLetter(tab)}
+                        />
                     )
                 }
             </div>

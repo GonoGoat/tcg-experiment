@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import { nanoid } from "utils/modules/nanoid/nanoid"
 import CircularProgress from '@mui/material/CircularProgress'
 
@@ -15,6 +15,7 @@ import { axios } from 'utils/modules/axios/ygoOpenAPI.axios'
 
 import {Card, BlankCard} from 'components/Cards'
 import {ActionMenu} from 'components'
+import { Button } from 'components/Forms'
 
 const Lister = () => {
     const [isLoadingMoreItems, setLoadingMoreItems] = useState<boolean>(false)
@@ -107,7 +108,7 @@ const Lister = () => {
                         <></>
                     }
                     {hasMoreItemsToLoad?
-                        <button onClick={()=>loadMoreItems()}>Load more cards</button>
+                        <Button onClick={()=>loadMoreItems()} label="Load more cards"/>
                         :
                         <></>
                     }
