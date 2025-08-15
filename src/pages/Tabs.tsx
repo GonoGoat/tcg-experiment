@@ -5,7 +5,7 @@ import useAppStore from 'context/AppStore/store'
 
 import { Button } from 'components/Forms'
 
-import {Bank, Statistics} from '.'
+import {Bank, Statistics, Options} from '.'
 
 const Tabs = () => {        
     
@@ -24,6 +24,7 @@ const Tabs = () => {
             
             <Statistics/>
             <Bank/>
+            <Options/>
         </div>
     )
 }
