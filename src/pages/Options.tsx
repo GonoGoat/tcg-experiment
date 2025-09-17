@@ -1,7 +1,7 @@
 import fileDownload from 'js-file-download'
 
 import 'assets/style/pages/Options.css'
-import { genericCardWithCount, blankCardTypePayload } from 'types/ygoOpenAPI.types'
+import { genericCardWithCount } from 'types/ygoOpenAPI.types'
 import useDeckStore from 'context/DeckStore/store'
 import useAppStore from 'context/AppStore/store'
 import { getClassName } from 'utils/utils'
@@ -18,9 +18,9 @@ const Options = () => {
     const extra = useDeckStore(state => state.extra)
     const side = useDeckStore(state => state.side)
 
-    const getYdkCardsPerDeck = (deck: Record<string, genericCardWithCount>, inputString: string ) => {
-        let output = inputString
-        Object.values(main).forEach((card: genericCardWithCount) => {
+    const getYdkCardsPerDeck = (deck: Record<string, genericCardWithCount>) => {
+        let output = ``
+        Object.values(deck).forEach((card: genericCardWithCount) => {
             if (card.card.type !== blankCardPayload.type) {
                 for (let i = 0; i<card.count ; i++) {
                     output += (card.card.id.toString() + '\n')
@@ -35,11 +35,12 @@ const Options = () => {
         
         deckFileToDownload += `#created by YuGiKnow's Deck Builder\n`
         deckFileToDownload += `#main\n`
-        deckFileToDownload += getYdkCardsPerDeck(main, deckFileToDownload)
+        deckFileToDownload += getYdkCardsPerDeck(main)
         deckFileToDownload += `#extra\n`
-        deckFileToDownload += getYdkCardsPerDeck(extra, deckFileToDownload)
+        deckFileToDownload += getYdkCardsPerDeck(extra)
         deckFileToDownload += `!side\n`
-        deckFileToDownload += getYdkCardsPerDeck(side, deckFileToDownload)
+        deckFileToDownload += getYdkCardsPerDeck(side)
+        
         fileDownload(deckFileToDownload, 'deck.ydk', 'application/octet-stream') // TODO custom name for generated file
     }
     
