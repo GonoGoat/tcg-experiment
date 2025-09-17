@@ -1,7 +1,11 @@
+// Library import
 import { FC, KeyboardEvent } from 'react'
 import Dialog from '@mui/material/Dialog'
 
+// Style imports
 import 'assets/style/components/CardDialog.css'
+
+// Enum/Interface/Type imports
 import {cardInfo as cardType} from 'types/ygoOpenAPI.types'
 
 interface CardDialogProps {

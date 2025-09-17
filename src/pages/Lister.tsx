@@ -1,21 +1,30 @@
+// Library import
 import { useState } from 'react'
 import { nanoid } from "utils/modules/nanoid/nanoid"
 import CircularProgress from '@mui/material/CircularProgress'
 
+// Component imports
+import { Card, BlankCard } from 'components/Cards'
+import { ActionMenu } from 'components'
+import { Button } from 'components/Forms'
+
+// Style imports
 import 'assets/style/pages/Lister.css'
+
+// Enum/Interface/Type imports
 import { cardInfo, Root, genericCard } from 'types/ygoOpenAPI.types'
 import { CARD_ZONE } from 'types/global.enum'
+
+// Static asset import
 import { capitalizeFirstLetter } from 'utils/beautifiers'
 import { blankCardPayload } from 'utils/global.const'
 import { incrementPageNumberFromURL } from 'utils/modules/axios/ygoOpenAPI.axios'
+import { axios } from 'utils/modules/axios/ygoOpenAPI.axios'
+
+// Context imports 
 import useAppStore from "context/AppStore/store"
 import useListerStore from 'context/ListerStore/store'
 import useDeckStore from 'context/DeckStore/store'
-import { axios } from 'utils/modules/axios/ygoOpenAPI.axios'
-
-import {Card, BlankCard} from 'components/Cards'
-import {ActionMenu} from 'components'
-import { Button } from 'components/Forms'
 
 const Lister = () => {
     const [isLoadingMoreItems, setLoadingMoreItems] = useState<boolean>(false)

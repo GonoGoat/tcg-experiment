@@ -1,13 +1,21 @@
+// Component imports
+import { Button } from 'components/Forms'
+
+// Style imports
 import 'assets/style/pages/Statistics.css'
-import { genericCardWithCount } from 'types/ygoOpenAPI.types'
+
+// Static asset import
 import { capitalizeFirstLetter } from 'utils/beautifiers'
 import { getClassName } from 'utils/utils'
+
+// Enum/Interface/Type imports
+import { genericCardWithCount } from 'types/ygoOpenAPI.types'
 import { MARKER, ACTIVE_TAB } from 'types/global.enum'
+
+// Context imports
 import useDeckStore from "context/DeckStore/store"
 import useStatStore from 'context/StatStore/store'
 import useAppStore from 'context/AppStore/store'
-
-import { Button } from 'components/Forms'
 
 const Statistics =  () => {
 

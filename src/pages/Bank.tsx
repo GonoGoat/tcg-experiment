@@ -1,12 +1,20 @@
+// Component imports
+import { Card } from 'components/Cards'
+import ActionMenu from 'components/ActionMenu'
+
+// Style imports
 import 'assets/style/pages/Bank.css'
+
+// Enum/Interface/Type imports
 import { cardInfo, genericCard } from 'types/ygoOpenAPI.types'
 import { CARD_ZONE, ACTIVE_TAB } from 'types/global.enum'
-import useDeckStore from 'context/DeckStore/store'
-import useAppStore from 'context/AppStore/store'
+
+// Static asset imports
 import { getClassName } from 'utils/utils'
 
-import {Card} from 'components/Cards'
-import ActionMenu from 'components/ActionMenu'
+// Context imports
+import useDeckStore from 'context/DeckStore/store'
+import useAppStore from 'context/AppStore/store'
 
 const Bank = () => {
 

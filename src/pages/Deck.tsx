@@ -1,15 +1,24 @@
+// Library import
 import { nanoid } from "utils/modules/nanoid/nanoid"
 
-import {Card, BlankCard} from 'components/Cards'
+// Component imports
+import { Card, BlankCard } from 'components/Cards'
 import ActionMenu from 'components/ActionMenu'
 import DisplayMenu from 'components/DisplayMenu'
 import { Button } from "components/Forms"
 
-import { genericCard, cardInfo, genericCardWithCount } from 'types//ygoOpenAPI.types'
+// Style imports
+import 'assets/style/pages/Deck.css'
+
+// Enum/Interface/Type imports
+import { genericCard, cardInfo, genericCardWithCount } from 'types/ygoOpenAPI.types'
 import { CARD_ZONE, MARKING_MODE } from 'types/global.enum'
+
+// Static asset import
 import { capitalizeFirstLetter } from 'utils/beautifiers'
 import { blankCardPayload } from 'utils/global.const'
-import 'assets/style/pages/Deck.css'
+
+// Context imports
 import useDeckStore from 'context/DeckStore/store'
 import useStatStore from 'context/StatStore/store'
 

@@ -1,18 +1,26 @@
+// Library import
 import {useState} from 'react'
 
-import 'assets/style/pages/Search.css'
-import sample from "data/data.json"
-import { handleNumericChangeForInequalities, handleNumericChangeForQueryParam } from 'utils/formHandlers'
-import { getSingleRegexMatchString, getStringAmongStringsRegExp, getStringNotAmongStringsRegExp } from 'utils/regex'
-
-import useAppStore from "context/AppStore/store"
-import useListerStore from 'context/ListerStore/store'
+// Component imports
 import {ToggleSwitch, Select, NumberInput, NumberInputWithButton} from 'components/Forms'
 import {Button} from 'components/Forms'
 
+// Style imports
+import 'assets/style/pages/Search.css'
+
+// Static asset imports
+import sample from "data/data.json"
+import { handleNumericChangeForInequalities, handleNumericChangeForQueryParam } from 'utils/formHandlers'
+import { getSingleRegexMatchString, getStringAmongStringsRegExp, getStringNotAmongStringsRegExp } from 'utils/regex'
+import { axios, getURL } from 'utils/modules/axios/ygoOpenAPI.axios'
+
+// Enum/Interface/Type imports
 import { Root } from 'types/ygoOpenAPI.types'
 import { REGEX } from "types/regex.enum"
-import { axios, getURL } from 'utils/modules/axios/ygoOpenAPI.axios'
+
+// Context imports
+import useAppStore from "context/AppStore/store"
+import useListerStore from 'context/ListerStore/store'
 
 // TODO to replace with useEffect?
 const cardTypes = ['Monster', 'Spell Card', 'Trap Card']

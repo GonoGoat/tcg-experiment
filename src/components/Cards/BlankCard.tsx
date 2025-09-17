@@ -1,7 +1,10 @@
+// Library imports
 import { FC, useState, useEffect } from 'react';
 
+// Component imports
 import { CardPlaceholder } from "components/Cards"
 
+// Style imports
 import 'assets/style/components/BlankCard.css'
 
 interface BlankCardProps {

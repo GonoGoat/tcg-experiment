@@ -1,9 +1,14 @@
-import {useState, FC, MouseEvent, KeyboardEvent} from 'react'
+// Library imports
+import { useState, FC, MouseEvent, KeyboardEvent } from 'react'
 import Tooltip from '@mui/material/Tooltip'
 
+// Component imports
 import { CardDialog, CardPlaceholder } from "components/Cards"
 
+// Style imports
 import 'assets/style/components/Card.css'
+
+// Enum/Interface/Type imports
 import {cardInfo as cardType} from 'types/ygoOpenAPI.types'
 
 interface CardProps {

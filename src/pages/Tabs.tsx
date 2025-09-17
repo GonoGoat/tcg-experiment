@@ -1,11 +1,18 @@
-import 'assets/style/pages/Tabs.css'
-import { ACTIVE_TAB } from 'types/global.enum'
-import { capitalizeFirstLetter } from 'utils/beautifiers'
-import useAppStore from 'context/AppStore/store'
-
+// Component imports
 import { Button } from 'components/Forms'
+import { Bank, Statistics, Options } from '.'
 
-import {Bank, Statistics, Options} from '.'
+// Style imports
+import 'assets/style/pages/Tabs.css'
+
+// Static asset import
+import { capitalizeFirstLetter } from 'utils/beautifiers'
+
+// Enum/Interface/Type imports
+import { ACTIVE_TAB } from 'types/global.enum'
+
+// Context imports
+import useAppStore from 'context/AppStore/store'
 
 const Tabs = () => {        
     
@@ -20,8 +27,7 @@ const Tabs = () => {
                         />
                     )
                 }
-            </div>
-            
+            </div>            
             <Statistics/>
             <Bank/>
             <Options/>

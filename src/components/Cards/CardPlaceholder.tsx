@@ -1,7 +1,11 @@
+// Library import
 import { FC, MouseEvent } from "react"
 
-import placeholder from 'assets/pictures/placeholder.png'
+// Static imports
 import "assets/style/components/CardPlaceholder.css"
+
+// Static asset import
+import placeholder from 'assets/pictures/placeholder.png'
 
 interface CardPlaceholderProps {
     img?: string,

@@ -1,14 +1,23 @@
+// Library import
 import fileDownload from 'js-file-download'
 
+// Component imports
+import { Button } from 'components/Forms'
+import { blankCardPayload } from 'utils/global.const'
+
+// Style imports
 import 'assets/style/pages/Options.css'
+
+// Enum/Interface/Type imports
 import { genericCardWithCount } from 'types/ygoOpenAPI.types'
-import useDeckStore from 'context/DeckStore/store'
-import useAppStore from 'context/AppStore/store'
+
+// Static asset import
 import { getClassName } from 'utils/utils'
 import { ACTIVE_TAB } from 'types/global.enum'
 
-import { Button } from 'components/Forms'
-import { blankCardPayload } from 'utils/global.const'
+// Context imports
+import useDeckStore from 'context/DeckStore/store'
+import useAppStore from 'context/AppStore/store'
 
 const Options = () => {
     const activeTab = useAppStore(state => state.activeTab)

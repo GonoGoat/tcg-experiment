@@ -1,12 +1,13 @@
+// Library imports
 import { FC } from 'react'
 
+// Style imports
 import 'assets/style/components/DisplayMenu.css'
 
 interface DisplayMenuProps {
     display: string[],
     onClickHandler?: () => void
 }
-
 
 const DisplayMenu: FC<DisplayMenuProps> = ({display, onClickHandler = () => null}) => {
     

@@ -1,7 +1,8 @@
+// Library imports
 import { FC } from 'react'
 
+// Style imports
 import 'assets/style/components/ActionMenu.css'
-
 
 interface ActionProps {
     label: string,
@@ -11,7 +12,6 @@ interface ActionProps {
 interface ActionMenuProps {
     actions: ActionProps[]
 }
-
 
 const ActionMenu: FC<ActionMenuProps> = ({actions}) => {
     

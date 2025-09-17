@@ -1,5 +1,7 @@
+// Library import
 import { FC, ChangeEvent } from 'react';
 
+// Component imports
 import Button from './Button';
 
 interface NumberInputWithButtonProps {
