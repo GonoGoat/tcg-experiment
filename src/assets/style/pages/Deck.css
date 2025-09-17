@@ -23,25 +23,26 @@
     overflow-y: auto;
     min-height: 20vh;
     height: 70vh;
-    width: 100vw;
     background-color: #ff0000;
 }
 
 .deck .extra {
     min-height: 5vh;
     height: 15vh;
-    width: 100vw;
     background-color: #0000FF;
 }
 
 .deck .side {
     min-height: 5vh;
     height: 15vh;
-    width: 100vw;
     background-color: #00FF00;
 }
 
 .deck button {
     z-index: 10;
     position: "absolute";
+}
+
+.deck > div {
+    width: 100%;
 }
