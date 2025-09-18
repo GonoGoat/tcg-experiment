@@ -23,7 +23,12 @@ const Tabs = () => {
             <div className="links">
                 {
                     Object.values(ACTIVE_TAB).map(tab => 
-                        <Button key={tab} className='tablinks' value={tab} onClick={() => setActiveTab(tab)} label={capitalizeFirstLetter(tab)}
+                        <Button 
+                            key={tab}
+                            className='tablinks'
+                            value={tab}
+                            onClick={() => setActiveTab(tab)}
+                            label={capitalizeFirstLetter(tab)}
                         />
                     )
                 }
