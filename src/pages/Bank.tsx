@@ -1,6 +1,6 @@
 // Component imports
 import { Card } from 'components/Cards'
-import ActionMenu from 'components/ActionMenu'
+import { ActionMenu } from 'components'
 
 // Style imports
 import 'assets/style/pages/Bank.css'

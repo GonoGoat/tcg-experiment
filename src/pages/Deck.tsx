@@ -3,8 +3,7 @@ import { nanoid } from "utils/modules/nanoid/nanoid"
 
 // Component imports
 import { Card, BlankCard } from 'components/Cards'
-import ActionMenu from 'components/ActionMenu'
-import DisplayMenu from 'components/DisplayMenu'
+import { ActionMenu, DisplayMenu } from 'components'
 import { Button } from "components/Forms"
 
 // Style imports

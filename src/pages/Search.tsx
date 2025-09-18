@@ -1,9 +1,9 @@
 // Library import
-import {useState} from 'react'
+import { useState } from 'react'
 
 // Component imports
-import {ToggleSwitch, Select, NumberInput, NumberInputWithButton} from 'components/Forms'
-import {Button} from 'components/Forms'
+import { ToggleSwitch, Select, NumberInput, NumberInputWithButton } from 'components/Forms'
+import { Button } from 'components/Forms'
 
 // Style imports
 import 'assets/style/pages/Search.css'
