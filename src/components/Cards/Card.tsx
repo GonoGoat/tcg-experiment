@@ -3,13 +3,13 @@ import { useState, FC, MouseEvent, KeyboardEvent } from 'react'
 import Tooltip from '@mui/material/Tooltip'
 
 // Component imports
-import { CardDialog, CardPlaceholder } from "components/Cards"
+import { CardDialog, CardPlaceholder, CardDescription } from "components/Cards"
 
 // Style imports
 import 'assets/style/components/Card.css'
 
 // Enum/Interface/Type imports
-import {cardInfo as cardType} from 'types/ygoOpenAPI.types'
+import { cardInfo as cardType } from 'types/ygoOpenAPI.types'
 
 interface CardProps {
     cardInfo: cardType,
@@ -45,21 +45,10 @@ const Card: FC<CardProps> = ({cardInfo, children, defaultMenu = false, menuToggl
             }
         }
     }
-
-    const TooltipDisplay = <div>
-        {cardInfo.name?<span>Name: {cardInfo.name}<br/></span>:<></>}
-        {cardInfo.level?<span>LV: {cardInfo.level}<br/></span>:<></>}
-        {cardInfo.type?<span>Type: {cardInfo.type}<br/></span>:<></>}
-        {cardInfo.race?<span>Race: {cardInfo.race}<br/></span>:<></>}
-        {cardInfo.attribute?<span>Attribute: {cardInfo.attribute}<br/></span>:<></>}
-        {cardInfo.attack?<span>ATK: {cardInfo.attack}<br/></span>:<></>}
-        {cardInfo.defense?<span>DEF: {cardInfo.defense}<br/></span>:<></>}
-        {cardInfo.description?<span>Description: {cardInfo.description}<br/></span>:<></>} 
-    </div>    
     
     return (
         <Tooltip 
-            title={TooltipDisplay}
+            title={<CardDescription cardInfo={cardInfo}/>}
             placement="right" 
             open={isHovering && !open} 
             onKeyDown={handleKeyPress}
