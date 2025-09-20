@@ -1,9 +1,9 @@
 // Library import
 import { FC, KeyboardEvent } from 'react'
-import Dialog from '@mui/material/Dialog'
 
 // Component imports
 import { CardDescription } from "components/Cards"
+import useOutsideClick from 'hooks/useOutsideClick'
 
 // Style imports
 import 'assets/style/components/CardDialog.css'
@@ -14,15 +14,25 @@ import { cardInfo as cardType } from 'types/ygoOpenAPI.types'
 interface CardDialogProps {
     open: boolean
     cardInfo: cardType,
-    KeyPressHandler: (e: KeyboardEvent) => void
+    KeyPressHandler: (e: KeyboardEvent) => void,
+    OutsideClickHandler: () => void
 }
 
 const CardDialog: FC<CardDialogProps> = (props) => {
+
+    const ref = useOutsideClick(props.OutsideClickHandler);
     
     return (
-        <Dialog open={props.open} onKeyDown={props.KeyPressHandler} maxWidth="md">
-            <CardDescription cardInfo={props.cardInfo}/>
-        </Dialog>
+        props.open ? (
+            <div className={"modal"} tabIndex={1} onKeyDown={props.KeyPressHandler}>
+                <div className='modal-content' ref={ref}>
+                    <img src={props.cardInfo.image_url} alt={props.cardInfo.name}/>
+                    <CardDescription cardInfo={props.cardInfo}/>
+                </div>
+            </div>
+        )    
+        :
+        <></>
     )
 }
 

@@ -25,6 +25,11 @@ const Card: FC<CardProps> = ({cardInfo, children, defaultMenu = false, menuToggl
     const [menu, setMenu] = useState(defaultMenu);
     const img_url: string = cardInfo.image_url
 
+    const handleClickOutsideDialog = () => {
+        setOpen(false);
+        setHovering(false)
+    };
+
     const handleKeyPress = (event: KeyboardEvent) => {
         setOpen(false);
         if (event.key !== "escapeKeyDown") {
@@ -51,7 +56,6 @@ const Card: FC<CardProps> = ({cardInfo, children, defaultMenu = false, menuToggl
             title={<CardDescription cardInfo={cardInfo}/>}
             placement="right" 
             open={isHovering && !open} 
-            onKeyDown={handleKeyPress}
         >
             <div
                 className="card"
@@ -60,7 +64,7 @@ const Card: FC<CardProps> = ({cardInfo, children, defaultMenu = false, menuToggl
             >
                 <CardPlaceholder img={img_url} name={cardInfo.name} clickHandler={(e: MouseEvent)=>handleClick(e)}/>
                 {menu ? children : <></>}
-                <CardDialog open={open} KeyPressHandler={handleKeyPress} cardInfo={cardInfo}/>
+                <CardDialog open={open} KeyPressHandler={handleKeyPress} cardInfo={cardInfo} OutsideClickHandler={handleClickOutsideDialog}/>
             </div>
         </Tooltip>
     )
