@@ -62,9 +62,13 @@ const Card: FC<CardProps> = ({cardInfo, children, defaultMenu = false, menuToggl
                 onMouseOver={()=>setHovering(true)}
                 onMouseOut={()=>setHovering(false)} 
             >
-                <CardPlaceholder img={img_url} name={cardInfo.name} clickHandler={(e: MouseEvent)=>handleClick(e)}/>
+                <CardPlaceholder img={img_url} name={cardInfo.name} clickHandler={handleClick}/>
                 {menu ? children : <></>}
-                <CardDialog open={open} KeyPressHandler={handleKeyPress} cardInfo={cardInfo} OutsideClickHandler={handleClickOutsideDialog}/>
+                {open ? 
+                    <CardDialog open={open} KeyPressHandler={handleKeyPress} cardInfo={cardInfo} OutsideClickHandler={handleClickOutsideDialog}/>
+                    :
+                    <></>
+                }
             </div>
         </Tooltip>
     )

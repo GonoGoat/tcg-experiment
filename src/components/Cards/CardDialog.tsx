@@ -1,5 +1,5 @@
 // Library import
-import { FC, KeyboardEvent } from 'react'
+import { FC, KeyboardEvent, useEffect, useRef } from 'react'
 
 // Component imports
 import { CardDescription } from "components/Cards"
@@ -21,18 +21,18 @@ interface CardDialogProps {
 const CardDialog: FC<CardDialogProps> = (props) => {
 
     const ref = useOutsideClick(props.OutsideClickHandler);
+
+    useEffect(() => {
+        ref.current?.focus()
+    }, [ref])
     
     return (
-        props.open ? (
-            <div className={"modal"} tabIndex={1} onKeyDown={props.KeyPressHandler}>
-                <div className='modal-content' ref={ref}>
-                    <img src={props.cardInfo.image_url} alt={props.cardInfo.name}/>
-                    <CardDescription cardInfo={props.cardInfo}/>
-                </div>
+        <div className="modal">
+            <div className='modal-content' tabIndex={1} ref={ref} onKeyDown={props.KeyPressHandler}>
+                <img src={props.cardInfo.image_url} alt={props.cardInfo.name}/>
+                <CardDescription cardInfo={props.cardInfo}/>
             </div>
-        )    
-        :
-        <></>
+        </div>
     )
 }
 
