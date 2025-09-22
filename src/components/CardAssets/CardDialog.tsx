@@ -1,8 +1,8 @@
 // Library import
-import { FC, KeyboardEvent, useEffect, useRef } from 'react'
+import { FC, KeyboardEvent, useEffect } from 'react'
 
 // Component imports
-import { CardDescription } from "components/Cards"
+import { CardDescription } from "."
 import useOutsideClick from 'hooks/useOutsideClick'
 
 // Style imports

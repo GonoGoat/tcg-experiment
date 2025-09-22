@@ -3,7 +3,7 @@ import { useState, FC, MouseEvent, KeyboardEvent } from 'react'
 import Tooltip from '@mui/material/Tooltip'
 
 // Component imports
-import { CardDialog, CardPlaceholder, CardDescription } from "components/Cards"
+import { CardDialog, CardPlaceholder, CardDescription } from "components/CardAssets"
 
 // Style imports
 import 'assets/style/components/Card.css'
@@ -50,27 +50,38 @@ const Card: FC<CardProps> = ({cardInfo, children, defaultMenu = false, menuToggl
             }
         }
     }
-    
-    return (
-        <Tooltip 
-            title={<CardDescription cardInfo={cardInfo}/>}
-            placement="right" 
-            open={isHovering && !open} 
+
+    const getCardContent = () => {return (
+        <div
+            className="card"
+            onMouseOver={()=>setHovering(true)}
+            onMouseOut={()=>setHovering(false)} 
         >
-            <div
-                className="card"
-                onMouseOver={()=>setHovering(true)}
-                onMouseOut={()=>setHovering(false)} 
+            <CardPlaceholder img={img_url} name={cardInfo.name} clickHandler={handleClick}/>
+            {menu ? children : <></>}
+            {open ? 
+                <CardDialog open={open} KeyPressHandler={handleKeyPress} cardInfo={cardInfo} OutsideClickHandler={handleClickOutsideDialog}/>
+                :
+                <></>
+            }
+        </div>
+    )}
+
+    const getCard = getCardContent()
+     
+    return (isHovering && !open ?
+        (
+            <Tooltip 
+                title={<CardDescription cardInfo={cardInfo}/>}
+                placement="right" 
+                open={isHovering && !open} 
             >
-                <CardPlaceholder img={img_url} name={cardInfo.name} clickHandler={handleClick}/>
-                {menu ? children : <></>}
-                {open ? 
-                    <CardDialog open={open} KeyPressHandler={handleKeyPress} cardInfo={cardInfo} OutsideClickHandler={handleClickOutsideDialog}/>
-                    :
-                    <></>
-                }
-            </div>
-        </Tooltip>
+                {getCard}
+            </Tooltip>
+        )
+        :
+
+        getCard
     )
     
 }

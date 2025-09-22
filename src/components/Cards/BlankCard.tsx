@@ -2,7 +2,7 @@
 import { FC, useState, useEffect } from 'react';
 
 // Component imports
-import { CardPlaceholder } from "components/Cards"
+import { CardPlaceholder } from "components/CardAssets"
 
 // Style imports
 import 'assets/style/components/BlankCard.css'
