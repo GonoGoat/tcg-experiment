@@ -27,8 +27,8 @@ const CardDialog: FC<CardDialogProps> = (props) => {
     }, [ref])
     
     return (
-        <div className="modal">
-            <div className='modal-content' tabIndex={1} ref={ref} onKeyDown={props.KeyPressHandler}>
+        <div className="card-modal">
+            <div className='card-modal-content' tabIndex={1} ref={ref} onKeyDown={props.KeyPressHandler}>
                 <img src={props.cardInfo.image_url} alt={props.cardInfo.name}/>
                 <CardDescription cardInfo={props.cardInfo}/>
             </div>

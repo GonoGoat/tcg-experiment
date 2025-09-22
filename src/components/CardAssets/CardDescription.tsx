@@ -15,7 +15,7 @@ interface CardDescriptionProps {
 const CardDescription: FC<CardDescriptionProps> = (props) => {
     
     return (
-        <div className={props.className}>
+        <div className="card-description">
             {props.cardInfo.name?<h6>{props.cardInfo.name}<br/></h6>:<></>}
             {props.cardInfo.level?<span>LV: {props.cardInfo.level}<br/></span>:<></>}
             {props.cardInfo.type?<span>Card Type: {props.cardInfo.type}<br/></span>:<></>}

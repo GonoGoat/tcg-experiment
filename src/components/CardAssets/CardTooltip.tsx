@@ -18,7 +18,7 @@ interface CardTooltipProps {
 const CardTooltip: FC<CardTooltipProps> = (props) => {
     
     return (
-        <div className="tooltip">
+        <div className="card-tooltip">
             <CardDescription cardInfo={props.cardInfo}/>
         </div>
     )
