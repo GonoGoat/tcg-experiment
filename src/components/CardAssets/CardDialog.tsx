@@ -5,9 +5,6 @@ import { FC, KeyboardEvent, useEffect } from 'react'
 import { CardDescription } from "."
 import useOutsideClick from 'hooks/useOutsideClick'
 
-// Style imports
-import 'assets/style/components/CardDialog.css'
-
 // Enum/Interface/Type imports
 import { cardInfo as cardType } from 'types/ygoOpenAPI.types'
 
