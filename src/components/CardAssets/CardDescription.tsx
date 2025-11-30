@@ -8,8 +8,7 @@ import { FC } from "react"
 import { cardInfo as cardType } from 'types/ygoOpenAPI.types'
 
 interface CardDescriptionProps {
-    cardInfo: cardType,
-    className?: string,
+    cardInfo: cardType
 }
 
 const CardDescription: FC<CardDescriptionProps> = (props) => {

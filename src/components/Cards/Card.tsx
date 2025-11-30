@@ -1,9 +1,8 @@
 // Library imports
 import { useState, FC, MouseEvent, KeyboardEvent } from 'react'
-import Tooltip from '@mui/material/Tooltip'
 
 // Component imports
-import { CardDialog, CardPlaceholder, CardDescription } from "components/CardAssets"
+import { CardDialog, CardPlaceholder, CardTooltip } from "components/CardAssets"
 
 // Style imports
 import 'assets/style/components/Card.css'
@@ -20,7 +19,7 @@ interface CardProps {
 }
 
 const Card: FC<CardProps> = ({cardInfo, children, defaultMenu = false, menuToggleMode = true, extraClickHandler = () => null}) => {
-    const [isHovering, setHovering] = useState<boolean>(false)
+    const [isHovering, setHovering] = useState<boolean>(true)
     const [open, setOpen] = useState<boolean>(false);
     const [menu, setMenu] = useState(defaultMenu);
     const img_url: string = cardInfo.image_url
@@ -51,7 +50,7 @@ const Card: FC<CardProps> = ({cardInfo, children, defaultMenu = false, menuToggl
         }
     }
 
-    const getCardContent = () => {return (
+    const getCardContent = () => { return (
         <div
             className="card"
             onMouseOver={()=>setHovering(true)}
@@ -66,24 +65,17 @@ const Card: FC<CardProps> = ({cardInfo, children, defaultMenu = false, menuToggl
             }
         </div>
     )}
-
     const getCard = getCardContent()
      
     return (isHovering && !open ?
         (
-            <Tooltip 
-                title={<CardDescription cardInfo={cardInfo}/>}
-                placement="right" 
-                open={isHovering && !open} 
-            >
+            <CardTooltip cardInfo={cardInfo}>
                 {getCard}
-            </Tooltip>
+            </CardTooltip>
         )
         :
-
         getCard
-    )
-    
+    ) 
 }
 
 export default Card

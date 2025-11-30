@@ -78,3 +78,23 @@
     background-size: contain;
     background-image: url('../../pictures/placeholder.png');
 }
+
+.card-tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* Add dots under the hoverable text */
+  cursor: pointer;
+}
+
+.card-tooltip .card-description {
+    width: 130px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 105%;
+}
