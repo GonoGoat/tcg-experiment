@@ -1,0 +1,48 @@
+.marker-deck {
+    /*overflow-y: auto;*/
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    /*border-top: 1px solid #FFFFFF;*/
+    scrollbar-base-color: transparent;
+    scrollbar-color: green;
+    grid-area: deck;
+    min-height: 50vh;
+
+    scrollbar-width: 100px;
+    scrollbar-color: green;
+}
+
+.marker-deck .card, .marker-deck .blank-card {
+    float: left;
+}
+
+.marker-deck .main {
+    overflow-y: auto;
+    min-height: 20vh;
+    height: 70vh;
+    background-color: #ff00ff;
+}
+
+.marker-deck .extra {
+    min-height: 5vh;
+    height: 15vh;
+    background-color: #00ffFF;
+}
+
+.marker-deck .side {
+    min-height: 5vh;
+    height: 15vh;
+    background-color: #ffFF00;
+}
+
+.marker-deck button {
+    z-index: 10;
+    position: "absolute";
+}
+
+.marker-deck > div {
+    width: 100%;
+}

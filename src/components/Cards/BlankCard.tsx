@@ -8,7 +8,6 @@ import { CardPlaceholder } from "components/Cards"
 import 'assets/style/components/BlankCard.css'
 
 interface BlankCardProps {
-    index: number,
     children?: React.ReactNode,
     defaultMenu?: boolean,
     menuToggleMode?: boolean,

@@ -5,3 +5,4 @@ export { default as Search } from "./Search";
 export { default as Bank } from "./Bank";
 export { default as Statistics } from "./Statistics";
 export { default as Tabs } from "./Tabs";
+export { default as MarkerDeck } from "./MarkerDeck";

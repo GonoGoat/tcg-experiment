@@ -97,7 +97,7 @@ const Lister = () => {
     else {
         return (
             <div className="lister">
-                <BlankCard  index={0}>
+                <BlankCard>
                     <ActionMenu actions={blankCardActions}/>
                 </BlankCard>
                 {
