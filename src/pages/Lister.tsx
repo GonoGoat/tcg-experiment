@@ -1,11 +1,10 @@
 // Library import
 import { useState } from 'react'
 import { nanoid } from "utils/modules/nanoid/nanoid"
-import CircularProgress from '@mui/material/CircularProgress'
 
 // Component imports
 import { Card, BlankCard } from 'components/Cards'
-import { ActionMenu } from 'components'
+import { ActionMenu, LoadingBar } from 'components'
 import { Button } from 'components/Forms'
 
 // Style imports
@@ -90,7 +89,7 @@ const Lister = () => {
     if(isLoading){
        return (
         <div className="lister" style={{justifyContent: 'center', alignItems: 'center'}}>
-            <CircularProgress color="secondary"/>
+            <LoadingBar/>
         </div>
        )
     } 
@@ -112,7 +111,7 @@ const Lister = () => {
                 }
                 <div style={{display: 'flex', flexDirection: 'column', width: '100%', margin: 0, justifyContent: 'center', alignItems: 'center'}}>
                     {isLoadingMoreItems?
-                        <CircularProgress color="secondary"/>
+                        <LoadingBar/>
                         :
                         <></>
                     }
