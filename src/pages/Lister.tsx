@@ -88,7 +88,7 @@ const Lister = () => {
 
     if(isLoading){
        return (
-        <div className="lister" style={{justifyContent: 'center', alignItems: 'center'}}>
+        <div className="lister">
             <LoadingBar/>
         </div>
        )
@@ -109,7 +109,7 @@ const Lister = () => {
                         </Card>
                     )
                 }
-                <div style={{display: 'flex', flexDirection: 'column', width: '100%', margin: 0, justifyContent: 'center', alignItems: 'center'}}>
+                <div className='lister-bottom'>
                     {isLoadingMoreItems?
                         <LoadingBar/>
                         :
