@@ -44,3 +44,9 @@ export interface StatState {
     resetMarkings: () => void
     removeCardFromMarkings: (id: string) => void
 }
+
+export interface VisualizerState {
+    card: cardInfo,
+
+    setCard: (card: cardInfo) => void,
+}

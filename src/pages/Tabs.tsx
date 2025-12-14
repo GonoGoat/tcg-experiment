@@ -1,6 +1,6 @@
 // Component imports
 import { Button } from 'components/Forms'
-import { Bank, Statistics, Options } from '.'
+import { Bank, Statistics, Options, Visualizer } from '.'
 
 // Style imports
 import 'assets/style/pages/Tabs.css'
@@ -36,6 +36,7 @@ const Tabs = () => {
             <Statistics/>
             <Bank/>
             <Options/>
+            <Visualizer/>
         </div>
     )
 }
