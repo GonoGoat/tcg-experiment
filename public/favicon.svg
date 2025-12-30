@@ -2,6 +2,6 @@
   <rect x="0" y="0" width="300" height="450" fill="#B7885A"/>
   <rect x="9" y="9" width="282" height="432" fill="black" rx="3" ry="3"/>
   <rect x="10" y="10" width="280" height="430" fill="#563121" rx="3" ry="3"/>
-  
-  <ellipse cx="150" cy="225" rx="60" ry="150" fill="#1D1D1D"/>
+  <ellipse cx="150" cy="225" rx="51" ry="111" fill="black"/>  
+  <ellipse cx="150" cy="225" rx="50" ry="110" fill="#1D1D1D"/>
 </svg>

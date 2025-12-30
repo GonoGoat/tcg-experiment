@@ -3,14 +3,9 @@
   "name": "Create React App Sample",
   "icons": [
     {
-      "src": "favicon.jpg",
-      "type": "image/jpg",
-      "sizes": "300x300"
-    },
-    {
-      "src": "favicon.png",
-      "type": "image/png",
-      "sizes": "400x580"
+      "src": "favicon.svg",
+      "type": "image/svg",
+      "sizes": "300x450"
     }
   ],
   "start_url": ".",
