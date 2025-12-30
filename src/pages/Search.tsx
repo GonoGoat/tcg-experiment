@@ -62,11 +62,7 @@ const Search =  () => {
     const request = async () => {
         setLoadingState(true)
         try{
-            console.log(queryBuilder())
             let response: Root = (await axios.get(queryBuilder())).data
-            console.log(queryBuilder())
-            //let response: Root = sample;
-            console.log(response)
             if(response.meta.pages_remaining !== 0){
                 setHasMoreItemsToLoad(true)
                 setNextPageToLoad(response.meta.next_page || '')
@@ -89,20 +85,18 @@ const Search =  () => {
      * @returns {string} URL that includes selected filters
      */
     const queryBuilder = () => {
-        var reg = new RegExp(`^${monsterType}${hasEffect}${isPendulum}${isTuner}${type}`)
-        console.log(reg)
-        var types = monsterCardTypes.filter((cardType) => reg.test(cardType.toLowerCase()))
-        var generalType = cardTypes.filter((cardType) => new RegExp(type).test(cardType.toLowerCase()))
+        var queryParams = name; //+desc
+        if (type) {
+            // Prepare multiple values for types
+            var reg = new RegExp(`^${monsterType}${hasEffect}${isPendulum}${isTuner}${type}`)
+            var types = monsterCardTypes.filter((cardType) => reg.test(cardType.toLowerCase()))
+            var generalType = cardTypes.filter((cardType) => new RegExp(type).test(cardType.toLowerCase()))
 
-        // TODO : Alert si pas de filtre pour tous ceux choisi
-        var queryParams = `${name}${race}${atk}${def}${level}${attribute}&type=${types.length > 0 ? types.join(',').toLowerCase() : generalType}`
-        //+desc
+            // TODO : Alert si pas de filtre pour tous ceux choisi
+            //Build query parameters
+            queryParams += `${race}${atk}${def}${level}${attribute}&type=${types.length > 0 ? types.join(',').toLowerCase() : generalType}`
+        }
         return getURL(queryParams)
-    }
-
-    function getAtkDefAsQueryParam (state: string, prefix: string) {
-        if (state) return `${prefix}${symbolMap.get(state[0])}${getSingleRegexMatchString(REGEX.NUMBER, state)}`
-        else return ""
     }
 
     //*************GENERIC SELECTORS******************
