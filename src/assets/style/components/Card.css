@@ -62,3 +62,7 @@
     background-size: contain;
     background-image: url('../../pictures/placeholder.png');
 }
+
+.card .card-placeholder:hover {
+    opacity: 0.5;
+}
