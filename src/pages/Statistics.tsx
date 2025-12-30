@@ -9,7 +9,7 @@ import { capitalizeFirstLetter } from 'utils/beautifiers'
 import { getClassName } from 'utils/utils'
 
 // Enum/Interface/Type imports
-import { genericCardWithCount } from 'types/ygoOpenAPI.types'
+import { genericCardWithCount } from 'types/ygopro.types'
 import { MARKER, ACTIVE_TAB } from 'types/global.enum'
 
 // Context imports

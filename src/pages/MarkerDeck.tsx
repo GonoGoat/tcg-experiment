@@ -10,7 +10,7 @@ import { Button } from "components/Forms"
 import 'assets/style/pages/MarkerDeck.css'
 
 // Enum/Interface/Type imports
-import { cardInfo, genericCardWithCount } from 'types/ygoOpenAPI.types'
+import { cardInfo, genericCardWithCount } from 'types/ygopro.types'
 
 // Static asset import
 import { blankCardPayload } from 'utils/global.const'

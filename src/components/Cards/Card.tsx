@@ -8,7 +8,7 @@ import { CardDialog, CardPlaceholder, CardDescription } from "components/Cards"
 import 'assets/style/components/Card.css'
 
 // Enum/Interface/Type imports
-import { cardInfo as cardType } from 'types/ygoOpenAPI.types'
+import { cardInfo as cardType } from 'types/ygopro.types'
 
 // Context imports
 import useVisualizerStore from "context/VisualizerStore/store"
@@ -24,7 +24,7 @@ interface CardProps {
 const Card: FC<CardProps> = ({cardInfo, children, defaultMenu = false, menuToggleMode = true, extraClickHandler = () => null}) => {
     const [open, setOpen] = useState<boolean>(false);
     const [menu, setMenu] = useState(defaultMenu);
-    const img_url: string = cardInfo.image_url
+    const img_url: string = cardInfo.card_images[0].image_url_small
 
     const setCard = useVisualizerStore((state) => state.setCard)
 

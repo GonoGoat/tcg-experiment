@@ -6,7 +6,7 @@ import { ActionMenu } from 'components'
 import 'assets/style/pages/Bank.css'
 
 // Enum/Interface/Type imports
-import { cardInfo, genericCard } from 'types/ygoOpenAPI.types'
+import { cardInfo, genericCard } from 'types/ygopro.types'
 import { CARD_ZONE, ACTIVE_TAB } from 'types/global.enum'
 
 // Static asset imports

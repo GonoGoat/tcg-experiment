@@ -1,4 +1,4 @@
-import { genericCard, cardInfo, genericCardWithCount } from  "./ygoOpenAPI.types"
+import { genericCard, cardInfo, genericCardWithCount } from  "./ygopro.types"
 import { CARD_ZONE, MARKER, MARKING_MODE, ACTIVE_TAB } from "./global.enum"
 
 export interface AppState {

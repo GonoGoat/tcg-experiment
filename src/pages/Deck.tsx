@@ -9,7 +9,7 @@ import { ActionMenu } from 'components'
 import 'assets/style/pages/Deck.css'
 
 // Enum/Interface/Type imports
-import { genericCard, cardInfo, genericCardWithCount } from 'types/ygoOpenAPI.types'
+import { genericCard, cardInfo, genericCardWithCount } from 'types/ygopro.types'
 import { CARD_ZONE } from 'types/global.enum'
 
 // Static asset import

@@ -12,7 +12,7 @@ import { capitalizeFirstLetter } from 'utils/beautifiers'
 import { getClassName } from 'utils/utils'
 
 // Enum/Interface/Type imports
-import { cardInfo, genericCardWithCount } from 'types/ygoOpenAPI.types'
+import { cardInfo, genericCardWithCount } from 'types/ygopro.types'
 import { MARKER, ACTIVE_TAB } from 'types/global.enum'
 
 // Context imports
@@ -28,7 +28,7 @@ const Visualizer =  () => {
     if (Boolean(card.id)) {
         return (
             <div className={getClassName(activeTab, ACTIVE_TAB.VISUALIZER)}>
-                <CardPlaceholder img={card.image_url} name={card.name || "Blank Card"} clickHandler={(e: MouseEvent)=>null}/>
+                <CardPlaceholder img={card.card_images[0].image_url} name={card.name} clickHandler={(e: MouseEvent)=>null}/>
                 <CardDescription cardInfo={card}/>
             </div>
         )

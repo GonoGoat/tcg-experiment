@@ -11,14 +11,13 @@ import { Button } from 'components/Forms'
 import 'assets/style/pages/Lister.css'
 
 // Enum/Interface/Type imports
-import { cardInfo, Root, genericCard } from 'types/ygoOpenAPI.types'
+import { cardInfo, Root, genericCard } from 'types/ygopro.types'
 import { CARD_ZONE } from 'types/global.enum'
 
 // Static asset import
 import { capitalizeFirstLetter } from 'utils/beautifiers'
 import { blankCardPayload } from 'utils/global.const'
-import { incrementPageNumberFromURL } from 'utils/modules/axios/ygoOpenAPI.axios'
-import { axios } from 'utils/modules/axios/ygoOpenAPI.axios'
+import { axios } from 'utils/modules/axios/ygopro.axios'
 
 // Context imports 
 import useAppStore from "context/AppStore/store"
@@ -46,9 +45,9 @@ const Lister = () => {
         setLoadingMoreItems(true)
         try{
             let response: Root = (await axios.get(nextPageToLoad)).data
-            if(response.next) {
+            if(response.meta.pages_remaining !== 0 && Boolean(response.meta.next_page)) {
                 setHasMoreItemsToLoad(true)
-                setNextPageToLoad(incrementPageNumberFromURL(nextPageToLoad))
+                setNextPageToLoad(response.meta.next_page || '')
             }
             else {
                 setHasMoreItemsToLoad(false)

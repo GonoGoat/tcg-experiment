@@ -12,7 +12,7 @@ import 'assets/style/pages/Search.css'
 import sample from "data/data.json"
 import { handleNumericChangeForInequalities, handleNumericChangeForQueryParam } from 'utils/formHandlers'
 import { getSingleRegexMatchString, getStringAmongStringsRegExp, getStringNotAmongStringsRegExp } from 'utils/regex'
-import { axios, getURL } from 'utils/modules/axios/ygopro.axios'
+import { axios, getURL } from 'utils/modules/axios/ygoOpenAPI.axios'
 
 // Enum/Interface/Type imports
 import { Root } from 'types/ygopro.types'
@@ -62,11 +62,8 @@ const Search =  () => {
     const request = async () => {
         setLoadingState(true)
         try{
-            console.log(queryBuilder())
-            let response: Root = (await axios.get(queryBuilder())).data
-            console.log(queryBuilder())
+            let response: Root = (await axios.get(queryBuilder(1))).data
             //let response: Root = sample;
-            console.log(response)
             if(response.meta.pages_remaining !== 0){
                 setHasMoreItemsToLoad(true)
                 setNextPageToLoad(response.meta.next_page || '')
@@ -82,22 +79,23 @@ const Search =  () => {
             alert(`I-i'm sorry, something just gone wrong =(.\n Change the parameters and try again`)
             setLoadingState(false)
         }
-    } 
+    }    
     
     /**
      * Convert the filters from the form to valid query parameters to use in the API call
+     * @param page Number of the page to load
      * @returns {string} URL that includes selected filters
      */
-    const queryBuilder = () => {
+    const queryBuilder = (page: number) => {
+        // Prepare multiuple values for types
         var reg = new RegExp(`^${monsterType}${hasEffect}${isPendulum}${isTuner}${type}`)
-        console.log(reg)
         var types = monsterCardTypes.filter((cardType) => reg.test(cardType.toLowerCase()))
         var generalType = cardTypes.filter((cardType) => new RegExp(type).test(cardType.toLowerCase()))
 
+        //Build query parameters
+        var queryParams = `${name}${race}${getAtkDefAsQueryParam(atk, "&attack")}${getAtkDefAsQueryParam(def, "&defense")}${!type ? "" : (types.length > 0 ?`&card_type=${types.join(',')}`: `&card_type=${generalType}`)}${level}${attribute}`
         // TODO : Alert si pas de filtre pour tous ceux choisi
-        var queryParams = `${name}${race}${atk}${def}${level}${attribute}&type=${types.length > 0 ? types.join(',').toLowerCase() : generalType}`
-        //+desc
-        return getURL(queryParams)
+        return getURL(queryParams, page)
     }
 
     function getAtkDefAsQueryParam (state: string, prefix: string) {
@@ -184,7 +182,7 @@ const Search =  () => {
         label='Type of Monster Card'
         name='monster-card-type'
         options={monsterTypes}
-        onChange={({target: {value}}) => setMonsterType(value.toLowerCase() === 'unset'?'': getStringAmongStringsRegExp(value.toLowerCase()))}
+        onChange={({target: {value}}) => setMonsterType(value.toLowerCase() === 'unset'?'':`(/^(?!.*${value.toLowerCase()})/)`)}
     />
 
     // (Non-) Pendulum monster
@@ -274,20 +272,22 @@ const Search =  () => {
     symbolMap.set("=", '=')
     symbolMap.set("=lt", "<")
     symbolMap.set("=gt",">")
+    //symbolMap.set("<", "_margin_top=")
+    //symbolMap.set(">", "_margin_bottom=")
 
     /**
      * Extract the mathematic indicator from the query parameter and transform it to its matching symbol (ie "lt" becomes "<")
-     * @param state Query parameter
+     * @param state Query parameter - <1800 | =700
      * @returns Mathematic symbol matching the query parameter
      */
     const getSymbol = (state: string) => {
-        let sub;
-        if (!state) sub = "="; // = is default
-        else sub = getSingleRegexMatchString(REGEX.MATH_SYMBOL, state); // Extract the indicator (=, =lt or =gt)
-        return symbolMap.get(sub); // Return the associated symbol
+        /*let sub;
+        if (!state) sub = "="; // '=' is default
+        else sub = state[0] //getSingleRegexMatchString(`${prefix}`, state); // Extract the indicator (=, =lt or =gt)
+        return sub //symbolMap.get(sub); // Return the associated symbol */
+        return state ? state[0] : "=" // '=' is default
     }
 
-    // TODO move regex evaluation to utils
     /**
      * Update the state with a new mathematic indicator without changing the value
      * @param state Original state
@@ -295,9 +295,9 @@ const Search =  () => {
      */
     const changeSymbol = (state: string, setter: (val: string) => void) =>  {
         if (state) {
-            let sub = getSingleRegexMatchString(REGEX.MATH_SYMBOL, state); // Extract the "=..."
+            let sub = getSymbol(state) // getSingleRegexMatchString(REGEX.MATH_SYMBOL, state); // Extract the "=..."
             let nextIndex = (Array.from(symbolMap.keys()).indexOf(sub) + 1) % symbolMap.size; // Get the index in symbolMap
-            setter(`${getSingleRegexMatchString(REGEX.QUERY_PARAM, state)}${Array.from(symbolMap.keys())[nextIndex]}${getSingleRegexMatchString(REGEX.NUMBER, state)}`); // Change the state depending on new symbol
+            setter(`${Array.from(symbolMap.keys())[nextIndex]}${getSingleRegexMatchString(REGEX.NUMBER, state)}`); // Change the state depending on new symbol
         }
     }
     
@@ -307,7 +307,7 @@ const Search =  () => {
         label='ATK'
         name='atk'
         value={getSingleRegexMatchString(REGEX.NUMBER, atk)}
-        onChange={({target: {value}}) => handleNumericChangeForQueryParam(value,9999,setAtk,"atk")}
+        onChange={({target: {value}}) => handleNumericChangeForInequalities(value,9999,setAtk, getSymbol(atk))}
         isButtonDisabled={!Boolean(atk)}
         onClick={() => changeSymbol(atk,setAtk)}
         displayName={getSymbol(atk)}
@@ -319,12 +319,12 @@ const Search =  () => {
         label='DEF'
         name='def'
         value={getSingleRegexMatchString(REGEX.NUMBER, def)}
-        onChange={({target: {value}}) => handleNumericChangeForQueryParam(value,9999,setDef,"def")}
+        onChange={({target: {value}}) => handleNumericChangeForInequalities(value,9999,setDef, getSymbol(def))}
         isButtonDisabled={!Boolean(def)}
         onClick={() => changeSymbol(def,setDef)}
         displayName={getSymbol(def)}
     />
-    
+
     return (
         <div className='search'>
             <div>

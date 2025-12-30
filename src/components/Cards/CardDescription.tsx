@@ -5,7 +5,7 @@ import { FC } from "react"
 //import "assets/style/components/CardPlaceholder.css"
 
 // Enum/Interface/Type imports
-import { cardInfo as cardType } from 'types/ygoOpenAPI.types'
+import { cardInfo as cardType } from 'types/ygopro.types'
 
 interface CardDescriptionProps {
     cardInfo: cardType,
@@ -20,9 +20,9 @@ const CardDescription: FC<CardDescriptionProps> = (props) => {
             {props.cardInfo.type?<span>Card Type: {props.cardInfo.type}<br/></span>:<></>}
             {props.cardInfo.race?<span>Card subtype: {props.cardInfo.race}<br/></span>:<></>}
             {props.cardInfo.attribute?<span>Attribute: {props.cardInfo.attribute}<br/></span>:<></>}
-            {props.cardInfo.attack?<span>ATK: {props.cardInfo.attack}<br/></span>:<></>}
-            {props.cardInfo.defense?<span>DEF: {props.cardInfo.defense}<br/></span>:<></>}
-            {props.cardInfo.description?<span>Description: {props.cardInfo.description}<br/></span>:<></>} 
+            {props.cardInfo.atk?<span>ATK: {props.cardInfo.atk}<br/></span>:<></>}
+            {props.cardInfo.def?<span>DEF: {props.cardInfo.def}<br/></span>:<></>}
+            {props.cardInfo.desc?<span>Description: {props.cardInfo.desc}<br/></span>:<></>} 
         </div>
     )
     

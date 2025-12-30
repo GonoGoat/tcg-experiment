@@ -9,7 +9,7 @@ import { CardDescription } from "components/Cards"
 import 'assets/style/components/CardDialog.css'
 
 // Enum/Interface/Type imports
-import { cardInfo as cardType } from 'types/ygoOpenAPI.types'
+import { cardInfo as cardType } from 'types/ygopro.types'
 
 interface CardDialogProps {
     open: boolean

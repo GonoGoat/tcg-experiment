@@ -1,5 +1,5 @@
 import { DeckState } from "types/context.types"
-import { genericCard, genericCardWithCount } from "types/ygoOpenAPI.types"
+import { genericCard, genericCardWithCount } from "types/ygopro.types"
 import { CARD_ZONE, ED_MONSTER_TYPE } from "types/global.enum"
 import { removeStringKeyFromObject } from "utils/utils"
 

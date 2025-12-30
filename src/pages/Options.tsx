@@ -9,7 +9,7 @@ import { blankCardPayload } from 'utils/global.const'
 import 'assets/style/pages/Options.css'
 
 // Enum/Interface/Type imports
-import { genericCardWithCount } from 'types/ygoOpenAPI.types'
+import { genericCardWithCount } from 'types/ygopro.types'
 
 // Static asset import
 import { getClassName } from 'utils/utils'
