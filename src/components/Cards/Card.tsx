@@ -1,8 +1,8 @@
 // Library imports
-import { useState, FC, MouseEvent, KeyboardEvent } from 'react'
+import { useState, FC, MouseEvent } from 'react'
 
 // Component imports
-import { CardDialog, CardPlaceholder, CardDescription } from "components/Cards"
+import { CardDialog, CardPlaceholder } from "components/Cards"
 
 // Style imports
 import 'assets/style/components/Card.css'
@@ -28,13 +28,6 @@ const Card: FC<CardProps> = ({cardInfo, children, defaultMenu = false, menuToggl
 
     const setCard = useVisualizerStore((state) => state.setCard)
 
-    const handleKeyPress = (event: KeyboardEvent) => {
-        setOpen(false);
-        /*if (event.key !== "escapeKeyDown") {
-            setHovering(false)
-        }*/
-    }
-
     const handleClick = (event: MouseEvent) => {
         if(event.buttons === 2){ //if right click opens modal
             setOpen(true)
@@ -53,7 +46,11 @@ const Card: FC<CardProps> = ({cardInfo, children, defaultMenu = false, menuToggl
         <div className="card">
             <CardPlaceholder img={img_url} name={cardInfo.name} clickHandler={(e: MouseEvent)=>handleClick(e)}/>
             {menu ? children : <></>}
-            <CardDialog open={open} KeyPressHandler={handleKeyPress} cardInfo={cardInfo}/>
+            {open ? 
+                <CardDialog close={() => setOpen(false)} cardInfo={cardInfo}/>
+                :
+                <></>
+            }
         </div>
     )
     

@@ -3,7 +3,7 @@
   padding: 0;
   margin: 0;
   overflow: hidden;
-  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-touch-callout: none; /* iOS Safari */ /*TODO UPDATE*/
   -webkit-user-select: none; /* Safari */
    -khtml-user-select: none; /* Konqueror HTML */
      -moz-user-select: none; /* Firefox */

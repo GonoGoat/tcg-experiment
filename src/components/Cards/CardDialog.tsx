@@ -1,28 +1,26 @@
 // Library import
-import { FC, KeyboardEvent } from 'react'
-import Dialog from '@mui/material/Dialog'
+import { FC } from 'react'
 
 // Component imports
-import { CardDescription } from "components/Cards"
-
-// Style imports
-import 'assets/style/components/CardDialog.css'
+import { CardDescription } from "."
 
 // Enum/Interface/Type imports
 import { cardInfo as cardType } from 'types/ygopro.types'
 
 interface CardDialogProps {
-    open: boolean
     cardInfo: cardType,
-    KeyPressHandler: (e: KeyboardEvent) => void
+    close: () => void
 }
 
 const CardDialog: FC<CardDialogProps> = (props) => {
     
     return (
-        <Dialog open={props.open} onKeyDown={props.KeyPressHandler} maxWidth="md">
-            <CardDescription cardInfo={props.cardInfo}/>
-        </Dialog>
+        <div className="card-modal" onMouseDown={() => props.close()}>
+            <div className='card-modal-content'>
+                <img src={props.cardInfo.card_images[0].image_url} alt={props.cardInfo.name}/>
+                <CardDescription cardInfo={props.cardInfo}/>
+            </div>
+        </div>
     )
 }
 
