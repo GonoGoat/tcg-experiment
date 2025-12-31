@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/yugiknow/static/css/main.7e48b7d4.css",
+    "main.js": "/yugiknow/static/js/main.5eaf9f22.js",
+    "static/media/placeholder.png": "/yugiknow/static/media/placeholder.96a730a02d4ae392de34.png",
+    "index.html": "/yugiknow/index.html",
+    "main.7e48b7d4.css.map": "/yugiknow/static/css/main.7e48b7d4.css.map",
+    "main.5eaf9f22.js.map": "/yugiknow/static/js/main.5eaf9f22.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7e48b7d4.css",
+    "static/js/main.5eaf9f22.js"
+  ]
+}
