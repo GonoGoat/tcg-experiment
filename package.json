@@ -1,8 +1,8 @@
 {
-  "name": "yugiknow",
+  "name": "tcg-experiment",
   "author": "GonoGoat",
   "version": "0.1.0",
-  "homepage": "https://gonogoat.github.io/yugiknow",
+  "homepage": "https://gonogoat.github.io/tcg-experiment/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.14.0",
