@@ -2,18 +2,19 @@
   display: flex;
   flex-flow: column;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
-  border-top: 2px solid #ffffff;
   min-height:  48vh;
   color: white;
   font-size: 20px;
   text-shadow: 0px 0px 5px white;
 }
 
+.search h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
 .search input {
   padding: 5px;
-  padding-bottom: 2px;
   padding-left: 20px;
   font-size: 15px;
   border-top-left-radius: 50px;
@@ -21,8 +22,6 @@
   outline: none;
   border: none;
   display: block;
-  margin: 2px;
-  margin-bottom: 15px;
 }
 
 .search select{
@@ -95,7 +94,7 @@
 
  /* Style inputs, select elements and textareas */
 .search input[type=text], .search select, .search textarea{
-  width: 80px;
+  width: 100%;
   box-sizing: border-box;
   resize: vertical;
 }
@@ -103,6 +102,10 @@
 /* Style the label to display next to the inputs */
 .search label {
   display: inline-block;
+}
+
+.search .row {
+  width: 100%;
 }
   
 /* Style the submit button */

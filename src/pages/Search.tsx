@@ -321,11 +321,9 @@ const Search =  () => {
     
     return (
         <div className='search'>
-            <div>
-                <h3>Search</h3>
-            </div>
+            <h2>Search</h2>
             <div className='row'>
-                <input className='full-text-input' name='card-name' type="text" placeholder="Type card name or description"
+                <input className='full-text-input' name='card-name' type="text" placeholder="Type card name"
                     onChange={({target: {value}}) => setName(`&search=${value}`)}
                 />
             </div>

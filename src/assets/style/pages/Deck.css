@@ -23,19 +23,16 @@
     overflow-y: auto;
     min-height: 20vh;
     height: 70vh;
-    background-color: #ff0000;
 }
 
 .deck .extra {
     min-height: 5vh;
     height: 15vh;
-    background-color: #0000FF;
 }
 
 .deck .side {
     min-height: 5vh;
     height: 15vh;
-    background-color: #00FF00;
 }
 
 .deck button {
@@ -45,4 +42,6 @@
 
 .deck > div {
     width: 100%;
+    border: 2px solid #575799;
+    border-radius: 5px;
 }

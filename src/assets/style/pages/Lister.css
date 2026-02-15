@@ -1,25 +1,19 @@
 .lister {
-    overflow-y: auto;
-    overflow-x: hidden;
-
+    overflow-y: scroll;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    justify-content: center;
-    border-top: 1px solid #FFFFFF;
-    scrollbar-base-color: transparent;
-    scrollbar-color: green;
+    justify-content: space-evenly;
     grid-area: lister;
     min-height: 50vh;
-    width: initial;
-    scrollbar-width: 100px;
-    scrollbar-color: green;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox, Safari 18.2+, Chromium 121+ */
 }
 
-.lister::-webkit-scrollbar-track-piece {
-    background-color: tomato;
-    color: yellow;
+.lister::-webkit-scrollbar { 
+    display: none;  /* Older Safari and Chromium */
 }
+
 
 .lister .card, .lister .blank-card {
     margin: 10px;
