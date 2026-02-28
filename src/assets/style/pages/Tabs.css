@@ -2,7 +2,6 @@
   grid-area: tabs;
   display: flex;
   flex-direction: column;
-  height: 100vh;
 }
 
 /*font-family: 'Times New Roman', Times, serif;*/
@@ -32,8 +31,6 @@
 
 /* Style the tab */
 .tabs .links {
-  overflow: hidden;
-  border: 1px solid #ccc;
   background-color: #f1f1f1;
 }
 

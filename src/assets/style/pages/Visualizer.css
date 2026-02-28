@@ -1,23 +1,25 @@
 .visualizer {
-  justify-content: flex-start;
-  align-items: flex-start;
-  border-top: 2px solid #ffffff;
-  min-height:  48vh;
   color: white;
   font-size: 20px;
   text-shadow: 0px 0px 5px white;
-  height: 100vh;
-  grid-area: visualizer;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 /*Overwrite*/
 .visualizer .card-placeholder {
   position: relative;
-  width: 100%;
   height: auto;
+  text-align: center;
 }
 
 .visualizer .card-placeholder img {
-  max-width: 100%;
-  max-height: auto;
+  min-width: 50%;
+  max-width: 80%;
+}
+
+.visualizer .card-description {
+  overflow-y: auto;
+  flex: 1;
 }
