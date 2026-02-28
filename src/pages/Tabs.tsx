@@ -16,6 +16,7 @@ import useAppStore from 'context/AppStore/store'
 
 const Tabs = () => {        
     
+    const activeTab = useAppStore((state) => state.activeTab)
     const setActiveTab = useAppStore((state) => state.setActiveTab)
 
     return (
@@ -25,7 +26,7 @@ const Tabs = () => {
                     Object.values(ACTIVE_TAB).map(tab => 
                         <Button 
                             key={tab}
-                            className='tablinks'
+                            className={tab === activeTab? "active" : ""}
                             value={tab}
                             onClick={() => setActiveTab(tab)}
                             label={capitalizeFirstLetter(tab)}
