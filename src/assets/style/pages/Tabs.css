@@ -5,9 +5,9 @@
 }
 
 /* Style the tab */
-.tabs .links {
-  background-color: #f1f1f1;
-}
+/*.tabs .links {
+  background-color: var(--purple3);
+}*/
 
 /* Style the buttons that are used to open the tab content */
 .tabs .links button {
@@ -17,17 +17,21 @@
   outline: none;
   cursor: pointer;
   padding: 14px 16px;
-  transition: 0.3s;
+  transition: 0.1s;
+  border-bottom: 2px solid var(--purple2);
+  background-color: var(--purple3);
+  color: white;
 }
 
 /* Change background color of buttons on hover */
 .tabs .links button:hover {
-  background-color: #ddd;
+  border-bottom: 2px solid var(--purple1);
+  opacity: 0.8;
 }
 
 /* Create an active/current tablink class */
 .tabs .links button.active {
-  background-color: #ccc;
+  border-bottom: 4px solid var(--purple1);
 }
 
 /* Style the tab content */
