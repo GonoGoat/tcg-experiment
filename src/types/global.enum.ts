@@ -30,7 +30,7 @@ export enum MARKING_MODE {
 }
 
 export enum ACTIVE_TAB {
-    STATS = "statistics",
+    STATS = "figures",
     BANK = "bank",
     OPTIONS = "options",
     VISUALIZER = "visualizer"

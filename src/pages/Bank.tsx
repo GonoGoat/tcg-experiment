@@ -44,9 +44,7 @@ const Bank = () => {
 
     return (
         <div className={getClassName(activeTab, ACTIVE_TAB.BANK)}>
-            <div>
-                <h3>Card Bank</h3>
-            </div>
+            <h3>Card Bank</h3>
             {
                 Object.keys(bank).sort( (a,b) => bank[a].addedDate.getTime() - bank[b].addedDate.getTime())
                 .map( (cardId) =>
