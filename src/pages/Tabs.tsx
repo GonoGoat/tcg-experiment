@@ -33,11 +33,13 @@ const Tabs = () => {
                         />
                     )
                 }
-            </div>            
-            <Statistics/>
-            <Bank/>
-            <Options/>
-            <Visualizer/>
+            </div>
+            <div className='subtabs'>
+                <Statistics/>
+                <Bank/>
+                <Options/>
+                <Visualizer/>
+            </div>
         </div>
     )
 }

@@ -23,4 +23,16 @@
 button {
   color: white;
   text-shadow: 0px 0px 1px white;
+  background: var(--purple3);
+  border-radius: 100px;
+  box-shadow: var(--purple3) 0 10px 20px -10px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  outline: 0 solid transparent;
+  padding: 8px 18px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  word-break: break-word;
+  border: 0;
 }
