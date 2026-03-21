@@ -11,17 +11,13 @@ interface SelectProps {
 
 const Select: FC<SelectProps> = ({className, label, name, options, onChange}) => {    
     return (
-        <div className={className}>
-            <div className='col-25'>
-                <label htmlFor={name}>{label}</label>
-            </div>
-            <div className='col-75'>
-                <select name='type' onChange={onChange}>
-                    <option key="0">Unset</option>
-                    {options.map((option, index) => <option key={index+1}>{option}</option>)}
-                </select>
-            </div>
-        </div>
+        <>
+            <label className={className} htmlFor={name}>{label}</label>
+            <select className={className} name='type' onChange={onChange} >
+                <option key="0">Unset</option>
+                {options.map((option, index) => <option key={index+1}>{option}</option>)}
+            </select>
+        </>
     )
 }
 

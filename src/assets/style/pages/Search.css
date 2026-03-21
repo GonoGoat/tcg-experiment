@@ -1,16 +1,16 @@
-.search {
-  display: flex;
-  flex-flow: column;
-  flex-wrap: wrap;
-  min-height:  48vh;
-  color: white;
-  font-size: 20px;
-  text-shadow: 0px 0px 5px white;
+.search-form {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  grid-gap: 2px;
+}
+
+.search-form .full-width {
+  grid-column: 1 / 3; 
 }
 
 .search h2 {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .search input {
@@ -22,6 +22,7 @@
   outline: none;
   border: none;
   display: block;
+  width: 100%;
 }
 
 .search select{
@@ -45,30 +46,6 @@
   padding-left: 10px;
 }
 
-.search button{
-  border: none;
-  border-radius: 10px;
-  padding: 1px;
-  width: 85px;
-  height: 40px;
-  align-self: center;
-  font-weight: bolder;
-  color: white;
-  /*font-family: 'Times New Roman', Times, serif;*/
-  box-shadow: 5px 5px 10px black;
-  font-size: 1vw;
-  transition: 0.5s;
-  outline: none;
-  background: linear-gradient(311deg, rgba(0,98,157,1) 25%, rgba(18,124,67,1) 77%);
-}
-
-.search button:hover{
-  cursor: pointer;
-  box-shadow: 0px 0px 0px;
-  border: 0;
-  opacity: 0.9;
-}
-
 /* TODO : Style for disabled button*/
 
 .search .switch-toggle {
@@ -89,55 +66,6 @@
 
 .search .switch-toggle input:checked + label {
   background: rgb(0,98,157);
-}
- /* NEW */
-
- /* Style inputs, select elements and textareas */
-.search input[type=text], .search select, .search textarea{
-  width: 100%;
-  box-sizing: border-box;
-  resize: vertical;
-}
-  
-/* Style the label to display next to the inputs */
-.search label {
-  display: inline-block;
-}
-
-.search .row {
-  width: 100%;
-}
-  
-/* Style the submit button */
-/*input[type=submit] {
-  background-color: #04AA6D;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  float: right;
-}*/
-
-/* Floating column for labels: 25% width */
-.search .col-25 {
-  float: left;
-  max-width: 50%;
-}
-
-/* Floating column for inputs: 75% width */
-.search .col-75 {
-  float: left;
-  max-width: 100%;
-  margin-left: 20px;
-  font-size: 2vh;
-}
-
-/* Clear floats after the columns */
-.search .row:after {
-  content: "";
-  display: table;
-  clear: both;
 }
 
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */

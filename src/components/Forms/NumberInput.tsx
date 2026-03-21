@@ -11,14 +11,10 @@ interface NumberInputProps {
 
 const NumberInput: FC<NumberInputProps> = ({className, label, name, value, onChange}) => {    
     return (
-        <div className={className}>
-            <div className='col-25'>
-                <label htmlFor={name}>{label}</label>
-            </div>
-            <div className="col-75">
-                <input className="number-input" name={name} type="text" inputMode='decimal' value={value} onChange={onChange}/>
-            </div>
-        </div>
+        <>
+            <label className={className} htmlFor={name}>{label}</label>
+            <input className={`number-input ${className}`} name={name} type="text" inputMode='decimal' value={value} onChange={onChange}/>
+        </>
     )
     
 }

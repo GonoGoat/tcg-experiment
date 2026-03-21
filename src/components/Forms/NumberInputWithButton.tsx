@@ -20,15 +20,13 @@ interface NumberInputWithButtonProps {
 
 const NumberInputWithButton: FC<NumberInputWithButtonProps> = ({className, label, name, value, onChange, isButtonDisabled, onClick, displayName}) => {    
     return (
-        <div className={className}>
-            <div className='col-25'>
-                <label htmlFor={name}>{label}</label>
-            </div>
-            <div className="col-75">
+        <>
+            <label className={className} htmlFor={name}>{label}</label>
+            <div className={className}>
                 <Button className={name} isButtonDisabled={isButtonDisabled} onClick={onClick} label={displayName}/>
                 <input className="number-input" name={name} type="text" inputMode='decimal' value={value} onChange={onChange}/>
             </div>
-        </div>
+        </>
     )
 }
 

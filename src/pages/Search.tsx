@@ -321,49 +321,49 @@ const Search =  () => {
     
     return (
         <div className='search'>
-            <h2>Search</h2>
-            <div className='row'>
-                <input className='full-text-input' name='card-name' type="text" placeholder="Type card name"
+            <h2 className='full-width'>Search</h2>
+            <div className='search-form'>
+                <input className='full-width' name='card-name' type="text" placeholder="Type card name"
                     onChange={({target: {value}}) => setName(`&fname=${value}`)}
                 />
-            </div>
-            {typeSelector}
+                {typeSelector}
 
-            {type.includes("monster")?
-                <>
-                    {monsterCardTypeSelector}
-                    {monsterTypeSelector}
-                    {levelSelector}
-                    {atkSelector}
-                    {defSelector}
-                    {attributeSelector}
-                    {effectSelector}
-                    {isTunerSelector}
-                    {isPendulumSelector}
-                    {/*isPendulum === "(?=.*pendulum)" ?
-                        pendulumSelector
-                        :
-                        <></>
-                    */}
-                </>
-                :
-                <></>
-            }
-            {type.includes("spell")?
-                <>
-                    {spellTypeSelector}
-                </>
-                :
-                <></>
-            }
-            {type.includes("trap")?
-                <>
-                    {trapTypeSelector}
-                </>
-                :
-                <></>
-            }
-            <Button className="search-button" onClick={() => {request()}} label="Search"/>
+                {type.includes("monster")?
+                    <>
+                        {monsterCardTypeSelector}
+                        {monsterTypeSelector}
+                        {levelSelector}
+                        {atkSelector}
+                        {defSelector}
+                        {attributeSelector}
+                        {effectSelector}
+                        {isTunerSelector}
+                        {isPendulumSelector}
+                        {/*isPendulum === "(?=.*pendulum)" ?
+                            pendulumSelector
+                            :
+                            <></>
+                        */}
+                    </>
+                    :
+                    <></>
+                }
+                {type.includes("spell")?
+                    <>
+                        {spellTypeSelector}
+                    </>
+                    :
+                    <></>
+                }
+                {type.includes("trap")?
+                    <>
+                        {trapTypeSelector}
+                    </>
+                    :
+                    <></>
+                }
+                <Button className="full-width" onClick={() => {request()}} label="Search"/>
+            </div>
         </div>
     )
 }

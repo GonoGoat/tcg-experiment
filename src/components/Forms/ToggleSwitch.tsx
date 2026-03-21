@@ -18,11 +18,9 @@ export type RadioInputProps = {
 
 const ToggleSwitch: FC<ToggleSwitchProps> = ({className, label, name, radioInputs}) => {    
     return (
-        <div className={className}>
-            <div className='col-25'>
-                <label htmlFor={name}>{label}</label>
-            </div>
-            <div className="switch-toggle col-75">
+        <>
+            <label className={className} htmlFor={name}>{label}</label>
+            <div className={`switch-toggle ${className}`}>
                 {radioInputs.map( (radioInput: RadioInputProps) =>
                     <>
                         <input id={radioInput.id} name={radioInput.name} type="radio" readOnly checked={radioInput.checked}/>
@@ -30,7 +28,7 @@ const ToggleSwitch: FC<ToggleSwitchProps> = ({className, label, name, radioInput
                     </>
                 )}
             </div>
-        </div>
+        </>
     )
     
 }
