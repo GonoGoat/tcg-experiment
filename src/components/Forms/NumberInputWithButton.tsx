@@ -24,7 +24,7 @@ const NumberInputWithButton: FC<NumberInputWithButtonProps> = ({className, label
             <label className={className} htmlFor={name}>{label}</label>
             <div className={className}>
                 <Button className={name} isButtonDisabled={isButtonDisabled} onClick={onClick} label={displayName}/>
-                <input className="number-input" name={name} type="text" inputMode='decimal' value={value} onChange={onChange}/>
+                <input className="number-input" id={name} type="text" inputMode='decimal' value={value} onChange={onChange}/>
             </div>
         </>
     )

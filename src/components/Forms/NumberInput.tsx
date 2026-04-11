@@ -13,7 +13,7 @@ const NumberInput: FC<NumberInputProps> = ({className, label, name, value, onCha
     return (
         <>
             <label className={className} htmlFor={name}>{label}</label>
-            <input className={`number-input ${className}`} name={name} type="text" inputMode='decimal' value={value} onChange={onChange}/>
+            <input className={`number-input ${className}`} id={name} type="text" inputMode='decimal' value={value} onChange={onChange}/>
         </>
     )
     

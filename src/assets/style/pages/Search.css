@@ -46,6 +46,10 @@
   padding-left: 10px;
 }
 
+.search .row {
+  display: inline-block;
+}
+
 /* TODO : Style for disabled button*/
 
 .search .switch-toggle {
