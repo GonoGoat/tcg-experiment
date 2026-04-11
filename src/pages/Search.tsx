@@ -133,7 +133,7 @@ const Search =  () => {
     // Effect or Normal monster
     const effectSelector = <ToggleSwitch 
         className='row full-half'
-        label='Monster effect'
+        label='Effect'
         labelClassName='row'
         name='state-e'
         radioInputs={

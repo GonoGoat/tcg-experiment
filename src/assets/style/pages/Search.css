@@ -30,20 +30,19 @@
 }
 
 .search select{
-  color: whitesmoke;
+  color: white;
   border: none;
   border-bottom: 0.1px solid white;
   outline: none;
   padding: 5px;
   width: 80px;
-  background-color: #015C8D;
+  background-color: var(--purple4);
   outline: none;
   transition: 1s;
   margin: 2px;
-  box-shadow: 0px 0px 10px black;
 }
 .search option, optgroup{
-  background-color: #202879;
+  background-color: var(--purple3);
 }
 
 .search label {
@@ -52,29 +51,31 @@
 
 .search .row {
   display: flex;
-  align-items: stretch;
+}
+
+.search .row button {
+  width: fit-content;
+  padding: auto;
+}
+
+.search .row input {
+  border-top-left-radius: 0px;
+  border-bottom-right-radius: 0px;  
 }
 
 /* TODO : Style for disabled button*/
-
-.search .switch-toggle {
-  float: left;
-  background: #242729;
- }
-
  .search .switch-toggle input {
   position: absolute;
   opacity: 0;
 }
 .search .switch-toggle input + label {
   padding: 7px;
-  float:left;
-  color: #fff;
   cursor: pointer;
+  border: 1px solid var(--purple3);
 }
 
 .search .switch-toggle input:checked + label {
-  background: rgb(0,98,157);
+  background: var(--purple3);
 }
 
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
