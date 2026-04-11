@@ -7,7 +7,7 @@ import Button from './Button';
 interface NumberInputWithButtonProps {
     // Number input props
     className: string,
-    label: string,
+    label?: string,
     name: string,
     value: string,
     onChange: (e: ChangeEvent<HTMLInputElement>) => void,
@@ -18,10 +18,14 @@ interface NumberInputWithButtonProps {
     displayName: string
 }
 
-const NumberInputWithButton: FC<NumberInputWithButtonProps> = ({className, label, name, value, onChange, isButtonDisabled, onClick, displayName}) => {    
+const NumberInputWithButton: FC<NumberInputWithButtonProps> = ({className, label='', name, value, onChange, isButtonDisabled, onClick, displayName}) => {    
     return (
         <>
-            <label className={className} htmlFor={name}>{label}</label>
+            {
+                label?
+                <label className={className} htmlFor={name}>{label}</label>
+                :<></>
+            }
             <div className={className}>
                 <Button className={name} isButtonDisabled={isButtonDisabled} onClick={onClick} label={displayName}/>
                 <input className="number-input" id={name} type="text" inputMode='decimal' value={value} onChange={onChange}/>

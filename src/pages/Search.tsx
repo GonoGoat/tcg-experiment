@@ -116,25 +116,25 @@ const Search =  () => {
      * @param label Label displayed in the form
      * @returns {JSX.Element} Customized select component
      */
-    const cardSubTypeSelector = (options: string[], label: string) => <Select
+    const cardSubTypeSelector = (options: string[]) => <Select
         className='row'
-        label={label}
         name='card-subtype'
         options={options}
         onChange={({target: {value}}) => setRace(value.toLowerCase() === 'unset'?'':`&race=${value}`)}
     />
 
     // Race for each type of card
-    const monsterTypeSelector = cardSubTypeSelector(monsterRaces, "Monster Type")
-    const spellTypeSelector = cardSubTypeSelector(spellRaces, "Spell Type")
-    const trapTypeSelector = cardSubTypeSelector(trapRaces, "Trap Type")
+    const monsterTypeSelector = cardSubTypeSelector(monsterRaces)
+    const spellTypeSelector = cardSubTypeSelector(spellRaces)
+    const trapTypeSelector = cardSubTypeSelector(trapRaces)
     
     //*************MONSTER SPECIFIC SELECTORS******************
     // TODO use enum for values
     // Effect or Normal monster
     const effectSelector = <ToggleSwitch 
-        className='row'
+        className='row full-half'
         label='Monster effect'
+        labelClassName='row'
         name='state-e'
         radioInputs={
             [
@@ -166,7 +166,6 @@ const Search =  () => {
     // Monster attribute
     const attributeSelector = <Select
         className='row'
-        label='Attribute'
         name='monster-attribute'
         options={monsterAttributes}
         onChange={({target: {value}}) => setAttribute(value.toLowerCase() === 'unset'?'':`&attribute=${value}`)}
@@ -175,15 +174,16 @@ const Search =  () => {
     // Type of monster card : Ritual, Fusion, ...
     const monsterCardTypeSelector = <Select
         className='row'
-        label='Type of Monster Card'
         name='monster-card-type'
+        label='Monster'
         options={monsterTypes}
         onChange={({target: {value}}) => setMonsterType(value.toLowerCase() === 'unset'?'': getStringAmongStringsRegExp(value.toLowerCase()))}
     />
 
     // (Non-) Pendulum monster
     const isPendulumSelector = <ToggleSwitch 
-        className='row'
+        className='row full-half'
+        labelClassName='row'
         label='Pendulum'
         name='state-p'
         radioInputs={
@@ -215,8 +215,9 @@ const Search =  () => {
 
     // (Non-) Tuner monster
     const isTunerSelector = <ToggleSwitch 
-        className='row'
+        className='row full-half'
         label='Tuner'
+        labelClassName='row'
         name='state-t'
         radioInputs={
             [
@@ -247,7 +248,8 @@ const Search =  () => {
 
     // Monster level/rank
     const levelSelector = <NumberInput
-        className='row'
+        className='row full-half'
+        labelClassName='row'
         label='Level / Rank'
         name='monster-level'
         value={getSingleRegexMatchString(REGEX.NUMBER, level)}
@@ -298,7 +300,7 @@ const Search =  () => {
     // Monster ATK Number input
     const atkSelector = <NumberInputWithButton
         className='row'
-        label='ATK'
+        label='ATK/DEF'
         name='atk'
         value={getSingleRegexMatchString(REGEX.NUMBER, atk)}
         onChange={({target: {value}}) => handleNumericChangeForQueryParam(value,9999,setAtk,"atk")}
@@ -310,7 +312,6 @@ const Search =  () => {
     // Monster DEF Number input
     const defSelector = <NumberInputWithButton
         className='row'
-        label='DEF'
         name='def'
         value={getSingleRegexMatchString(REGEX.NUMBER, def)}
         onChange={({target: {value}}) => handleNumericChangeForQueryParam(value,9999,setDef,"def")}
@@ -330,12 +331,12 @@ const Search =  () => {
 
                 {type.includes("monster")?
                     <>
-                        {monsterCardTypeSelector}
                         {monsterTypeSelector}
+                        {monsterCardTypeSelector}
+                        {attributeSelector}
                         {levelSelector}
                         {atkSelector}
                         {defSelector}
-                        {attributeSelector}
                         {effectSelector}
                         {isTunerSelector}
                         {isPendulumSelector}
