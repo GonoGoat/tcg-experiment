@@ -4,6 +4,7 @@
     box-shadow: 0px 0px 10px black;
     position: relative;
     text-align: center;
+    container-type: inline-size;
 }
 
 /*.card:hover, .card:focus {
@@ -11,9 +12,9 @@
     background: none;
 }*/
 
-.card img, .blank-card img {
-    width: 90px; 
-    height: 120px; 
+.card img {
+    width: 100%; 
+    height: 100%; 
 }
 
 /* The Modal (background) */

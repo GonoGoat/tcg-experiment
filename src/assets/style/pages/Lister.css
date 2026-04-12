@@ -16,30 +16,9 @@
 
 
 .lister .card, .lister .blank-card {
-    margin: 10px;
-}
-
-.lister button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    border-top: 2px solid white;
-    padding: 5px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    font-weight: 900;
-    color: white;
-    font-size: 15px;
-    text-shadow: 0px 0px 5px white;
-    background-color: transparent;
-    width: 100%;
-    transition: 1s;
-}
-
-.lister button:hover{
-    background-color: #01031A;
-    text-shadow: none;
+    width: 60px;
+    height: 80px;
+    margin: 2px;
 }
 
 .lister .lister-bottom {
