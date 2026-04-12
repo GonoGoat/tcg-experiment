@@ -24,6 +24,10 @@
   cursor: pointer;
 }
 
+.statistics .markers .selected {
+  font-weight: bold;
+}
+
 .statistics hr {
   margin: 10px 0 10px 0;
   width: 100%;
