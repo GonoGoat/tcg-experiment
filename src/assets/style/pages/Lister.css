@@ -40,7 +40,6 @@
 .lister button:hover{
     background-color: #01031A;
     text-shadow: none;
-    cursor: pointer;
 }
 
 .lister .lister-bottom {

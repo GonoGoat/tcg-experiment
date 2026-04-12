@@ -34,4 +34,5 @@ button {
   touch-action: manipulation;
   word-break: break-word;
   border: 0;
+  cursor: pointer;
 }

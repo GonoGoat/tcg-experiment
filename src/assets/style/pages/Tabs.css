@@ -15,7 +15,6 @@
   float: left;
   border: none;
   outline: none;
-  cursor: pointer;
   padding: 5px 10px;
   transition: 0.1s;
   border-bottom: 2px solid var(--purple2);
