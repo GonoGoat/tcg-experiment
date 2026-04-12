@@ -6,7 +6,8 @@
 
 /* Style the tab */
 .tabs .links {
-  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 /* Style the buttons that are used to open the tab content */
@@ -15,10 +16,13 @@
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 14px 16px;
+  padding: 5px 10px;
   transition: 0.1s;
   border-bottom: 2px solid var(--purple2);
   border-radius: 0px;
+  width: 25%;
+  font-size: 12px;
+  font-weight: bold;
 }
 
 /* Change background color of buttons on hover */
