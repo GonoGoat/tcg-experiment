@@ -48,8 +48,8 @@ const Statistics =  () => {
 
     return (
         <div className={getClassName(activeTab, ACTIVE_TAB.STATS)}>
-            <Button onClick={() => resetMarkings()} label="Reset all markings"/>
             <div className='markers'>
+                <Button onClick={() => resetMarkings()} label="Reset all markings"/>
                 {Object.values(MARKER).filter(value => value !== MARKER.DEFAULT).map( (value, index) =>
                     <div
                         className={value === activeMarker ? "selected":""}
