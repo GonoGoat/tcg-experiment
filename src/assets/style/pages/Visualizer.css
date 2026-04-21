@@ -1,17 +1,12 @@
 .visualizer {
-  color: white;
-  font-size: 20px;
-  text-shadow: 0px 0px 5px white;
   display: flex;
-  flex-direction: column;
-  flex: 1;
+  flex-flow: column;
 }
 
-/*Overwrite*/
 .visualizer .card-placeholder {
   position: relative;
-  height: auto;
   text-align: center;
+  flex: 0 1 auto;
 }
 
 .visualizer .card-placeholder img {
@@ -21,5 +16,6 @@
 
 .visualizer .card-description {
   overflow-y: auto;
-  flex: 1;
+  flex: 1 1 auto;
+  height: 20cqi;
 }
