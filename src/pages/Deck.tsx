@@ -58,7 +58,7 @@ const Deck = () => {
                         onClick: () => dispatchCard(card)
                     },
                     {
-                        label: "Card Bank",
+                        label: "Bank",
                         onClick: () => addCard(card, CARD_ZONE.BANK)
                     }
                 ]
@@ -84,7 +84,7 @@ const Deck = () => {
                         onClick: () => addCard(card, CARD_ZONE.SIDE)
                     },
                     {
-                        label: "Card Bank",
+                        label: "Bank",
                         onClick: () => addCard(card, CARD_ZONE.BANK)
                     }
                 ]
